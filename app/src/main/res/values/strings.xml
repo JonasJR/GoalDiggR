@@ -10,5 +10,6 @@
     <string name="passLabel">Password</string>
     <string name="LoginButton">Login</string>
     <string name="GoalDiggerLabel">GoalDigger</string>
+    <string name="title_activity_project_handler">ProjectHandlerActivity</string>
 
 </resources>
