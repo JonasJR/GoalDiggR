@@ -53,14 +53,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/LoginButton"
-        android:id="@+id/button"
+        android:id="@+id/loginButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
         android:background="#ffffc015"
-        android:clickable="true"
-        android:onClick="ProjectHandlerActivity" />
+        android:clickable="true" />
 
     <TextView
         android:layout_width="wrap_content"

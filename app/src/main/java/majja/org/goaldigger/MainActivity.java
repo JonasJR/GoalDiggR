@@ -1,5 +1,6 @@
 package majja.org.goaldigger;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,8 +15,24 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button loginButton = (Button)findViewById(R.id.loginButton);
+
+        loginButton.setOnClickListener(
+                new Button.OnClickListener(){
+                    public void onClick(View v){
+                        checkLogin(v);
+                    }
+                }
+        );
     }
 
+
+    public void checkLogin(View v){
+        //if(login is correct)
+        Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
+        startActivityForResult(intent, 0);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
