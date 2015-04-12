@@ -11,5 +11,7 @@
     <string name="LoginButton">Login</string>
     <string name="GoalDiggerLabel">GoalDigger</string>
     <string name="title_activity_project_handler">ProjectHandlerActivity</string>
+    <string name="projekt_top_button_string">Projekt</string>
+    <string name="projekt_top_mark_button_string">Markera</string>
 
 </resources>
