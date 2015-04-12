@@ -7,21 +7,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-
+        public static EditText login;
+        public static EditText password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button loginButton = (Button)findViewById(R.id.loginButton);
-
+        Button loginButton = (Button)findViewById(R.id.loginButton); //Knappen är knappen
+        login = (EditText) findViewById(R.id.editText);
+        password = (EditText) findViewById(R.id.editText2);
         loginButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
                         checkLogin(v);
+                        Toast.makeText(MainActivity.this, "Inlogg: " + login.getText() + "\nLösenord:" + password.getText()
+                                , Toast.LENGTH_LONG).show();
                     }
                 }
         );
