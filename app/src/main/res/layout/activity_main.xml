@@ -16,7 +16,8 @@
         android:layout_alignLeft="@+id/editText2"
         android:layout_alignStart="@+id/editText2"
         android:layout_marginBottom="53dp"
-        android:text="Kalle" />
+        android:hint="email"
+        android:backgroundTint="#fff3cf29" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -27,27 +28,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="65dp"
-        android:text="blomma" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/EmailLabel"
-        android:id="@+id/textView"
-        android:layout_above="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/passLabel"
-        android:id="@+id/textView2"
-        android:layout_above="@+id/editText2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:hint="password"
+        android:backgroundTint="#FFF3CF29" />
 
     <Button
         android:layout_width="fill_parent"
@@ -58,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
-        android:background="#ffffa312"
+        android:background="#FFF3CF29"
         android:clickable="true" />
 
     <TextView
@@ -67,11 +49,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/GoalDiggerLabel"
         android:id="@+id/textView3"
-        android:textColor="#ffffa312"
+        android:textColor="#FFF3CF29"
         android:textSize="30dp"
-        android:layout_above="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp" />
+        android:layout_marginBottom="72dp"
+        android:layout_above="@+id/editText" />
 
     <ImageView
         android:layout_width="wrap_content"

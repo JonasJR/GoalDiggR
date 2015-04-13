@@ -35,6 +35,7 @@
         android:layout_columnSpan="2"
         android:indeterminate="false"
         android:progress="@+id/projectPercentage"
-        android:layout_row="1" />
+        android:layout_row="1"
+        android:progressTint="#fff3cf29" />
 
 </GridLayout>

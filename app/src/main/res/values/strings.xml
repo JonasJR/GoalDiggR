@@ -13,5 +13,10 @@
     <string name="title_activity_project_handler">ProjectHandlerActivity</string>
     <string name="projekt_top_button_string">Projekt</string>
     <string name="projekt_top_mark_button_string">Markera</string>
+    <string name="addProjectString">Add Project</string>
+    <string name="title_activity_project">ProjectActivity</string>
+    <string name="addItemString">Add MileStone</string>
+    <string name="addItemButtonString">Add Item</string>
+    <string name="addMileStoneButtonString">Add Milestone</string>
 
 </resources>
