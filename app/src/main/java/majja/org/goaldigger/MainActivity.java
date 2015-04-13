@@ -26,8 +26,6 @@ public class MainActivity extends ActionBarActivity {
                 new Button.OnClickListener(){
                     public void onClick(View v){
                         checkLogin(v);
-                        Toast.makeText(MainActivity.this, "Inlogg: " + login.getText() + "\nLösenord:" + password.getText()
-                                , Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -36,8 +34,15 @@ public class MainActivity extends ActionBarActivity {
 
     public void checkLogin(View v){
         //if(login is correct)
-        Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-        startActivityForResult(intent, 0);
+        if(login.getText().toString().equals("Kalle") && password.getText().toString().equals("blomma")){
+            Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
+            startActivityForResult(intent, 0);
+            Toast.makeText(MainActivity.this, "Inlogg: " + login.getText() + "\nLösenord:" + password.getText()
+                    , Toast.LENGTH_LONG).show();
+        }
+       else{
+            Toast.makeText(MainActivity.this, "Fel!" + "\nInlogg:" + login.getText() + "\nLösenord:" + password.getText(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
