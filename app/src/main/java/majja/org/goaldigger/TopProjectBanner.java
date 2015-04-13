@@ -15,5 +15,6 @@ public class TopProjectBanner extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.top_projekt_fragment, container, false);
         return view;
+        //Får inte riktigt rätt på hur man får den att ligga rätt?
     }
 }
