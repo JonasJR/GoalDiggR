@@ -19,7 +19,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
-
+        //Göras om till Projekt-objekt?
         String[] projects = {"first,100%", "second,35%", "third,20%", "fourth,99%", "fifth,45%", "sixth,68%"};
 
         ListAdapter projectAdapter = new CustomAdapter(this, projects);
