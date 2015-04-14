@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
             startActivityForResult(intent, 0);
             Toast.makeText(MainActivity.this, "Inlogg: " + login.getText() + "\nLösenord:" + password.getText()
-                    , Toast.LENGTH_LONG).show();
+                    , Toast.LENGTH_SHORT).show();
         }
        else{
             Toast.makeText(MainActivity.this, "Fel!" + "\nInlogg:" + login.getText() + "\nLösenord:" + password.getText(), Toast.LENGTH_SHORT).show();

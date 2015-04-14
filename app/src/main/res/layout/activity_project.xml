@@ -22,15 +22,26 @@
         android:id="@+id/addItemButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="#FFF3CF29" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addMileStoneButtonString"
         android:id="@+id/addMileStoneButton"
+        android:layout_alignTop="@+id/shareButton"
+        android:layout_centerHorizontal="true"
+        android:background="#FFF3CF29" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shareButtonString"
+        android:id="@+id/shareButton"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/addItemButton"
-        android:layout_toStartOf="@+id/addItemButton" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#FFF3CF29" />
 
 </RelativeLayout>
