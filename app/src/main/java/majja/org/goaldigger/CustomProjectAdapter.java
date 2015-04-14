@@ -8,17 +8,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-class CustomAdapter extends ArrayAdapter<String> {
+class CustomProjectAdapter extends ArrayAdapter<String> {
 
 
-    CustomAdapter(Context context, String[] projects) {
-        super(context, R.layout.custom_row, projects);
+    CustomProjectAdapter(Context context, String[] projects) {
+        super(context, R.layout.custom_project_row, projects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
-        View customView = projectInflater.inflate(R.layout.custom_row, parent, false);
+        View customView = projectInflater.inflate(R.layout.custom_project_row, parent, false);
 
         String singleProjectItem = getItem(position);
         String[] separated = singleProjectItem.split(",");
