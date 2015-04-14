@@ -6,4 +6,72 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="majja.org.goaldigger.createUserAcitivity">
 
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextAddUsername"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="insert username"
+        android:backgroundTint="#fff3cf29" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/editTextAddPassword"
+        android:hint="insert password"
+        android:layout_below="@+id/editTextAddUsername"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:backgroundTint="#fff3cf29" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="start using GoalDigger!"
+        android:id="@+id/acceptNewUserButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#FFF3CF29"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="create new user!"
+        android:id="@+id/createNewUserLabel"
+        android:layout_above="@+id/editTextAddUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="61dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:layout_above="@+id/createNewUserLabel"
+        android:layout_alignRight="@+id/createNewUserLabel"
+        android:layout_alignEnd="@+id/createNewUserLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/createNewUserLabel"
+        android:layout_alignStart="@+id/createNewUserLabel"
+        android:src="@drawable/goaldigger_logom" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/editTextAddEmail"
+        android:hint="insert email"
+        android:backgroundTint="#fff3cf29"
+        android:layout_below="@+id/editTextAddPassword"
+        android:layout_alignRight="@+id/editTextAddPassword"
+        android:layout_alignEnd="@+id/editTextAddPassword" />
+
 </RelativeLayout>
