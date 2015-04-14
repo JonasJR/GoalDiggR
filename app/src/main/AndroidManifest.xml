@@ -20,6 +20,18 @@
             android:name=".ProjectHandlerActivity"
             android:label="@string/title_activity_project_handler" >
         </activity>
+        <activity
+            android:name=".ProjectActivity"
+            android:label="@string/title_activity_project" >
+        </activity>
+        <activity
+            android:name=".SmplExpandable"
+            android:label="@string/title_activity_project" >
+        </activity>
+        <activity
+            android:name=".FriendListActivity"
+            android:label="@string/title_activity_friend_list" >
+        </activity>
     </application>
 
 </manifest>
