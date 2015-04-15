@@ -4,32 +4,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 
 
-public class FriendListActivity extends ActionBarActivity {
-    public static EditText userField;
+public class createUserAcitivity extends ActionBarActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friend_list);
-
-        userField = (EditText) findViewById(R.id.addUserTextField);
-        Button addFriend = (Button) findViewById(R.id.searchFriendButton);
-        addFriend.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View v) {
-
-            }
-        });
+        setContentView(R.layout.activity_create_user);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_friend_list, menu);
+        getMenuInflater().inflate(R.menu.menu_create_user, menu);
         return true;
     }
 

@@ -8,17 +8,19 @@
     <string name="PasswordLabel">Password</string>
     <string name="EmailLabel">Email</string>
     <string name="passLabel">Password</string>
-    <string name="LoginButton">Login</string>
+    <string name="LoginButton">login</string>
     <string name="GoalDiggerLabel">GoalDigger</string>
     <string name="title_activity_project_handler">ProjectHandlerActivity</string>
     <string name="projekt_top_button_string">Projekt</string>
     <string name="projekt_top_mark_button_string">Markera</string>
-    <string name="addProjectString">Add Project</string>
+    <string name="addProjectString">add Project</string>
     <string name="title_activity_project">ProjectActivity</string>
-    <string name="addItemString">Add MileStone</string>
-    <string name="addItemButtonString">Add Item</string>
-    <string name="addMileStoneButtonString">Add Milestone</string>
-    <string name="shareButtonString">Share</string>
+    <string name="addItemString">add MileStone</string>
+    <string name="addItemButtonString">add Item</string>
+    <string name="addMileStoneButtonString">add Milestone</string>
+    <string name="shareButtonString">share!</string>
     <string name="title_activity_friend_list">FriendListActivity</string>
+    <string name="newUserString">create new user!</string>
+    <string name="title_activity_create_user">createUser</string>
 
 </resources>
