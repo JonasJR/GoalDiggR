@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/searchFriendButton"
-        android:layout_alignBottom="@+id/addUserTextField"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#FFF3CF29" />
+        android:background="#FFF3CF29"
+        android:layout_alignBottom="@+id/addUserTextField" />
 
 </RelativeLayout>
