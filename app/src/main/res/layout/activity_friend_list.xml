@@ -22,14 +22,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:hint="username of friend"
-        android:layout_toLeftOf="@+id/addFriendToListButton"
-        android:layout_toStartOf="@+id/addFriendToListButton" />
+        android:layout_toLeftOf="@+id/searchFriendButton"
+        android:layout_toStartOf="@+id/searchFriendButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/addFriendToListButton"
+        android:text="Search"
+        android:id="@+id/searchFriendButton"
         android:layout_alignBottom="@+id/addUserTextField"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
