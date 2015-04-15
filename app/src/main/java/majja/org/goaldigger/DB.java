@@ -14,17 +14,30 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 
 /**
  * Created by Xeronic on 15-04-15.
  */
-public class DB {
+public class DB implements Serializable {
 
+    private static final long TIMEOUT = 10000000000L;
     private HttpClient httpClient = new DefaultHttpClient();
     private HttpPost request;
     private JSONObject returnData;
 
     public JSONObject getReturnData() {
+        long endTime = System.nanoTime() + TIMEOUT;
+        while (returnData == null) {
+            if (System.nanoTime() > endTime) {
+                try {
+                    JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("message", "Request timed out");
+                    jsonObj.put("success", false);
+                    return jsonObj;
+                } catch (JSONException e) {}
+            }
+        }
         return this.returnData;
     }
 
@@ -90,7 +103,7 @@ public class DB {
         this.returnData = returnJSON;
     }
 
-    public class Networking extends AsyncTask {
+    public class Networking extends AsyncTask implements Serializable {
 
         private String url;
         private JSONObject obj;
@@ -101,6 +114,7 @@ public class DB {
         }
         @Override
         protected Object doInBackground(Object[] params) {
+            returnData = null;
             getJSON(url, obj);
             return null;
         }

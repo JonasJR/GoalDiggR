@@ -12,13 +12,31 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 
 public class ProjectHandlerActivity extends ActionBarActivity {
+
+    private UserModel user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
+
+        try {
+            String email, password;
+            Bundle extras = getIntent().getExtras();
+            email = extras.getString("email");
+            password = extras.getString("password");
+
+            user = new UserModel(email, password);
+
+            Helper.toast("Inloggad", this);
+        } catch (Exception e) {
+            Helper._("IOException: " + e.getMessage());
+        }
+
         //Göras om till Projekt-objekt?
         String[] projects = {"first,100", "second,35", "third,20", "fourth,99", "fifth,45", "sixth,68"};
 
@@ -47,6 +65,8 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     }
                 }
         );
+
+
     }
 
 

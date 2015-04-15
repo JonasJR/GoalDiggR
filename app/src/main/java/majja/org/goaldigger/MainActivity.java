@@ -13,12 +13,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends ActionBarActivity {
-        public static EditText loginText;
-        public static EditText passwordText;
+    public static EditText loginText;
+    public static EditText passwordText;
+    private DB db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DB();
+
         newUser();
         Button loginButton = (Button)findViewById(R.id.loginButton); //Knappen är knappen
         loginText = (EditText) findViewById(R.id.editText);
@@ -34,36 +39,20 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void checkLogin(View v) {
-        //if(login is correct)
-        DB db = new DB();
         String email, password;
+        LoginModel loginModel = new LoginModel(this.db);
 
         email = loginText.getText().toString();
         password = passwordText.getText().toString();
 
-        db.login(email, password);
-
-        JSONObject obj = null;
-        while (db.getReturnData() == null) {
-
-        }
-        obj = db.getReturnData();
-
-        /*if(login.getText().toString().equals("Kalle") && password.getText().toString().equals("blomma")){
+        if (loginModel.login(email, password)) {
             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-            startActivityForResult(intent, 0);
-            Toast.makeText(MainActivity.this, "Inlogg: " + login.getText() + "\nLösenord:" + password.getText()
-                    , Toast.LENGTH_SHORT).show();
+            intent.putExtra("email", email);
+            intent.putExtra("password", password);
+            startActivity(intent);
         }
-       else{
-            Toast.makeText(MainActivity.this, "Fel!" + "\nInlogg:" + login.getText() + "\nLösenord:" + password.getText(), Toast.LENGTH_SHORT).show();
-        }
-        */
-        if (obj != null) {
-            try {
-                Helper.toast(obj.getString("message").toString(), this);
-            } catch (JSONException e) {
-            }
+        else {
+            Helper.toast(loginModel.getMessage(), this);
         }
     }
 
