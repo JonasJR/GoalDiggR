@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="majja.org.goaldigger" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         style="@style/AppTheme"
         android:allowBackup="true"
