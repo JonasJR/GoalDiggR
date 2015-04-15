@@ -1,27 +1,33 @@
 package majja.org.goaldigger;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends ActionBarActivity {
-        public static EditText login;
-        public static EditText password;
+    public static EditText loginText;
+    public static EditText passwordText;
+    private DB db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new DB();
+
         newUser();
         Button loginButton = (Button)findViewById(R.id.loginButton); //Knappen är knappen
-        login = (EditText) findViewById(R.id.editText);
-        password = (EditText) findViewById(R.id.editText2);
+        loginText = (EditText) findViewById(R.id.editText);
+        passwordText = (EditText) findViewById(R.id.editText2);
         loginButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
@@ -32,16 +38,21 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    public void checkLogin(View v){
-        //if(login is correct)
-        if(login.getText().toString().equals("Kalle") && password.getText().toString().equals("blomma")){
+    public void checkLogin(View v) {
+        String email, password;
+        LoginModel loginModel = new LoginModel(this.db);
+
+        email = loginText.getText().toString();
+        password = passwordText.getText().toString();
+
+        if (loginModel.login(email, password)) {
             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-            startActivityForResult(intent, 0);
-            Toast.makeText(MainActivity.this, "Inlogg: " + login.getText() + "\nLösenord:" + password.getText()
-                    , Toast.LENGTH_SHORT).show();
+            intent.putExtra("email", email);
+            intent.putExtra("password", password);
+            startActivity(intent);
         }
-       else{
-            Toast.makeText(MainActivity.this, "Fel!" + "\nInlogg:" + login.getText() + "\nLösenord:" + password.getText(), Toast.LENGTH_SHORT).show();
+        else {
+            Helper.toast(loginModel.getMessage(), this);
         }
     }
 
