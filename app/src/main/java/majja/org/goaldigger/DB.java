@@ -21,12 +21,24 @@ import java.io.Serializable;
  */
 public class DB implements Serializable {
 
+    private static DB db;
     private static final long TIMEOUT = 10000000000L;
     private HttpClient httpClient = new DefaultHttpClient();
     private HttpPost request;
-    private JSONObject returnData;
+    private String returnData;
 
-    public JSONObject getReturnData() {
+    private DB() {}
+    public static DB getInstance() {
+        if (db == null) {
+            return new DB();
+        }
+        else
+        {
+            return DB.db;
+        }
+    }
+
+    public String getReturnData() {
         long endTime = System.nanoTime() + TIMEOUT;
         while (returnData == null) {
             if (System.nanoTime() > endTime) {
@@ -34,11 +46,13 @@ public class DB implements Serializable {
                     JSONObject jsonObj = new JSONObject();
                     jsonObj.put("message", "Request timed out");
                     jsonObj.put("success", false);
-                    return jsonObj;
+                    return jsonObj.toString();
                 } catch (JSONException e) {}
             }
         }
-        return this.returnData;
+        String returndata = this.returnData;
+        this.returnData = null;
+        return returndata;
     }
 
     public void login(String email, String password) {
@@ -49,6 +63,16 @@ public class DB implements Serializable {
         } catch (JSONException e ) {}
 
         new Networking("http://goaldigger.herokuapp.com/api/v1/login.json", jsonObj).execute();
+    }
+
+    public void getProjects(String email, String password) {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("email", email);
+            jsonObj.put("password", password);
+        } catch (JSONException e ) {}
+
+        new Networking("http://goaldigger.herokuapp.com/api/v1/projects.json", jsonObj).execute();
     }
 
     public void createUser(String username, String email, String password) {
@@ -92,15 +116,9 @@ public class DB implements Serializable {
             Helper._("Exception: " + e.getMessage());
         }
 
-        JSONObject returnJSON = null;
-        try {
-            returnJSON = new JSONObject(stringBuffer.toString());
-
-        } catch (JSONException e) {}
-
         Helper._("Return mess: " + stringBuffer.toString());
 
-        this.returnData = returnJSON;
+        this.returnData = stringBuffer.toString();
     }
 
     public class Networking extends AsyncTask implements Serializable {
@@ -114,7 +132,6 @@ public class DB implements Serializable {
         }
         @Override
         protected Object doInBackground(Object[] params) {
-            returnData = null;
             getJSON(url, obj);
             return null;
         }

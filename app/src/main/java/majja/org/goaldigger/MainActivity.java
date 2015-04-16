@@ -22,7 +22,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = new DB();
+        db = DB.getInstance();
 
         newUser();
         Button loginButton = (Button)findViewById(R.id.loginButton); //Knappen är knappen

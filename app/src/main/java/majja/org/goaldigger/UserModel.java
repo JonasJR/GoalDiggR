@@ -11,11 +11,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getEmail() {
+    public String email() {
         return this.email;
     }
 
-    public String getPassword() {
+    public String password() {
         return this.password;
     }
 

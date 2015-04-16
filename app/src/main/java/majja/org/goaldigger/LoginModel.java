@@ -19,10 +19,11 @@ public class LoginModel implements Serializable {
 
     public boolean login(String email, String password) {
         db.login(email, password);
-        JSONObject jsonObj = db.getReturnData();
+        JSONObject jsonObj;
 
         boolean login = false;
         try {
+            jsonObj = new JSONObject(db.getReturnData());
             this.message = jsonObj.getString("message");
             login = jsonObj.getBoolean("success");
         } catch (JSONException e) {}
