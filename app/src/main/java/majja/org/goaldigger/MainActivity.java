@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class MainActivity extends ActionBarActivity {
     public static EditText loginText;
     public static EditText passwordText;
@@ -36,7 +33,6 @@ public class MainActivity extends ActionBarActivity {
                 }
         );
     }
-
 
     public void checkLogin(View v) {
         String email, password;
