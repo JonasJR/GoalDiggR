@@ -4,6 +4,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class createUserAcitivity extends ActionBarActivity {
@@ -12,6 +16,20 @@ public class createUserAcitivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
+
+        final EditText userName = (EditText)findViewById(R.id.editTextAddUsername);
+        final EditText email = (EditText)findViewById(R.id.editTextAddEmail);
+        final EditText pass = (EditText)findViewById(R.id.editTextAddPassword);
+        final EditText passConfirm = (EditText)findViewById(R.id.editTextAddPassword2);
+
+        Button createUserButton = (Button)findViewById(R.id.newUserButton);
+        createUserButton.setOnClickListener(
+                new Button.OnClickListener(){
+                    public void onClick(View v){
+                        UserModel.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
+                    }
+                }
+        );
     }
 
 
