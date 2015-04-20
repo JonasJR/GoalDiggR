@@ -13,7 +13,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="insert username"
+        android:hint="@string/InserUsernameString"
         android:backgroundTint="#fff3cf29" />
 
     <EditText
@@ -22,7 +22,7 @@
         android:inputType="numberPassword"
         android:ems="10"
         android:id="@+id/editTextAddPassword"
-        android:hint="insert password"
+        android:hint="@string/InsertPasswordString"
         android:layout_below="@+id/editTextAddUsername"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -68,10 +68,22 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editTextAddEmail"
-        android:hint="insert email"
+        android:hint="@string/insertEmailString"
+        android:backgroundTint="#fff3cf29"
+        android:layout_below="@+id/editTextAddPassword2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/editTextAddPassword2"
+        android:hint="@string/insertPassword1String"
         android:backgroundTint="#fff3cf29"
         android:layout_below="@+id/editTextAddPassword"
-        android:layout_alignRight="@+id/editTextAddPassword"
-        android:layout_alignEnd="@+id/editTextAddPassword" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

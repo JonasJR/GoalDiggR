@@ -22,5 +22,10 @@
     <string name="title_activity_friend_list">FriendListActivity</string>
     <string name="newUserString">create new user!</string>
     <string name="title_activity_create_user">createUser</string>
+    <string name="InserUsernameString">insert username</string>
+    <string name="InsertPasswordString">insert password</string>
+    <string name="insertPassword1String">insert password again</string>
+    <string name="insertPassword2String">insert email</string>
+    <string name="insertEmailString">insert email</string>
 
 </resources>
