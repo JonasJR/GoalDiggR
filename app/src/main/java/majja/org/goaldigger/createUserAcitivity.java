@@ -1,5 +1,7 @@
 package majja.org.goaldigger;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -7,15 +9,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class createUserAcitivity extends ActionBarActivity {
+
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
 
+        context = this.getBaseContext();
         final EditText userName = (EditText)findViewById(R.id.editTextAddUsername);
         final EditText email = (EditText)findViewById(R.id.editTextAddEmail);
         final EditText pass = (EditText)findViewById(R.id.editTextAddPassword);
@@ -25,7 +31,16 @@ public class createUserAcitivity extends ActionBarActivity {
         createUserButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        UserModel.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
+                        UserModel user = UserModel.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
+                        if(user != null){
+                            Helper.toast("Det gick!", context);
+                            Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
+                            intent.putExtra("user", user);
+                            startActivity(intent);
+                        }
+                        else{
+                            Helper.toast("Loooser!", context);
+                        }
                     }
                 }
         );
