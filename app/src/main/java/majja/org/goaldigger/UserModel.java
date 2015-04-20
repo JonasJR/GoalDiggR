@@ -1,7 +1,6 @@
 package majja.org.goaldigger;
 
 import org.json.JSONObject;
-
 import java.io.Serializable;
 
 /**
@@ -10,10 +9,20 @@ import java.io.Serializable;
 public class UserModel implements Serializable{
     private String email, password, username;
 
-    public UserModel(String username, String email, String password) {
+    private static UserModel user;
+
+    private UserModel(String username, String email, String password) {
         this.email = email;
         this.password = password;
         this.username = username;
+    }
+
+    public static void create(String username, String email, String password) {
+        UserModel.user = new UserModel(username, email, password);
+    }
+
+    public static UserModel getInstance() {
+        return UserModel.user;
     }
 
     public String username() {
@@ -41,7 +50,7 @@ public class UserModel implements Serializable{
 
         try {
             jo = new JSONObject(returnData);
-            user = new UserModel(jo.getString("username"), jo.getString("email"), password);
+            user = new UserModel(jo.getString("name"), jo.getString("email"), password);
         } catch (Exception e) {
             Helper._("Couldn't create user: " + e.getMessage());
         }

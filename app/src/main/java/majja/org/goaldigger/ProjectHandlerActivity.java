@@ -29,19 +29,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
 
-        try {
-            String email, password, username = "test";
-            Bundle extras = getIntent().getExtras();
-            username = extras.getString("username");
-            email = extras.getString("email");
-            password = extras.getString("password");
-            user = new UserModel(username, email, password);
-        } catch (Exception e) {
-            Helper._("IOException: " + e.getMessage());
-        }
-
-        //Göras om till Projekt-objekt?
-        Project[] projects = Project.all(user);
+        Project[] projects = Project.all(UserModel.getInstance());
 
         ListAdapter projectAdapter = new CustomProjectAdapter(this, projects);
         ListView projectListView = (ListView) findViewById(R.id.projectListView);

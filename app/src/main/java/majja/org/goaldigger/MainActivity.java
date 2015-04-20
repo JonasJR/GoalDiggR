@@ -14,14 +14,11 @@ import android.widget.PopupWindow;
 public class MainActivity extends ActionBarActivity {
     public static EditText loginText;
     public static EditText passwordText;
-    private DB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        db = DB.getInstance();
 
         newUser();
         forgotPass();
@@ -54,42 +51,29 @@ public class MainActivity extends ActionBarActivity {
 
     public void checkLogin(View v) {
         String email, password;
-        LoginModel loginModel = new LoginModel(this.db);
+        LoginModel loginModel = new LoginModel();
 
         email = loginText.getText().toString();
         password = passwordText.getText().toString();
-        UserModel user = new UserModel("test", email, password);
 
         if (loginModel.login(email, password)) {
             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-            intent.putExtra("user", user);
-            intent.putExtra("email", email);
-            intent.putExtra("password", password);
             startActivity(intent);
         }
         else {
-            Helper.toast(loginModel.getMessage(), this);
+            Helper.toast("Invalid email or password", this);
         }
     }
 
     private void newUser(){
-        Button newUser = (Button) findViewById(R.id.newUserButton);
-        newUser.setOnClickListener(new View.OnClickListener() {
+        Button newUserButton = (Button) findViewById(R.id.newUserButton);
+        newUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), createUserAcitivity.class);
                 startActivity(intent);
             }
         });
-        /*
-                new Button.OnClickListener(){
-                    public void onClick(View v){
-                        Intent intent = new Intent(v.getContext(), createUserAcitivity.class);
-                        startActivity(intent);
-                    }
-                }
-        );
-        */
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
