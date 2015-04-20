@@ -1,13 +1,12 @@
 package majja.org.goaldigger;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 
 public class createUserAcitivity extends ActionBarActivity {
@@ -22,7 +21,7 @@ public class createUserAcitivity extends ActionBarActivity {
         final EditText pass = (EditText)findViewById(R.id.editTextAddPassword);
         final EditText passConfirm = (EditText)findViewById(R.id.editTextAddPassword2);
 
-        Button createUserButton = (Button)findViewById(R.id.newUserButton);
+        Button createUserButton = (Button)findViewById(R.id.acceptNewUserButton);
         createUserButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){

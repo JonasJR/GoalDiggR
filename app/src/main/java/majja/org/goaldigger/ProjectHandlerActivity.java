@@ -12,8 +12,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 
 public class ProjectHandlerActivity extends ActionBarActivity {
 
@@ -25,11 +23,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_project_handler);
 
         try {
-            String email, password;
+            String email, password, username = "test";
             Bundle extras = getIntent().getExtras();
+            username = extras.getString("username");
             email = extras.getString("email");
             password = extras.getString("password");
-            user = new UserModel(email, password);
+            user = new UserModel(username, email, password);
         } catch (Exception e) {
             Helper._("IOException: " + e.getMessage());
         }

@@ -1,6 +1,5 @@
 package majja.org.goaldigger;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -10,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 public class MainActivity extends ActionBarActivity {
@@ -74,14 +72,22 @@ public class MainActivity extends ActionBarActivity {
 
     private void newUser(){
         Button newUser = (Button) findViewById(R.id.newUserButton);
-        newUser.setOnClickListener(
+        newUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), createUserAcitivity.class);
+                startActivity(intent);
+            }
+        });
+        /*
                 new Button.OnClickListener(){
                     public void onClick(View v){
                         Intent intent = new Intent(v.getContext(), createUserAcitivity.class);
-                        startActivityForResult(intent, 0);
+                        startActivity(intent);
                     }
                 }
         );
+        */
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
