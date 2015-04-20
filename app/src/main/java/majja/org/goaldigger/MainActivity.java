@@ -38,10 +38,9 @@ public class MainActivity extends ActionBarActivity {
         String email, password;
         LoginModel loginModel = new LoginModel(this.db);
 
-        email = loginText.getText().toString();
-        password = passwordText.getText().toString();
-
-        if (loginModel.login(email, password)) {
+    public void checkLogin(View v){
+        //if(login is correct)
+        if(login.getText().toString().equals("Kalle") && password.getText().toString().equals("blomma")){
             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
             intent.putExtra("email", email);
             intent.putExtra("password", password);
