@@ -75,12 +75,13 @@ public class DB implements Serializable {
         new Networking("http://goaldigger.herokuapp.com/api/v1/projects.json", jsonObj).execute();
     }
 
-    public void createUser(String username, String email, String password) {
+    public void createUser(String username, String email, String password, String passwordConfirmation) {
         JSONObject jsonObj = new JSONObject();
         try {
             jsonObj.put("username", username);
             jsonObj.put("email", email);
             jsonObj.put("password", password);
+            jsonObj.put("password_confirmation", passwordConfirmation);
         } catch (JSONException e ) {}
 
         new Networking("http://goaldigger.herokuapp.com/api/v1/create.json", jsonObj).execute();
