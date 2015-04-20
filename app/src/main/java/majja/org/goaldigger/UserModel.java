@@ -2,10 +2,12 @@ package majja.org.goaldigger;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by xeronic on 2015-04-16.
  */
-public class UserModel {
+public class UserModel implements Serializable{
     private String email, password, username;
 
     public UserModel(String username, String email, String password) {

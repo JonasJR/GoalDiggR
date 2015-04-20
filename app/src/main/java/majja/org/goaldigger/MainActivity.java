@@ -58,9 +58,11 @@ public class MainActivity extends ActionBarActivity {
 
         email = loginText.getText().toString();
         password = passwordText.getText().toString();
+        UserModel user = new UserModel("test", email, password);
 
         if (loginModel.login(email, password)) {
             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
+            intent.putExtra("user", user);
             intent.putExtra("email", email);
             intent.putExtra("password", password);
             startActivity(intent);

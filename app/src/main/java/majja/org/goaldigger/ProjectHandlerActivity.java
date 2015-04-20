@@ -17,6 +17,13 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private UserModel user;
 
+    public ProjectHandlerActivity(UserModel user){
+        this.user = user;
+    }
+
+    public ProjectHandlerActivity(){
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
