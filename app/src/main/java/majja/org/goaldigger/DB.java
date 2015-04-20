@@ -78,13 +78,13 @@ public class DB implements Serializable {
     public void createUser(String username, String email, String password, String passwordConfirmation) {
         JSONObject jsonObj = new JSONObject();
         try {
-            jsonObj.put("username", username);
+            jsonObj.put("name", username);
             jsonObj.put("email", email);
             jsonObj.put("password", password);
             jsonObj.put("password_confirmation", passwordConfirmation);
         } catch (JSONException e ) {}
 
-        new Networking("http://goaldigger.herokuapp.com/api/v1/create.json", jsonObj).execute();
+        new Networking("http://goaldigger.herokuapp.com/api/v1/signup.json", jsonObj).execute();
     }
 
     public void getJSON(String url, JSONObject jsonObj) {
