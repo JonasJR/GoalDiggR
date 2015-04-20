@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class createUserAcitivity extends ActionBarActivity {
@@ -31,15 +30,14 @@ public class createUserAcitivity extends ActionBarActivity {
         createUserButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        UserModel user = UserModel.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
-                        if(user != null){
+                        boolean created = UserModel.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
+                        if(created){
                             Helper.toast("Det gick!", context);
                             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-                            intent.putExtra("user", user);
                             startActivity(intent);
                         }
                         else{
-                            Helper.toast("Loooser!", context);
+                            Helper.toast(UserModel.errorMessage(), context);
                         }
                     }
                 }
