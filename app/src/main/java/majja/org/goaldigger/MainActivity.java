@@ -1,13 +1,17 @@
 package majja.org.goaldigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 public class MainActivity extends ActionBarActivity {
     public static EditText loginText;
@@ -37,14 +41,16 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void forgotPass() {
+        final PopupWindow popUp = new PopupWindow(this);
         Button forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
+
         forgotPasswordButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        Intent intent = new Intent(v.getContext(), ShowPopUp.class);
-                        startActivityForResult(intent, 0);
+                        popUp.showAtLocation(v, Gravity.CENTER, 10, 10);
                     }
                 }
+                
         );
     }
 

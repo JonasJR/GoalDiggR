@@ -44,7 +44,7 @@ public class ShowPopUp extends Activity {
         params = new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
         layout.setOrientation(LinearLayout.VERTICAL);
-        tv.setText("Hi this is a sample text for popup window");
+        tv.setText("Hi this is a sample text for popup_forgot_pass window");
         layout.addView(tv, params);
         popUp.setContentView(layout);
         // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);

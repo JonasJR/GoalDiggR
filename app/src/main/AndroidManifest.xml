@@ -35,6 +35,10 @@
             android:name=".createUserAcitivity"
             android:label="@string/title_activity_create_user" >
         </activity>
+        <activity
+            android:name=".ShowPopUp"
+            android:label="@string/title_activity_create_user" >
+        </activity>
     </application>
 
 </manifest>
