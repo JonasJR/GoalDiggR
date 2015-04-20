@@ -22,13 +22,27 @@ public class MainActivity extends ActionBarActivity {
         db = DB.getInstance();
 
         newUser();
-        Button loginButton = (Button)findViewById(R.id.loginButton); //Knappen är knappen
+        forgotPass();
+
+        Button loginButton = (Button)findViewById(R.id.loginButton);
         loginText = (EditText) findViewById(R.id.editText);
         passwordText = (EditText) findViewById(R.id.editText2);
         loginButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
                         checkLogin(v);
+                    }
+                }
+        );
+    }
+
+    private void forgotPass() {
+        Button forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
+        forgotPasswordButton.setOnClickListener(
+                new Button.OnClickListener(){
+                    public void onClick(View v){
+                        Intent intent = new Intent(v.getContext(), ShowPopUp.class);
+                        startActivityForResult(intent, 0);
                     }
                 }
         );
@@ -52,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void newUser(){
+    private void newUser(){
         Button newUser = (Button) findViewById(R.id.newUserButton);
         newUser.setOnClickListener(
                 new Button.OnClickListener(){
