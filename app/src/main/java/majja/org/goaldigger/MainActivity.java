@@ -1,25 +1,36 @@
 package majja.org.goaldigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 
 public class MainActivity extends ActionBarActivity {
+    Context context;
     public static EditText loginText;
     public static EditText passwordText;
     private DB db;
+    private PopupWindow popUp;
+
+    Button forgotPasswordButton;
+    Button send;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = this.getBaseContext();
 
         db = DB.getInstance();
 
@@ -39,17 +50,50 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void forgotPass() {
-        final PopupWindow popUp = new PopupWindow(this);
-        Button forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
 
-        forgotPasswordButton.setOnClickListener(
-                new Button.OnClickListener(){
+
+        forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
+
+        EditText email = (EditText)findViewById(R.id.editTextForgotPassEmail);
+
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View v){
-                        popUp.showAtLocation(v, Gravity.CENTER, 10, 10);
+                        getPopUp();
                     }
                 }
-                
         );
+
+    }
+
+    private void getPopUp(){
+       try {
+           LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           View layout = inflater.inflate(R.layout.popup_forgot_pass, (ViewGroup) findViewById(R.id.forgotPassView));
+           popUp = new PopupWindow(layout, 500, 500, true);
+           popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+           send = (Button)layout.findViewById(R.id.sendRecoveryEmailButton);
+           send.setOnClickListener(new View.OnClickListener() {
+                                       public void onClick(View v) {
+                                           closePopUp();
+                                       }
+                                   }
+           );
+       }catch(Exception e){
+           e.printStackTrace();
+       }
+
+    }
+
+    private void closePopUp(){
+
+                                        //if(true) {//UserModel.recoverPassword(email.getText().toString());
+                                        Helper.toast("Mail sent", context);
+                                        popUp.dismiss();
+                                        //}else{
+                                        // Helper.toast("There is no such email", context);
+                                        // }
+
+
     }
 
     public void checkLogin(View v) {
