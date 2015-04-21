@@ -10,10 +10,21 @@ import java.io.Serializable;
 public class UserModel implements Serializable{
     private String email, password, username;
 
-    public UserModel(String username, String email, String password) {
+    private static UserModel user;
+    private static String errorMessage;
+
+    private UserModel(String username, String email, String password) {
         this.email = email;
         this.password = password;
         this.username = username;
+    }
+
+    public static void create(String username, String email, String password) {
+        UserModel.user = new UserModel(username, email, password);
+    }
+
+    public static UserModel getInstance() {
+        return UserModel.user;
     }
 
     public String username() {
@@ -32,20 +43,33 @@ public class UserModel implements Serializable{
         return "Username: " + username + "Email: " + email + " Password: " + password;
     }
 
-    public static UserModel createUser(String username, String email, String password, String passwordConfirmation) {
+    public static String errorMessage() {
+        String str = UserModel.errorMessage;
+        str = str.replace("{", "").replace("}", "").replace("[", "").replace("]", "").replace("\"", "");
+        str = str.replace(",", "\n");
+
+        return str;
+    }
+
+    public static boolean createUser(String username, String email, String password, String passwordConfirmation) {
         DB db = DB.getInstance();
         db.createUser(username, email, password, passwordConfirmation);
         String returnData = db.getReturnData();
         JSONObject jo = null;
-        UserModel user = null;
+        boolean created = false;
 
         try {
             jo = new JSONObject(returnData);
-            user = new UserModel(jo.getString("username"), jo.getString("email"), password);
+            if (jo.getBoolean("success")) {
+                UserModel.create(jo.getString("name"), jo.getString("email"), password);
+                created = true;
+            }
         } catch (Exception e) {
+            UserModel.errorMessage = jo.toString();
+            Helper._("SUCCESS == FALSE: " + UserModel.errorMessage);
             Helper._("Couldn't create user: " + e.getMessage());
         }
 
-        return user;
+        return created;
     }
 }

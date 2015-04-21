@@ -11,10 +11,9 @@ import java.io.Serializable;
 public class LoginModel implements Serializable {
 
     private DB db;
-    private String message;
 
-    public LoginModel(DB db) {
-        this.db = db;
+    public LoginModel() {
+        this.db = DB.getInstance();
     }
 
     public boolean login(String email, String password) {
@@ -24,14 +23,15 @@ public class LoginModel implements Serializable {
         boolean login = false;
         try {
             jsonObj = new JSONObject(db.getReturnData());
-            this.message = jsonObj.getString("message");
-            login = jsonObj.getBoolean("success");
-        } catch (JSONException e) {}
+            String returnName = jsonObj.getString("name");
+            String returnEmail = jsonObj.getString("email");
+            UserModel.create(returnName, returnEmail, password);
+
+            login = true;
+        } catch (JSONException e) {
+            Helper._("Couldn't log in: " + e.getMessage());
+        }
 
         return login;
-    }
-
-    public String getMessage() {
-        return this.message;
     }
 }
