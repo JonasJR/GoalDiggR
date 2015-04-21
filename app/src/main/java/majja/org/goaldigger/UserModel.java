@@ -3,7 +3,6 @@ package majja.org.goaldigger;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * Created by xeronic on 2015-04-16.
@@ -45,11 +44,11 @@ public class UserModel implements Serializable{
     }
 
     public static String errorMessage() {
-        String[] array = UserModel.errorMessage.split(",");
-        for (int i = 0; i < array.length; i++) {
-            array[i] += "\n";
-        }
-        return Arrays.toString(array);
+        String str = UserModel.errorMessage;
+        str = str.replace("{", "").replace("}", "").replace("[", "").replace("]", "").replace("\"", "");
+        str = str.replace(",", "\n");
+
+        return str;
     }
 
     public static boolean createUser(String username, String email, String password, String passwordConfirmation) {
