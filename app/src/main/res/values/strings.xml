@@ -28,5 +28,6 @@
     <string name="insertPassword2String">insert email</string>
     <string name="insertEmailString">insert email</string>
     <string name="forgotPasswordString">forgot password?</string>
+    <string name="cancelString">Cancel</string>
 
 </resources>

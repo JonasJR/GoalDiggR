@@ -26,6 +26,10 @@ public class Project {
         return this.name;
     }
 
+    public int percent() {
+        return 0;
+    }
+
     public void addItem(Item item) {
         items.add(item);
     }

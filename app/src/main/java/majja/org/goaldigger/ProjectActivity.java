@@ -1,23 +1,12 @@
 package majja.org.goaldigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +14,7 @@ import java.util.List;
 
 public class ProjectActivity extends ActionBarActivity {
 
+    Context context;
     String title = "Title";
     List<String> items = new ArrayList<String>();
     String[] theTitle={"Title", "Pierre", "Axel Preben", "Dorius Agosta", "Lille Pia Dreng", "Stygge Sesser", "Sven Dennis"};
@@ -34,6 +24,7 @@ public class ProjectActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
+        this.context = this.getBaseContext();
         //prepare the explistview content
         prepareContent();
 

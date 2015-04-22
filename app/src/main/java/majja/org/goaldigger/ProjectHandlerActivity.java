@@ -1,21 +1,33 @@
 package majja.org.goaldigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 
 public class ProjectHandlerActivity extends ActionBarActivity {
 
     private UserModel user;
+    private PopupWindow popUp;
+    Context context;
+    Button add;
+    Button cancel;
+    EditText addProject;
+    DB db = DB.getInstance();
 
     public ProjectHandlerActivity(UserModel user){
         this.user = user;
@@ -29,6 +41,8 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
 
+        context = this.getBaseContext();
+
         Project[] projects = Project.all(UserModel.getInstance());
         Helper._(projects[0].toString());
 
@@ -36,8 +50,10 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         ListView projectListView = (ListView) findViewById(R.id.projectListView);
         projectListView.setAdapter(projectAdapter);
 
+        addProjectButton();
+
         Button addFriendButton = (Button) findViewById(R.id.addFriendButton);
-        addFriendButton.setOnClickListener(new Button.OnClickListener(){
+        addFriendButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(v.getContext(), FriendListActivity.class);
                 startActivityForResult(intent, 0);
@@ -59,6 +75,52 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         );
 
 
+    }
+
+    private void addProjectButton() {
+        Button addProjectButton = (Button) findViewById(R.id.addProjectButton);
+        addProjectButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                addProjectPopUp();
+            }
+        });
+    }
+
+    private void addProjectPopUp(){
+
+        try {
+            LayoutInflater inflater = (LayoutInflater) ProjectHandlerActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.popup_add_project, (ViewGroup) findViewById(R.id.addProjectView));
+            popUp = new PopupWindow(layout, this.getResources().getDisplayMetrics().widthPixels, this.getResources().getDisplayMetrics().heightPixels
+                    , true);
+            popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            addProject = (EditText) layout.findViewById(R.id.editTextAddProject);
+            cancel = (Button)layout.findViewById(R.id.buttonCancel);
+            cancel.setOnClickListener(new  View.OnClickListener(){
+                public void onClick(View v){
+                    popUp.dismiss();
+                }
+            });
+            add = (Button)layout.findViewById(R.id.buttonAddProjectPopup);
+            add.setOnClickListener(new View.OnClickListener() {
+                                       public void onClick(View v) {
+                                           closePopUp();
+                                       }
+                                   }
+            );
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void closePopUp(){
+        //if project not exists in database add new project
+        String name = addProject.getText().toString();
+        Project.create(user, name);
+        Helper.toast(name + " added", context);
+        popUp.dismiss();
+        //else Toast "It didnäääät werk!" and not popUp.dismiss()
     }
 
     @Override
