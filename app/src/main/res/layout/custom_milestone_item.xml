@@ -6,7 +6,7 @@
 
     <CheckBox
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:text="New CheckBox"
         android:id="@+id/itemCheckBox"
         android:layout_alignParentTop="true"

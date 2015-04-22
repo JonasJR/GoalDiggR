@@ -18,8 +18,8 @@ public class Milestone implements Serializable {
         this.id = id;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public Item[] getItems() {
+        return items.toArray(new Item[items.size()]);
     }
 
     public int id() {

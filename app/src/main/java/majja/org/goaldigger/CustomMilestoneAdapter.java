@@ -13,7 +13,7 @@ import java.util.List;
 
 class CustomMilestoneAdapter extends ArrayAdapter<Milestone> {
 
-    CustomMilestoneAdapter(Context context, List<Milestone> milestones) {
+    CustomMilestoneAdapter(Context context, Milestone[] milestones) {
         super(context, R.layout.custom_milestone, milestones);
     }
 

@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-
 import java.util.List;
 
 class CustomItemAdapter extends ArrayAdapter<Item> {
 
 
-    CustomItemAdapter(Context context, List<Item> items) {
+    CustomItemAdapter(Context context, Item[] items) {
         super(context, R.layout.custom_milestone_item, items);
     }
 
@@ -21,11 +20,9 @@ class CustomItemAdapter extends ArrayAdapter<Item> {
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_milestone_item, parent, false);
 
-        String itemName = getItem(position).name();
-
         CheckBox checkBox = (CheckBox) customView.findViewById(R.id.itemCheckBox);
 
-        checkBox.setText(itemName);
+        checkBox.setText(getItem(position).name());
 
         return customView;
     }

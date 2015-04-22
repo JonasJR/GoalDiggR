@@ -23,12 +23,12 @@ public class Project implements Serializable{
     private String name;
     private int id;
 
-    public List<Item> getItems() {
-        return items;
+    public Item[] getItems() {
+        return items.toArray(new Item[items.size()]);
     }
 
-    public List<Milestone> getMilestones() {
-        return milestones;
+    public Milestone[] getMilestones() {
+        return milestones.toArray(new Milestone[milestones.size()]);
     }
 
     public Project(int id, String name) {
