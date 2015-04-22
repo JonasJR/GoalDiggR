@@ -12,24 +12,22 @@ import java.util.List;
  */
 public class Project {
 
-    List<Milestone> milestones = new ArrayList<Milestone>();
-    List<Item> items = new ArrayList<Item>();
-    String name;
-    int percent;
+    private List<Milestone> milestones = new ArrayList<Milestone>();
+    private List<Item> items = new ArrayList<Item>();
+    private String name;
+    private int id;
 
-    public Project(String name) {
+    public Project(int id, String name) {
         this.name = name;
-
-        //calculatePercentage(); //ska räkna ut procenten av alla färdiga items i projectet
-        this.percent = 0;
+        this.id = id;
     }
 
     public String name() {
         return this.name;
     }
 
-    public int percent(){
-        return this.percent;
+    public int percent() {
+        return 0;
     }
 
     public void addItem(Item item) {
@@ -42,6 +40,11 @@ public class Project {
 
     public Milestone milestone(int index) {
         return this.milestones.get(index);
+    }
+
+    public static void create(UserModel user, String name) {
+        DB db = DB.getInstance();
+        db.createProject(name, user.email(), user.password());
     }
 
     public static Project[] all(UserModel user) {
@@ -70,7 +73,7 @@ public class Project {
                 try {
                     // Skapa projekt
                     jo = ja.getJSONObject(i);
-                    projects[i] = new Project(jo.getString("name"));
+                    projects[i] = new Project(jo.getInt("id"), jo.getString("name"));
 
                     // Skapa milestone och items
                     milestones = jo.getJSONArray("milestones");
@@ -79,12 +82,12 @@ public class Project {
 
                         for (int j = 0; j < milestones.length(); j++) {
                             milestone = milestones.getJSONObject(j);
-                            projects[i].addMilestone(new Milestone(milestone.getString("name")));
+                            projects[i].addMilestone(new Milestone(milestone.getInt("id"), milestone.getString("name")));
                             items = milestone.getJSONArray("items");
                             if (items.length() > 0) {
                                 for (int k = 0; k < items.length(); k++) {
                                     item = items.getJSONObject(k);
-                                    projects[i].milestone(j).addItem(new Item(item.getString("name"), false));
+                                    projects[i].milestone(j).addItem(new Item(item.getInt("id"), item.getString("name"), false));
                                 }
                             }
                         }
@@ -105,7 +108,7 @@ public class Project {
 
         for (Milestone milestone : milestones) {
             result += "\tmilestone: " + milestone.name() + "\n";
-            for (Item item : milestone.items) {
+            for (Item item : milestone.items()) {
                 result += "\t \tItem: " + item.name() + "\n";
             }
         }

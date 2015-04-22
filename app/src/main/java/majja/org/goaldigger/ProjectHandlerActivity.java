@@ -27,6 +27,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     Button add;
     Button cancel;
     EditText addProject;
+    DB db = DB.getInstance();
 
     public ProjectHandlerActivity(UserModel user){
         this.user = user;
@@ -114,7 +115,9 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private void closePopUp(){
         //if project not exists in database add new project
-        Helper.toast(addProject.getText().toString() + " added", context);
+        String name = addProject.getText().toString();
+        Project.create(user, name);
+        Helper.toast(name + " added", context);
         popUp.dismiss();
         //else Toast "It didnäääät werk!" and not popUp.dismiss()
     }

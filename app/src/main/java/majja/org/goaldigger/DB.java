@@ -122,6 +122,30 @@ public class DB implements Serializable {
         this.returnData = stringBuffer.toString();
     }
 
+    public void createProject(String name, String email, String password) {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("project_name", name);
+            jsonObj.put("email", email);
+            jsonObj.put("password", password);
+        } catch (JSONException e ) {}
+
+        new Networking("http://goaldigger.herokuapp.com/api/v1/add_project.json", jsonObj).execute();
+    }
+
+    public void deleteProject(int id, String email, String password){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("email", email);
+            jsonObject.put("passoword", password);
+        } catch (JSONException e) {
+            Helper._("Couldn't delete project" + e.getMessage());
+        }
+
+        new Networking("http://goaldigger.herokuapp.com/api/v1/delete_project.json", jsonObject).execute();
+    }
+
     public class Networking extends AsyncTask implements Serializable {
 
         private String url;
@@ -138,3 +162,5 @@ public class DB implements Serializable {
         }
     }
 }
+
+

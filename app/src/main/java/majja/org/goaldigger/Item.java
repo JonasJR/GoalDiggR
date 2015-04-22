@@ -4,12 +4,14 @@ package majja.org.goaldigger;
  * Created by Xeronic on 15-04-21.
  */
 public class Item {
-    boolean done;
-    String name;
+    private boolean done;
+    private String name;
+    private int id;
 
-    public Item(String name, boolean done) {
+    public Item(int id, String name, boolean done) {
         this.name = name;
         this.done = done;
+        this.id = id;
     }
 
     public String name() {
@@ -18,5 +20,9 @@ public class Item {
 
     public boolean done() {
         return this.done;
+    }
+
+    public int id() {
+        return this.id;
     }
 }

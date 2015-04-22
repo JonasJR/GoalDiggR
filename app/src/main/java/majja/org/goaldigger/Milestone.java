@@ -7,11 +7,17 @@ import java.util.List;
  * Created by Xeronic on 15-04-21.
  */
 public class Milestone {
-    String name;
-    List<Item> items = new ArrayList<Item>();
+    private String name;
+    private List<Item> items = new ArrayList<Item>();
+    private int id;
 
-    public Milestone(String name) {
+    public Milestone(int id, String name) {
         this.name = name;
+        this.id = id;
+    }
+
+    public int id() {
+        return this.id;
     }
 
     public String name() {
