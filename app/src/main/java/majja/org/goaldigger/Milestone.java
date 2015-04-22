@@ -9,9 +9,15 @@ import java.util.List;
 public class Milestone {
     private String name;
     private List<Item> items = new ArrayList<Item>();
+    private int id;
 
-    public Milestone(String name) {
+    public Milestone(int id, String name) {
         this.name = name;
+        this.id = id;
+    }
+
+    public int id() {
+        return this.id;
     }
 
     public String name() {

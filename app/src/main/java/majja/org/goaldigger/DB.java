@@ -122,6 +122,17 @@ public class DB implements Serializable {
         this.returnData = stringBuffer.toString();
     }
 
+    public void createProject(String name, String email, String password) {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("project_name", name);
+            jsonObj.put("email", email);
+            jsonObj.put("password", password);
+        } catch (JSONException e ) {}
+
+        new Networking("http://goaldigger.herokuapp.com/api/v1/add_project.json", jsonObj).execute();
+    }
+
     public class Networking extends AsyncTask implements Serializable {
 
         private String url;
