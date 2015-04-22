@@ -28,12 +28,14 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     Button cancel;
     EditText addProject;
     DB db = DB.getInstance();
+    Project[] projects;
 
     public ProjectHandlerActivity(UserModel user){
         this.user = user;
     }
 
     public ProjectHandlerActivity(){
+        this.user = UserModel.getInstance();
     }
 
     @Override
@@ -43,10 +45,10 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
         context = this.getBaseContext();
 
-        Project[] projects = Project.all(UserModel.getInstance());
+        projects = Project.all(UserModel.getInstance());
 
         ListAdapter projectAdapter = new CustomProjectAdapter(this, projects);
-        ListView projectListView = (ListView)findViewById(R.id.projectListView);
+        ListView projectListView = (ListView)findViewById(R.id.projectsListView);
         projectListView.setAdapter(projectAdapter);
 
         addProjectButton();
@@ -68,6 +70,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                         Toast.makeText(ProjectHandlerActivity.this, "Skickar användare till " + project, Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(view.getContext(), ProjectActivity.class);
+                        intent.putExtra("project", projects[position]);
                         startActivity(intent);
                     }
                 }
@@ -119,6 +122,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         Project.create(user, name);
         Helper.toast(name + " added", context);
         popUp.dismiss();
+        startActivity(getIntent());
         //else Toast "It didnäääät werk!" and not popUp.dismiss()
     }
 
@@ -143,4 +147,5 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -1,14 +1,15 @@
 package majja.org.goaldigger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Xeronic on 15-04-21.
  */
-public class Milestone {
+public class Milestone implements Serializable{
     private String name;
-    private List<Item> items = new ArrayList<Item>();
+    List<Item> items = new ArrayList<Item>();
     private int id;
 
     public Milestone(int id, String name) {

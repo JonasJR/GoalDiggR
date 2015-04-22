@@ -4,16 +4,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by xeronic on 2015-04-16.
  */
-public class Project {
+public class Project implements Serializable{
 
-    private List<Milestone> milestones = new ArrayList<Milestone>();
-    private List<Item> items = new ArrayList<Item>();
+    List<Milestone> milestones = new ArrayList<Milestone>();
+    List<Item> items = new ArrayList<Item>();
     private String name;
     private int id;
 

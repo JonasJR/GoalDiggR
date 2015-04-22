@@ -1,9 +1,11 @@
 package majja.org.goaldigger;
 
+import java.io.Serializable;
+
 /**
  * Created by Xeronic on 15-04-21.
  */
-public class Item {
+public class Item implements Serializable{
     private boolean done;
     private String name;
     private int id;

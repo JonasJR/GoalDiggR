@@ -140,7 +140,7 @@ public class DB implements Serializable {
             jsonObject.put("email", email);
             jsonObject.put("passoword", password);
         } catch (JSONException e) {
-            Helper._("Couldn't delete project" + e.getMessage());
+            Helper.pelle("Couldn't delete project" + e.getMessage());
         }
 
         new Networking("http://goaldigger.herokuapp.com/api/v1/delete_project.json", jsonObject).execute();
