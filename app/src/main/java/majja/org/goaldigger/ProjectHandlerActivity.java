@@ -30,14 +30,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     DB db = DB.getInstance();
     Project[] projects;
 
-    public ProjectHandlerActivity(UserModel user){
-        this.user = user;
-    }
-
-    public ProjectHandlerActivity(){
-        this.user = UserModel.getInstance();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -5,22 +5,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ProjectActivity extends ActionBarActivity {
 
     Context context;
     Project project;
-
-    public ProjectActivity() {
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +23,19 @@ public class ProjectActivity extends ActionBarActivity {
 
         project = (Project)getIntent().getExtras().getSerializable("project");
 
-
+        //addItems();
         addMilestones();
-        addItem();
 
     }
 
     private void addMilestones() {
-        ListAdapter milestoneAdapter = new CustomMilestoneAdapter(ProjectActivity.this, project.milestones.toArray(new Milestone[project.milestones.size()]));
+        ListAdapter milestoneAdapter = new CustomMilestoneAdapter(this, project.getMilestones());
         ListView projectListView = (ListView) findViewById(R.id.projectListView);
         projectListView.setAdapter(milestoneAdapter);
     }
 
-    private void addItem() {
-        ListAdapter itemAdapter = new CustomItemAdapter(ProjectActivity.this, project.items.toArray(new Item[project.items.size()]));
+    private void addItems() {
+        ListAdapter itemAdapter = new CustomItemAdapter(this, project.getItems());
         ListView projectListView = (ListView) findViewById(R.id.projectListView);
         projectListView.setAdapter(itemAdapter);
     }

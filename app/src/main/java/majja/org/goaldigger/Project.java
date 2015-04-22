@@ -13,10 +13,23 @@ import java.util.List;
  */
 public class Project implements Serializable{
 
+
+
     List<Milestone> milestones = new ArrayList<Milestone>();
+
+
+
     List<Item> items = new ArrayList<Item>();
     private String name;
     private int id;
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public List<Milestone> getMilestones() {
+        return milestones;
+    }
 
     public Project(int id, String name) {
         this.name = name;

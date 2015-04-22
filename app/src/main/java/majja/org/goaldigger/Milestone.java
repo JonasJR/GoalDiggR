@@ -7,14 +7,19 @@ import java.util.List;
 /**
  * Created by Xeronic on 15-04-21.
  */
-public class Milestone implements Serializable{
+public class Milestone implements Serializable {
     private String name;
-    List<Item> items = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<Item>();
     private int id;
+
 
     public Milestone(int id, String name) {
         this.name = name;
         this.id = id;
+    }
+
+    public List<Item> getItems() {
+        return items;
     }
 
     public int id() {

@@ -9,14 +9,11 @@ import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 class CustomMilestoneAdapter extends ArrayAdapter<Milestone> {
 
-    CustomMilestoneAdapter(Context context, Milestone[] milestones) {
+    CustomMilestoneAdapter(Context context, List<Milestone> milestones) {
         super(context, R.layout.custom_milestone, milestones);
     }
 
@@ -27,15 +24,11 @@ class CustomMilestoneAdapter extends ArrayAdapter<Milestone> {
 
         TextView milestoneName = (TextView) customView.findViewById(R.id.milestoneName);
 
-        ListView milestoneList = (ListView) customView.findViewById(R.id.milestoneListView);
-
         milestoneName.setText(getItem(position).name());
 
-        List<Item> itemsList = getItem(position).items();
-        Item[] itemArray = itemsList.toArray(new Item[itemsList.size()]);
-        ListAdapter itemAdapter = new CustomItemAdapter(this.getContext(), itemArray);
-        ListView itemListView = (ListView)customView.findViewById(R.id.milestoneListView);
-        itemListView.setAdapter(itemAdapter);
+        ListAdapter itemAdapter = new CustomItemAdapter(CustomMilestoneAdapter.this.getContext(), getItem(position).getItems());
+        ListView milestoneList = (ListView)customView.findViewById(R.id.milestoneListView);
+        milestoneList.setAdapter(itemAdapter);
 
         return customView;
     }
