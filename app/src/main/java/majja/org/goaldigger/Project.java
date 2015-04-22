@@ -105,7 +105,7 @@ public class Project {
 
         for (Milestone milestone : milestones) {
             result += "\tmilestone: " + milestone.name() + "\n";
-            for (Item item : milestone.items) {
+            for (Item item : milestone.items()) {
                 result += "\t \tItem: " + item.name() + "\n";
             }
         }

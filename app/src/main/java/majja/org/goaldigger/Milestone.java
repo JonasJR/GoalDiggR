@@ -7,8 +7,8 @@ import java.util.List;
  * Created by Xeronic on 15-04-21.
  */
 public class Milestone {
-    String name;
-    List<Item> items = new ArrayList<Item>();
+    private String name;
+    private List<Item> items = new ArrayList<Item>();
 
     public Milestone(String name) {
         this.name = name;
@@ -20,5 +20,9 @@ public class Milestone {
 
     public void addItem(Item item) {
         items.add(item);
+    }
+
+    public List<Item> items() {
+        return items;
     }
 }
