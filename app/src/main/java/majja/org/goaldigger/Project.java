@@ -10,13 +10,21 @@ import org.json.JSONObject;
 public class Project {
 
     String name;
+    int percent;
 
     public Project(String name) {
         this.name = name;
+
+        //calculatePercentage(); ska räkna ut procenten av alla färdiga items i projectet
+        this.percent = 0;
     }
 
     public String name() {
         return this.name;
+    }
+
+    public int percent(){
+        return this.percent;
     }
 
     public static Project[] all(UserModel user) {

@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         loginText = (EditText) findViewById(R.id.editText);
         passwordText = (EditText) findViewById(R.id.editText2);
         loginButton.setOnClickListener(
-                new Button.OnClickListener(){
+                new View.OnClickListener(){
                     public void onClick(View v){
                         checkLogin(v);
                     }
@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
        try {
            LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
            View layout = inflater.inflate(R.layout.popup_forgot_pass, (ViewGroup) findViewById(R.id.forgotPassView));
-           popUp = new PopupWindow(layout, 500, 500, true);
+           popUp = new PopupWindow(layout, this.getResources().getDisplayMetrics().widthPixels, this.getResources().getDisplayMetrics().heightPixels, true);
            popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
            send = (Button)layout.findViewById(R.id.sendRecoveryEmailButton);
            send.setOnClickListener(new View.OnClickListener() {
