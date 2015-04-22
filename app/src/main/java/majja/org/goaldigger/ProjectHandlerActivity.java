@@ -44,6 +44,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         context = this.getBaseContext();
 
         Project[] projects = Project.all(UserModel.getInstance());
+        Helper._(projects[0].toString());
 
         ListAdapter projectAdapter = new CustomProjectAdapter(this, projects);
         ListView projectListView = (ListView) findViewById(R.id.projectListView);
