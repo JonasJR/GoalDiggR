@@ -20,9 +20,6 @@ class CustomProjectAdapter extends ArrayAdapter<Project> {
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_project_row, parent, false);
 
-        String singleProjectItem = getItem(position).name();
-
-
         TextView projectName = (TextView) customView.findViewById(R.id.projectName);
         TextView projectPercentage = (TextView) customView.findViewById(R.id.projectPercentage);
         ProgressBar progress = (ProgressBar) customView.findViewById(R.id.progressBar);

@@ -32,7 +32,7 @@ public class Helper {
      * Method used for debugging messages.
      * @param message
      */
-    public static void _(String message) {
+    public static void pelle(String message) {
         Log.d(DEBUG_TAG, message);
     }
 }

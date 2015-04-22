@@ -20,7 +20,7 @@ public class Project {
     public Project(String name) {
         this.name = name;
 
-        //calculatePercentage(); ska räkna ut procenten av alla färdiga items i projectet
+        //calculatePercentage(); //ska räkna ut procenten av alla färdiga items i projectet
         this.percent = 0;
     }
 
@@ -52,9 +52,9 @@ public class Project {
 
         try {
             ja = new JSONArray(db.getReturnData());
-            Helper._(ja.toString());
+            Helper.pelle(ja.toString());
         } catch (JSONException e) {
-            Helper._("Error making jsonarray from returndata: " + e.getMessage());
+            Helper.pelle("Error making jsonarray from returndata: " + e.getMessage());
         }
 
         Project[] projects = null;
@@ -91,7 +91,7 @@ public class Project {
                     }
 
                 } catch (JSONException e) {
-                    Helper._("Error getting json from jsonarray: " + e.getMessage());
+                    Helper.pelle("Error getting json from jsonarray: " + e.getMessage());
                 }
             }
         }

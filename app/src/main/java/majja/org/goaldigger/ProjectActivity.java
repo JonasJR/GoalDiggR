@@ -15,9 +15,11 @@ import java.util.List;
 public class ProjectActivity extends ActionBarActivity {
 
     Context context;
-    String title = "Title";
-    List<String> items = new ArrayList<String>();
-    String[] theTitle={"Title", "Pierre", "Axel Preben", "Dorius Agosta", "Lille Pia Dreng", "Stygge Sesser", "Sven Dennis"};
+    Project project;
+
+    public ProjectActivity(Project project){
+        this.project = project;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +27,23 @@ public class ProjectActivity extends ActionBarActivity {
         setContentView(R.layout.activity_project);
 
         this.context = this.getBaseContext();
-        //prepare the explistview content
-        prepareContent();
 
+
+        addMilestones();
         addItem();
 
     }
 
-    private void addItem() {
-        ListAdapter projectAdapter = new CustomItemAdapter(ProjectActivity.this, theTitle);
-        ListView projectListView = (ListView) findViewById(R.id.mileStoneListView);
-        projectListView.setAdapter(projectAdapter);
+    private void addMilestones() {
+        ListAdapter milestoneAdapter = new CustomMilestoneAdapter(ProjectActivity.this, project.milestones.toArray(new Milestone[project.milestones.size()]));
+        ListView projectListView = (ListView) findViewById(R.id.milestoneListView);
+        projectListView.setAdapter(milestoneAdapter);
     }
 
-    private void prepareContent() {
-        // hämtar info från databas, om milestones/delmål
-
-        title = "Title";
-        items.add("delmål1");
-        items.add("mellanmål");
-        items.add("skrovmål");
+    private void addItem() {
+        ListAdapter itemAdapter = new CustomItemAdapter(ProjectActivity.this, project.items.toArray(new Item[project.items.size()]));
+        ListView projectListView = (ListView) findViewById(R.id.projectListView);
+        projectListView.setAdapter(itemAdapter);
     }
 
 

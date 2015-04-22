@@ -66,8 +66,8 @@ public class UserModel implements Serializable{
             }
         } catch (Exception e) {
             UserModel.errorMessage = jo.toString();
-            Helper._("SUCCESS == FALSE: " + UserModel.errorMessage);
-            Helper._("Couldn't create user: " + e.getMessage());
+            Helper.pelle("SUCCESS == FALSE: " + UserModel.errorMessage);
+            Helper.pelle("Couldn't create user: " + e.getMessage());
         }
 
         return created;

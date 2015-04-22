@@ -21,4 +21,8 @@ public class Milestone {
     public void addItem(Item item) {
         items.add(item);
     }
+
+    public List<Item> items(){
+        return items;
+    }
 }

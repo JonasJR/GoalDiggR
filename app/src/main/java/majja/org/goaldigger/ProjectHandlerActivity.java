@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,10 +43,9 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         context = this.getBaseContext();
 
         Project[] projects = Project.all(UserModel.getInstance());
-        Helper._(projects[0].toString());
 
         ListAdapter projectAdapter = new CustomProjectAdapter(this, projects);
-        ListView projectListView = (ListView) findViewById(R.id.projectListView);
+        ListView projectListView = (ListView)findViewById(R.id.projectListView);
         projectListView.setAdapter(projectAdapter);
 
         addProjectButton();
@@ -69,7 +67,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                         Toast.makeText(ProjectHandlerActivity.this, "Skickar användare till " + project, Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(view.getContext(), ProjectActivity.class);
-                        startActivityForResult(intent, 0);
+                        startActivity(intent);
                     }
                 }
         );

@@ -112,12 +112,12 @@ public class DB implements Serializable {
             bufferedReader.close();
 
         } catch (IOException e) {
-            Helper._("IOException: " + e.getMessage());
+            Helper.pelle("IOException: " + e.getMessage());
         } catch (Exception e) {
-            Helper._("Exception: " + e.getMessage());
+            Helper.pelle("Exception: " + e.getMessage());
         }
 
-        Helper._("Return mess: " + stringBuffer.toString());
+        Helper.pelle("Return mess: " + stringBuffer.toString());
 
         this.returnData = stringBuffer.toString();
     }
