@@ -133,6 +133,19 @@ public class DB implements Serializable {
         new Networking("http://goaldigger.herokuapp.com/api/v1/add_project.json", jsonObj).execute();
     }
 
+    public void deleteProject(int id, String email, String password){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("email", email);
+            jsonObject.put("passoword", password);
+        } catch (JSONException e) {
+            Helper._("Couldn't delete project" + e.getMessage());
+        }
+
+        new Networking("http://goaldigger.herokuapp.com/api/v1/delete_project.json", jsonObject).execute();
+    }
+
     public class Networking extends AsyncTask implements Serializable {
 
         private String url;
