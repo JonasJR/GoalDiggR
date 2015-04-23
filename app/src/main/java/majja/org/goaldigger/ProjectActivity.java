@@ -13,30 +13,32 @@ public class ProjectActivity extends ActionBarActivity {
 
     Context context;
     Project project;
+    private ListView projectListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
-
+        projectListView = (ListView) findViewById(R.id.projectListView);
         this.context = this.getBaseContext();
 
         project = (Project)getIntent().getExtras().getSerializable("project");
+        Helper.pelle(project.toString());
 
-        //addItems();
         addMilestones();
+        addItems();
 
     }
 
     private void addMilestones() {
         ListAdapter milestoneAdapter = new CustomMilestoneAdapter(this, project.getMilestones());
-        ListView projectListView = (ListView) findViewById(R.id.projectListView);
+        //ListView projectListView = (ListView) findViewById(R.id.projectListView);
         projectListView.setAdapter(milestoneAdapter);
     }
 
     private void addItems() {
         ListAdapter itemAdapter = new CustomItemAdapter(this, project.getItems());
-        ListView projectListView = (ListView) findViewById(R.id.projectListView);
+        //ListView projectListView = (ListView) findViewById(R.id.projectListView);
         projectListView.setAdapter(itemAdapter);
     }
 

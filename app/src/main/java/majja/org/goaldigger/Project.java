@@ -132,6 +132,10 @@ public class Project implements Serializable{
 
         result = "\nProject: " + name + "\n";
 
+        for (Item item : items) {
+            result += "Item: " + item.name() + "\n";
+        }
+
         for (Milestone milestone : milestones) {
             result += "\tmilestone: " + milestone.name() + "\n";
             for (Item item : milestone.items()) {
