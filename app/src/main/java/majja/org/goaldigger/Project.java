@@ -13,13 +13,8 @@ import java.util.List;
  */
 public class Project implements Serializable{
 
-
-
-    List<Milestone> milestones = new ArrayList<Milestone>();
-
-
-
-    List<Item> items = new ArrayList<Item>();
+    private List<Milestone> milestones = new ArrayList<Milestone>();
+    private List<Item> items = new ArrayList<Item>();
     private String name;
     private int id;
 
@@ -48,6 +43,10 @@ public class Project implements Serializable{
         items.add(item);
     }
 
+    public List<Item> items() {
+        return this.items;
+    }
+
     public void addMilestone(Milestone milestone) {
         milestones.add(milestone);
     }
@@ -56,9 +55,14 @@ public class Project implements Serializable{
         return this.milestones.get(index);
     }
 
+    public List<Milestone> milestones() {
+        return this.milestones;
+    }
+
     public static void create(UserModel user, String name) {
         DB db = DB.getInstance();
         db.createProject(name, user.email(), user.password());
+        db.getReturnData();
     }
 
     public static Project[] all(UserModel user) {
