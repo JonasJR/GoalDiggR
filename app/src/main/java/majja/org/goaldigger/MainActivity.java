@@ -4,15 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
     Context context;
@@ -21,8 +28,8 @@ public class MainActivity extends ActionBarActivity {
     private DB db;
     private PopupWindow popUp;
 
-    Button forgotPasswordButton;
-    Button send;
+    TextView forgotPasswordButton;
+    Button send,cancel;
 
 
     @Override
@@ -52,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
     private void forgotPass() {
 
 
-        forgotPasswordButton = (Button) findViewById(R.id.forgotPasswordButton);
+        forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
 
         EditText email = (EditText)findViewById(R.id.editTextForgotPassEmail);
 
@@ -71,6 +78,7 @@ public class MainActivity extends ActionBarActivity {
            View layout = inflater.inflate(R.layout.popup_forgot_pass, (ViewGroup) findViewById(R.id.forgotPassView));
            popUp = new PopupWindow(layout, this.getResources().getDisplayMetrics().widthPixels, this.getResources().getDisplayMetrics().heightPixels, true);
            popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+           cancel = (Button)layout.findViewById(R.id.cancelForgotButton);
            send = (Button)layout.findViewById(R.id.sendRecoveryEmailButton);
            send.setOnClickListener(new View.OnClickListener() {
                                        public void onClick(View v) {
@@ -78,6 +86,11 @@ public class MainActivity extends ActionBarActivity {
                                        }
                                    }
            );
+           cancel.setOnClickListener(new View.OnClickListener(){
+               public void onClick(View v){
+                   popUp.dismiss();
+               }
+           });
        }catch(Exception e){
            e.printStackTrace();
        }
@@ -113,8 +126,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void newUser(){
-        Button newUserButton = (Button) findViewById(R.id.newUserButton);
-        newUserButton.setOnClickListener(new View.OnClickListener() {
+        final TextView newUserTextview = (TextView) findViewById(R.id.clickableTextCreate);
+        newUserTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), createUserAcitivity.class);

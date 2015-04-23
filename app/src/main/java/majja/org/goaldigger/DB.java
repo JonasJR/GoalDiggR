@@ -138,7 +138,7 @@ public class DB implements Serializable {
         try {
             jsonObject.put("id", id);
             jsonObject.put("email", email);
-            jsonObject.put("passoword", password);
+            jsonObject.put("password", password);
         } catch (JSONException e) {
             Helper.pelle("Couldn't delete project" + e.getMessage());
         }
