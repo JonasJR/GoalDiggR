@@ -93,6 +93,14 @@ public class Project implements Serializable{
                     jo = ja.getJSONObject(i);
                     projects[i] = new Project(jo.getInt("id"), jo.getString("name"));
 
+                    items = jo.getJSONArray("items");
+                    if (items.length() > 0) {
+                        for (int k = 0; k < items.length(); k++) {
+                            item = items.getJSONObject(k);
+                            projects[i].addItem(new Item(item.getInt("id"), item.getString("name"), false));
+                        }
+                    }
+
                     // Skapa milestone och items
                     milestones = jo.getJSONArray("milestones");
 
