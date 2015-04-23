@@ -50,10 +50,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:src="@drawable/logo2"
-        android:layout_marginTop="122dp"
+        android:layout_marginTop="121dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/clickableTextForgot"
-        android:layout_toEndOf="@+id/clickableTextForgot" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         xmlns:android="http://schemas.android.com/apk/res/android"
