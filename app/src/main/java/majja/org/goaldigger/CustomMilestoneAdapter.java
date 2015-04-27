@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ class CustomMilestoneAdapter extends ArrayAdapter<Milestone> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_milestone, parent, false);
 
@@ -26,6 +28,8 @@ class CustomMilestoneAdapter extends ArrayAdapter<Milestone> {
 
         milestoneName.setText(getItem(position).name());
 
+
+        //För att nästla CustomItemAdapter (funkar men man ser bara ett item)
         ListAdapter itemAdapter = new CustomItemAdapter(CustomMilestoneAdapter.this.getContext(), getItem(position).getItems());
         ListView milestoneList = (ListView)customView.findViewById(R.id.milestoneListView);
         milestoneList.setAdapter(itemAdapter);

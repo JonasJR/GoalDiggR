@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -14,30 +15,41 @@ public class ProjectActivity extends ActionBarActivity {
     Context context;
     Project project;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project);
+        //setContentView(R.layout.activity_project);
 
         this.context = this.getBaseContext();
 
         project = (Project)getIntent().getExtras().getSerializable("project");
 
-        //addItems();
-        addMilestones();
+        SeparatedListAdapter sp = new SeparatedListAdapter(this);
+        ListAdapter it = addItems();
+        ListAdapter ms = addMilestones();
 
+        sp.addSection("Items", it);
+        sp.addSection("Milestones", ms);
+
+
+        ListView projectListView = new ListView(this);
+        projectListView.setAdapter(sp);
+        this.setContentView(projectListView);
     }
 
-    private void addMilestones() {
+    private ListAdapter addMilestones() {
         ListAdapter milestoneAdapter = new CustomMilestoneAdapter(this, project.getMilestones());
-        ListView projectListView = (ListView) findViewById(R.id.projectListView);
-        projectListView.setAdapter(milestoneAdapter);
+        //ListView projectListView = (ListView) findViewById(R.id.projectListView);
+        //projectListView.setAdapter(milestoneAdapter);
+        return milestoneAdapter;
     }
 
-    private void addItems() {
+    private ListAdapter addItems() {
         ListAdapter itemAdapter = new CustomItemAdapter(this, project.getItems());
-        ListView projectListView = (ListView) findViewById(R.id.projectListView);
-        projectListView.setAdapter(itemAdapter);
+        //ListView projectListView = (ListView) findViewById(R.id.projectListView);
+        //projectListView.setAdapter(itemAdapter);
+        return itemAdapter;
     }
 
 
