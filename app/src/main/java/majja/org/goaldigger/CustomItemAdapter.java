@@ -22,6 +22,8 @@ class CustomItemAdapter extends ArrayAdapter<Item> {
 
         CheckBox checkBox = (CheckBox) customView.findViewById(R.id.itemCheckBox);
 
+
+        checkBox.setChecked(getItem(position).done());
         checkBox.setText(getItem(position).name());
 
         return customView;
