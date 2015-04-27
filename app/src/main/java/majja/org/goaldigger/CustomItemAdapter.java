@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import java.util.List;
 
 class CustomItemAdapter extends ArrayAdapter<Item> {
 
@@ -23,9 +22,17 @@ class CustomItemAdapter extends ArrayAdapter<Item> {
         CheckBox checkBox = (CheckBox) customView.findViewById(R.id.itemCheckBox);
 
 
-        checkBox.setChecked(getItem(position).done());
+        final Item item = getItem(position);
+        checkBox.setChecked(item.done());
         checkBox.setText(getItem(position).name());
 
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Item.toggle(item.id(), UserModel.getInstance());
+                item.toggleDone();
+            }
+        });
         return customView;
     }
 }

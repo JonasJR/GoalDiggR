@@ -6,9 +6,9 @@ import java.io.Serializable;
  * Created by Xeronic on 15-04-21.
  */
 public class Item implements Serializable{
-    private boolean done;
-    private String name;
     private int id;
+    private String name;
+    private boolean done;
 
     public Item(int id, String name, boolean done) {
         this.name = name;
@@ -26,6 +26,10 @@ public class Item implements Serializable{
 
     public int id() {
         return this.id;
+    }
+
+    public void toggleDone() {
+        this.done = !this.done;
     }
 
     public String toString() {

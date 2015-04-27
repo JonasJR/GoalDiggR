@@ -35,22 +35,17 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        fetchAndUpdateList();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
 
-        context = this.getBaseContext();
-
-        projects = Project.all(UserModel.getInstance());
-
-        if (projects == null ){
-            projects = new Project[1];
-            projects[0] = new Project(0, "No created projects...");
-        }
-
-        ListAdapter projectAdapter = new CustomProjectAdapter(this, projects);
-        ListView projectListView = (ListView)findViewById(R.id.projectsListView);
-        projectListView.setAdapter(projectAdapter);
+        fetchAndUpdateList();
 
         addProjectButton();
 
@@ -62,22 +57,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 Toast.makeText(ProjectHandlerActivity.this, "Sends user tooooo the list of Friends", Toast.LENGTH_SHORT).show();
             }
         });
-
-        projectListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String project = String.valueOf(parent.getItemAtPosition(position));
-                        Toast.makeText(ProjectHandlerActivity.this, "Skickar användare till " + project, Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(view.getContext(), ProjectActivity.class);
-                        intent.putExtra("project", projects[position]);
-                        startActivity(intent);
-                    }
-                }
-        );
-
-
     }
 
     private void addProjectButton() {
@@ -147,6 +126,33 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void fetchAndUpdateList() {
+        projects = Project.all(UserModel.getInstance());
+
+        if (projects == null ){
+            projects = new Project[1];
+            projects[0] = new Project(0, "No created projects...");
+        }
+
+        ListAdapter projectAdapter = new CustomProjectAdapter(this, projects);
+        ListView projectListView = (ListView)findViewById(R.id.projectsListView);
+        projectListView.setAdapter(projectAdapter);
+
+        projectListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String project = String.valueOf(parent.getItemAtPosition(position));
+                        Toast.makeText(ProjectHandlerActivity.this, "Skickar användare till " + project, Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(view.getContext(), ProjectActivity.class);
+                        intent.putExtra("project", projects[position]);
+                        startActivity(intent);
+                    }
+                }
+        );
     }
 
 }

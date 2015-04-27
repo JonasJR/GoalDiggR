@@ -18,6 +18,11 @@ public class Milestone implements Serializable {
         this.id = id;
     }
 
+    public static void create(String name, UserModel user) {
+        DB db = DB.getInstance();
+        db.createMilestone(name, user.email(), user.password());
+    }
+
     public Item[] getItems() {
         return items.toArray(new Item[items.size()]);
     }

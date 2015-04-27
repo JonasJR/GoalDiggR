@@ -21,6 +21,9 @@ import java.io.Serializable;
  */
 public class DB implements Serializable {
 
+    // Address to web server
+    private final String URL = "http://goaldigger.herokuapp.com/api/v1/";
+
     private static DB db;
     private static final long TIMEOUT = 10000000000L;
     private HttpClient httpClient = new DefaultHttpClient();
@@ -62,7 +65,7 @@ public class DB implements Serializable {
             jsonObj.put("password", password);
         } catch (JSONException e ) {}
 
-        new Networking("http://goaldigger.herokuapp.com/api/v1/login.json", jsonObj).execute();
+        new Networking(urlFor("login"), jsonObj).execute();
     }
 
     public void getProjects(String email, String password) {
@@ -72,7 +75,7 @@ public class DB implements Serializable {
             jsonObj.put("password", password);
         } catch (JSONException e ) {}
 
-        new Networking("http://goaldigger.herokuapp.com/api/v1/projects.json", jsonObj).execute();
+        new Networking(urlFor("projects"), jsonObj).execute();
     }
 
     public void createUser(String username, String email, String password, String passwordConfirmation) {
@@ -84,7 +87,7 @@ public class DB implements Serializable {
             jsonObj.put("password_confirmation", passwordConfirmation);
         } catch (JSONException e ) {}
 
-        new Networking("http://goaldigger.herokuapp.com/api/v1/signup.json", jsonObj).execute();
+        new Networking(urlFor("signup"), jsonObj).execute();
     }
 
     public void getJSON(String url, JSONObject jsonObj) {
@@ -130,7 +133,7 @@ public class DB implements Serializable {
             jsonObj.put("password", password);
         } catch (JSONException e ) {}
 
-        new Networking("http://goaldigger.herokuapp.com/api/v1/add_project.json", jsonObj).execute();
+        new Networking(urlFor("add_project"), jsonObj).execute();
     }
 
     public void deleteProject(int id, String email, String password){
@@ -143,20 +146,51 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't delete project" + e.getMessage());
         }
 
-        new Networking("http://goaldigger.herokuapp.com/api/v1/delete_project.json", jsonObject).execute();
+        new Networking(urlFor("delete_project"), jsonObject).execute();
     }
 
     public void toggleItem(int itemId, String email, String password){
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("itemId", itemId);
+            jsonObject.put("item_id", itemId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
         } catch (JSONException e) {
-            Helper.pelle("Couldn't delete project" + e.getMessage());
+            Helper.pelle("Couldn't toggle item: " + e.getMessage());
         }
 
-        new Networking("http://goaldigger.herokuapp.com/api/v1/toggle_item.json", jsonObject).execute();
+        new Networking(urlFor("toggle_item"), jsonObject).execute();
+    }
+
+    public void createMilestone(String milestoneName, String email, String password) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("milestone_name", milestoneName);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't create milestone: " + e.getMessage());
+        }
+
+        new Networking(urlFor("create_milestone"), jsonObject).execute();
+    }
+
+    public void createItem(String itemName, int milestoneId, String email, String password) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("item_name", itemName);
+            jsonObject.put("milestone_id", milestoneId);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't create item: " + e.getMessage());
+        }
+
+        new Networking(urlFor("create_item"), jsonObject).execute();
+    }
+
+    private String urlFor(String action) {
+        return URL + action + ".json";
     }
 
     public class Networking extends AsyncTask implements Serializable {
