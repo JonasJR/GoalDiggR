@@ -37,7 +37,7 @@ public class MilestoneAdapter extends ArrayAdapter<Milestone> {
             items[i] = mItems[i].name();
         }
 
-        ListAdapter itemsAdapter = new ArrayAdapter<Item>(getContext(), android.R.layout.simple_list_item_checked, mItems);
+        ListAdapter itemsAdapter = new CustomItemAdapter(getContext(), mItems);
         itemsListView.setAdapter(itemsAdapter);
 
         itemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
