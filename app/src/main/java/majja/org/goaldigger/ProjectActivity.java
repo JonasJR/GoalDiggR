@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView;
@@ -16,18 +18,17 @@ import android.widget.Toast;
 public class ProjectActivity extends ActionBarActivity {
 
     private Project project;
-    private ListView projectListView;
+    private ExpandableListView projectListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        projectListView = (ListView) findViewById(R.id.projectListView);
+        projectListView = (ExpandableListView) findViewById(R.id.projectListView);
         project = (Project)getIntent().getExtras().getSerializable("project");
 
-        ListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
-        projectListView = (ListView) findViewById(R.id.projectListView);
+        ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);
 
         projectListView.setOnItemClickListener(
