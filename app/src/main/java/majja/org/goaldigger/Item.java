@@ -31,4 +31,10 @@ public class Item implements Serializable{
     public String toString() {
         return this.name;
     }
+
+    public static void toggle(int itemId, UserModel user) {
+        DB db = DB.getInstance();
+
+        db.toggleItem(itemId, user.email(), user.password());
+    }
 }
