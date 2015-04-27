@@ -27,4 +27,8 @@ public class Item implements Serializable{
     public int id() {
         return this.id;
     }
+
+    public String toString() {
+        return this.name;
+    }
 }
