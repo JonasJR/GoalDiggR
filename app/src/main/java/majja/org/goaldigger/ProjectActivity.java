@@ -1,18 +1,11 @@
 package majja.org.goaldigger;
 
-import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 
 public class ProjectActivity extends ActionBarActivity {
@@ -30,16 +23,6 @@ public class ProjectActivity extends ActionBarActivity {
 
         ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);
-
-        projectListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String food = String.valueOf(parent.getItemAtPosition(position));
-                        Toast.makeText(ProjectActivity.this,food, Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
     }
 
     @Override

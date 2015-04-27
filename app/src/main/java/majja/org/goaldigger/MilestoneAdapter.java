@@ -5,13 +5,8 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
-import android.widget.ExpandableListAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -80,7 +75,15 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                     .findViewById(R.id.itemCheckBox);
 
             itemCheckBox.setText(childItem.name());
-        itemCheckBox.setChecked(childItem.done());
+            itemCheckBox.setChecked(childItem.done());
+
+            itemCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    childItem.toggleDone();
+                    Item.toggle(childItem.id(), UserModel.getInstance());
+                }
+            });
 
             return convertView;
         }

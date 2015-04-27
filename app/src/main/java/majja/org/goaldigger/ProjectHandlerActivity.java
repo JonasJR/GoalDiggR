@@ -93,17 +93,14 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
-
     }
 
     private void closePopUp(){
-        //if project not exists in database add new project
         String name = addProject.getText().toString();
         Project.create(user, name);
         Helper.toast(name + " added", context);
         popUp.dismiss();
         startActivity(getIntent());
-        //else Toast "It didnäääät werk!" and not popUp.dismiss()
     }
 
     @Override
@@ -144,11 +141,9 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String project = String.valueOf(parent.getItemAtPosition(position));
-                        Toast.makeText(ProjectHandlerActivity.this, "Skickar användare till " + project, Toast.LENGTH_SHORT).show();
-
                         Intent intent = new Intent(view.getContext(), ProjectActivity.class);
                         intent.putExtra("project", projects[position]);
+
                         startActivity(intent);
                     }
                 }
