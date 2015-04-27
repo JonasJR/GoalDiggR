@@ -5,53 +5,41 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Adapter;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 
 public class ProjectActivity extends ActionBarActivity {
 
-    Context context;
-    Project project;
-
+    private Project project;
+    private ListView projectListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_project);
+        setContentView(R.layout.activity_project);
 
-        this.context = this.getBaseContext();
-
+        projectListView = (ListView) findViewById(R.id.projectListView);
         project = (Project)getIntent().getExtras().getSerializable("project");
 
-        SeparatedListAdapter sp = new SeparatedListAdapter(this);
-        ListAdapter it = addItems();
-        ListAdapter ms = addMilestones();
+        ListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
+        projectListView = (ListView) findViewById(R.id.projectListView);
+        projectListView.setAdapter(milestoneAdapter);
 
-        sp.addSection("Items", it);
-        sp.addSection("Milestones", ms);
-
-
-        ListView projectListView = new ListView(this);
-        projectListView.setAdapter(sp);
-        this.setContentView(projectListView);
+        projectListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String food = String.valueOf(parent.getItemAtPosition(position));
+                        Toast.makeText(ProjectActivity.this,food, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
     }
-
-    private ListAdapter addMilestones() {
-        ListAdapter milestoneAdapter = new CustomMilestoneAdapter(this, project.getMilestones());
-        //ListView projectListView = (ListView) findViewById(R.id.projectListView);
-        //projectListView.setAdapter(milestoneAdapter);
-        return milestoneAdapter;
-    }
-
-    private ListAdapter addItems() {
-        ListAdapter itemAdapter = new CustomItemAdapter(this, project.getItems());
-        //ListView projectListView = (ListView) findViewById(R.id.projectListView);
-        //projectListView.setAdapter(itemAdapter);
-        return itemAdapter;
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
