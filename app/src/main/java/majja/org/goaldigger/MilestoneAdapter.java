@@ -61,6 +61,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         textHead.setTypeface(null, Typeface.BOLD);
         textHead.setText(headerMilestone.name());
 
+
         return convertView;
     }
 
