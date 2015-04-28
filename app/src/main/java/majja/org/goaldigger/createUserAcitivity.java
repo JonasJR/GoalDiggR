@@ -30,14 +30,14 @@ public class createUserAcitivity extends ActionBarActivity {
         createUserButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        boolean created = UserModel.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
+                        boolean created = User.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
                         if(created){
                             Helper.toast("Det gick!", context);
                             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
                             startActivity(intent);
                         }
                         else{
-                            Helper.toast(UserModel.errorMessage(), context);
+                            Helper.toast(User.errorMessage(), context);
                         }
                     }
                 }

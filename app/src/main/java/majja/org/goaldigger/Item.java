@@ -28,6 +28,18 @@ public class Item implements Serializable{
         return this.id;
     }
 
+    public static void create (String name, int mileStoneID, User user){
+        DB db = DB.getInstance();
+        db.createItem(name, mileStoneID, user.email(), user.password());
+        db.getReturnData();
+    }
+
+    public static void delete (int id, User user){
+        DB db = DB.getInstance();
+        db.deleteItem(id, user.email(), user.password());
+        db.getReturnData();
+    }
+
     public void toggleDone() {
         this.done = !this.done;
     }
@@ -36,7 +48,7 @@ public class Item implements Serializable{
         return this.name;
     }
 
-    public static void toggle(int itemId, UserModel user) {
+    public static void toggle(int itemId, User user) {
         DB db = DB.getInstance();
 
         db.toggleItem(itemId, user.email(), user.password());

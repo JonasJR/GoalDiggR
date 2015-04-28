@@ -94,7 +94,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void onClick(View v) {
                     childItem.toggleDone();
-                    Item.toggle(childItem.id(), UserModel.getInstance());
+                    Item.toggle(childItem.id(), User.getInstance());
                 }
             });
             itemCheckBox.setOnLongClickListener(

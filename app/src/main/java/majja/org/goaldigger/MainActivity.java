@@ -4,20 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -25,7 +16,6 @@ public class MainActivity extends ActionBarActivity {
     Context context;
     public static EditText loginText;
     public static EditText passwordText;
-    private DB db;
     private PopupWindow popUp;
 
     TextView forgotPasswordButton;
@@ -38,8 +28,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         context = MainActivity.this;
-
-        db = DB.getInstance();
 
         newUser();
         forgotPass();
@@ -61,14 +49,12 @@ public class MainActivity extends ActionBarActivity {
 
         forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
 
-        EditText email = (EditText)findViewById(R.id.editTextForgotPassEmail);
-
         forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View v){
                         Helper.popup(new PromptRunnable(){
                             public void run() {
                                 Helper.toast("Mail sent", context);
-                                //send email
+                                DB.getInstance().resetPassword(this.getValue());
                             }
                         }, context, "email");
 

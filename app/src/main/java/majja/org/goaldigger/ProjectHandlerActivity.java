@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +18,7 @@ import android.widget.Toast;
 
 public class ProjectHandlerActivity extends ActionBarActivity {
 
-    private UserModel user;
+    private User user;
     private PopupWindow popUp;
     private Context context;
     Button add;
@@ -31,7 +28,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     Project[] projects;
 
     public ProjectHandlerActivity() {
-        this.user = UserModel.getInstance();
+        this.user = User.getInstance();
     }
 
     @Override
@@ -64,11 +61,11 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private void addProjectButton() {
         Button addProjectButton = (Button) findViewById(R.id.addProjectButton);
-        addProjectButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Helper.popup(new PromptRunnable(){
+        addProjectButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Helper.popup(new PromptRunnable() {
                     public void run() {
-                        Project.create(user,this.getValue());
+                        Project.create(user, this.getValue());
                         Helper.toast(this.getValue() + " added to projects", context);
                         fetchAndUpdateList();
                     }
@@ -100,7 +97,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     }
 
     private void fetchAndUpdateList() {
-        projects = Project.all(UserModel.getInstance());
+        projects = Project.all(User.getInstance());
 
         if (projects == null ){
             projects = new Project[1];
@@ -112,7 +109,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         projectListView.setAdapter(projectAdapter);
 
         projectListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener(){
+                new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(view.getContext(), ProjectActivity.class);
