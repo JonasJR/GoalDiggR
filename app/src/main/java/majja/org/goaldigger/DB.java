@@ -189,6 +189,29 @@ public class DB implements Serializable {
         new Networking(urlFor("create_item"), jsonObject).execute();
     }
 
+    public void resetPassword(String email) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("email", email);
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't reset password: " + e.getMessage());
+        }
+
+        new Networking(urlFor("reset_password"), jsonObject).execute();
+    }
+
+    public void changePassword(String newPassword, String oldPassword) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("new_password", newPassword);
+            jsonObject.put("old_password", oldPassword);
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't change password: " + e.getMessage());
+        }
+
+        new Networking(urlFor("change_password"), jsonObject).execute();
+    }
+
     private String urlFor(String action) {
         return URL + action + ".json";
     }
