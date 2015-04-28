@@ -72,8 +72,8 @@ public class Helper {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         alertDialogBuilder.setView(promptView);
 
-        TextView txtView = new TextView(context);
-        txtView.setText(name);
+        EditText txtView = (EditText) promptView.findViewById(R.id.editTextDialogUserInput);
+        txtView.setText("Delete " + name + "?");
         txtView.setEnabled(false);
 
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK",

@@ -44,7 +44,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        Milestone headerMilestone = (Milestone) getGroup(groupPosition);
+        final Milestone headerMilestone = (Milestone) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,8 +55,21 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.milestoneTextView);
         textHead.setTypeface(null, Typeface.BOLD);
         textHead.setText(headerMilestone.name());
-
-
+//        textHead.setOnLongClickListener(
+//                new View.OnLongClickListener(){
+//                    @Override
+//                    public boolean onLongClick(View v) {
+//                        Helper.delete(new PromptRunnable(){
+//                            @Override
+//                            public void run() {
+////                                 Delete Item from milestone
+//                                Helper.toast(headerMilestone.name() + " removed from milestones", context);
+//                            }
+//                        }, context, headerMilestone.name());
+//                        return true;
+//                    }
+//                }
+//        );
         return convertView;
     }
 
@@ -84,6 +97,21 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                     Item.toggle(childItem.id(), User.getInstance());
                 }
             });
+            itemCheckBox.setOnLongClickListener(
+                    new View.OnLongClickListener(){
+                        @Override
+                        public boolean onLongClick(View v) {
+                            Helper.delete(new PromptRunnable(){
+                                @Override
+                                public void run() {
+                                   Item.delete(childItem.id(), UserModel.getInstance());
+                                   Helper.toast(childItem.name() + " removed from items", context);
+                                }
+                            }, context, childItem.name());
+                            return true;
+                        }
+                    }
+            );
 
             return convertView;
         }
