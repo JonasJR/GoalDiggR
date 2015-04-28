@@ -104,7 +104,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                             Helper.delete(new PromptRunnable(){
                                 @Override
                                 public void run() {
-                                   Item.delete(childItem.id(), UserModel.getInstance());
+                                   Item.delete(childItem.id(), User.getInstance());
                                    Helper.toast(childItem.name() + " removed from items", context);
                                 }
                             }, context, childItem.name());
