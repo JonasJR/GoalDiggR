@@ -44,6 +44,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
+        context = getBaseContext();
 
         fetchAndUpdateList();
 
