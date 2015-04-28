@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -63,6 +64,36 @@ public class Helper {
         alertDialog.show();
     }
 
+    public static void delete(final PromptRunnable postrun, Context context, String name){
+        str = name;
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptView = li.inflate(R.layout.prompt, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setView(promptView);
+
+        TextView txtView = new TextView(context);
+        txtView.setText(name);
+        txtView.setEnabled(false);
+
+        alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        postrun.setValue(str);
+                        postrun.run();
+                        return;
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                str = null;
+                dialog.cancel();
+                return;
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 
     /**
      * Method used for debugging messages.
