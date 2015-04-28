@@ -30,7 +30,6 @@ public class ProjectActivity extends ActionBarActivity {
 
         final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);
-
         projectListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,7 +57,12 @@ public class ProjectActivity extends ActionBarActivity {
         addMilestone = (Button) findViewById(R.id.addMileStoneButton);
         addMilestone.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
+                Helper.popup(new PromptRunnable(){
+                    @Override
+                public void run(){
+                        Milestone.create(this.getValue(), User.getInstance());
+                    }
+                }, context, "name of milestone");
             }
         });
 
