@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        context = this.getBaseContext();
+        context = MainActivity.this;
 
         db = DB.getInstance();
 
@@ -65,47 +65,16 @@ public class MainActivity extends ActionBarActivity {
 
         forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View v){
-                        getPopUp();
+                        Helper.popup(new PromptRunnable(){
+                            public void run() {
+                                Helper.toast("Mail sent", context);
+                                //send email
+                            }
+                        }, context);
+
                     }
                 }
         );
-
-    }
-
-    private void getPopUp(){
-       try {
-           LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           View layout = inflater.inflate(R.layout.popup_forgot_pass, (ViewGroup) findViewById(R.id.forgotPassView));
-           popUp = new PopupWindow(layout, this.getResources().getDisplayMetrics().widthPixels, this.getResources().getDisplayMetrics().heightPixels, true);
-           popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
-           cancel = (Button)layout.findViewById(R.id.cancelForgotButton);
-           send = (Button)layout.findViewById(R.id.sendRecoveryEmailButton);
-           send.setOnClickListener(new View.OnClickListener() {
-                                       public void onClick(View v) {
-                                           closePopUp();
-                                       }
-                                   }
-           );
-           cancel.setOnClickListener(new View.OnClickListener(){
-               public void onClick(View v){
-                   popUp.dismiss();
-               }
-           });
-       }catch(Exception e){
-           e.printStackTrace();
-       }
-
-    }
-
-    private void closePopUp(){
-
-                                        //if(true) {//UserModel.recoverPassword(email.getText().toString());
-                                        Helper.toast("Mail sent", context);
-                                        popUp.dismiss();
-                                        //}else{
-                                        // Helper.toast("There is no such email", context);
-                                        // }
-
 
     }
 

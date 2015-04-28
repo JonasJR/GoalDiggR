@@ -1,17 +1,22 @@
 package majja.org.goaldigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 
 public class ProjectActivity extends ActionBarActivity {
 
     private Project project;
     private ExpandableListView projectListView;
+    private Button addMilestone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,14 @@ public class ProjectActivity extends ActionBarActivity {
 
         ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);
+
+        addMilestone = (Button) findViewById(R.id.addMileStoneButton);
+        addMilestone.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+
+            }
+        });
+
     }
 
     @Override
