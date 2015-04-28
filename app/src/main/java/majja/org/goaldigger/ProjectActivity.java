@@ -1,7 +1,6 @@
 package majja.org.goaldigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 
 public class ProjectActivity extends ActionBarActivity {
@@ -45,7 +43,7 @@ public class ProjectActivity extends ActionBarActivity {
                     Helper.delete(new PromptRunnable(){
                         @Override
                         public void run() {
-                            Milestone.delete(headerMilestone.id(), UserModel.getInstance());
+                            Milestone.delete(headerMilestone.id(), User.getInstance());
                             Helper.toast(headerMilestone.name() + " removed from milestones", context);
                         }
                     }, context, headerMilestone.name());
