@@ -1,9 +1,14 @@
 package majja.org.goaldigger;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 /**
@@ -12,7 +17,7 @@ import android.widget.Toast;
 public class Helper {
 
     private static final String DEBUG_TAG = "Goaldigger";
-
+    private static String str = null;
     /**
      * Method to show a toast
      * @param message
@@ -27,6 +32,37 @@ public class Helper {
             }
         });
     }
+
+    public static void popup(final PromptRunnable postrun, Context context, String hint){
+        LayoutInflater li = LayoutInflater.from(context);
+        View promptView = li.inflate(R.layout.prompt, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setView(promptView);
+
+        final EditText userInput = (EditText) promptView.findViewById(R.id.editTextDialogUserInput);
+        userInput.setHint(hint);
+
+        alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
+                new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        str = userInput.getText().toString();
+                        postrun.setValue(str);
+                        postrun.run();
+                        return;
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                str = null;
+                dialog.cancel();
+                return;
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
 
     /**
      * Method used for debugging messages.

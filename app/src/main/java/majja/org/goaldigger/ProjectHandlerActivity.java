@@ -23,7 +23,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private UserModel user;
     private PopupWindow popUp;
-    Context context;
+    private Context context;
     Button add;
     Button cancel;
     EditText addProject;
@@ -46,6 +46,8 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_project_handler);
         context = getBaseContext();
 
+        this.context = ProjectHandlerActivity.this;
+
         fetchAndUpdateList();
 
         addProjectButton();
@@ -64,44 +66,15 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         Button addProjectButton = (Button) findViewById(R.id.addProjectButton);
         addProjectButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                addProjectPopUp();
+                Helper.popup(new PromptRunnable(){
+                    public void run() {
+                        Project.create(user,this.getValue());
+                        Helper.toast(this.getValue() + " added to projects", context);
+                        fetchAndUpdateList();
+                    }
+                }, context, "project name");
             }
         });
-    }
-
-    private void addProjectPopUp(){
-
-        try {
-            LayoutInflater inflater = (LayoutInflater) ProjectHandlerActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.popup_add_project, (ViewGroup) findViewById(R.id.addProjectView));
-            popUp = new PopupWindow(layout, this.getResources().getDisplayMetrics().widthPixels, this.getResources().getDisplayMetrics().heightPixels
-                    , true);
-            popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            addProject = (EditText) layout.findViewById(R.id.editTextAddProject);
-            cancel = (Button)layout.findViewById(R.id.buttonCancel);
-            cancel.setOnClickListener(new  View.OnClickListener(){
-                public void onClick(View v){
-                    popUp.dismiss();
-                }
-            });
-            add = (Button)layout.findViewById(R.id.buttonAddProjectPopup);
-            add.setOnClickListener(new View.OnClickListener() {
-                                       public void onClick(View v) {
-                                           closePopUp();
-                                       }
-                                   }
-            );
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    private void closePopUp(){
-        String name = addProject.getText().toString();
-        Project.create(user, name);
-        Helper.toast(name + " added", context);
-        popUp.dismiss();
-        startActivity(getIntent());
     }
 
     @Override
