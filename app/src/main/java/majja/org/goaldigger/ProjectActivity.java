@@ -45,7 +45,7 @@ public class ProjectActivity extends ActionBarActivity {
                     Helper.delete(new PromptRunnable(){
                         @Override
                         public void run() {
-                            Milestone.delete(headerMilestone.id(), UserModel.getInstance());
+                            Milestone.delete(headerMilestone.id(), User.getInstance());
                             Helper.toast(headerMilestone.name() + " removed from milestones", context);
                         }
                     }, context, headerMilestone.name());
