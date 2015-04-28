@@ -31,6 +31,10 @@ public class Project implements Serializable{
         return this.name;
     }
 
+    public int id() {
+        return this.id;
+    }
+
     public int percent() {
         int totalItems = 0;
         int itemsDone = 0;
@@ -72,6 +76,13 @@ public class Project implements Serializable{
         db.createProject(name, user.email(), user.password());
         db.getReturnData();
     }
+
+    public static void delete (int id, UserModel user) {
+        DB db = DB.getInstance();
+        db.deleteProject(id,user.email(), user.password());
+        db.getReturnData();
+    }
+
 
     public static Project[] all(UserModel user) {
         DB db = DB.getInstance();
