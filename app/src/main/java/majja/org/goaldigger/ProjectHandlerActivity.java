@@ -122,6 +122,23 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     }
                 }
         );
+
+        projectListView.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener(){
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                        Helper.delete(new PromptRunnable(){
+                            @Override
+                            public void run() {
+                                Project.delete(projects[position].id(), user);
+                                Helper.toast(this.getValue() + " removed from projects", context);
+                                fetchAndUpdateList();
+                            }
+                        }, context, projects[position].name());
+                        return true;
+                    }
+                }
+        );
     }
 
 }
