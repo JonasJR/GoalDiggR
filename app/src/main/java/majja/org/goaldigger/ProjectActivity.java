@@ -1,11 +1,13 @@
 package majja.org.goaldigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -17,17 +19,43 @@ public class ProjectActivity extends ActionBarActivity {
     private Project project;
     private ExpandableListView projectListView;
     private Button addMilestone;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
+        context = ProjectActivity.this;
 
         projectListView = (ExpandableListView) findViewById(R.id.projectListView);
         project = (Project)getIntent().getExtras().getSerializable("project");
 
-        ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
+        final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);
+
+        projectListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                int itemType = ExpandableListView.getPackedPositionType(id);
+
+                     if(itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+
+                    final Milestone headerMilestone = (Milestone) milestoneAdapter.getGroup(groupPosition);
+                    Helper.delete(new PromptRunnable(){
+                        @Override
+                        public void run() {
+                            Milestone.delete(headerMilestone.id(), UserModel.getInstance());
+                            Helper.toast(headerMilestone.name() + " removed from milestones", context);
+                        }
+                    }, context, headerMilestone.name());
+                    //do your per-group callback here
+                    return true;
+                }
+
+                return false;
+            }
+        });
 
         addMilestone = (Button) findViewById(R.id.addMileStoneButton);
         addMilestone.setOnClickListener(new View.OnClickListener(){
