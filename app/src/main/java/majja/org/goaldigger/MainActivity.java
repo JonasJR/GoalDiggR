@@ -70,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
                                 Helper.toast("Mail sent", context);
                                 //send email
                             }
-                        }, context);
+                        }, context, "email");
 
                     }
                 }

@@ -69,8 +69,9 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     public void run() {
                         Project.create(user,this.getValue());
                         Helper.toast(this.getValue() + " added to projects", context);
+                        fetchAndUpdateList();
                     }
-                }, context);
+                }, context, "project name");
             }
         });
     }

@@ -33,7 +33,7 @@ public class Helper {
         });
     }
 
-    public static void popup(final PromptRunnable postrun, Context context){
+    public static void popup(final PromptRunnable postrun, Context context, String hint){
         LayoutInflater li = LayoutInflater.from(context);
         View promptView = li.inflate(R.layout.prompt, null);
 
@@ -41,6 +41,7 @@ public class Helper {
         alertDialogBuilder.setView(promptView);
 
         final EditText userInput = (EditText) promptView.findViewById(R.id.editTextDialogUserInput);
+        userInput.setHint(hint);
 
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
                 new DialogInterface.OnClickListener(){
