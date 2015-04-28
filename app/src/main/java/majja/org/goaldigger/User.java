@@ -7,24 +7,24 @@ import java.io.Serializable;
 /**
  * Created by xeronic on 2015-04-16.
  */
-public class UserModel implements Serializable{
+public class User implements Serializable{
     private String email, password, username;
 
-    private static UserModel user;
+    private static User user;
     private static String errorMessage;
 
-    private UserModel(String username, String email, String password) {
+    private User(String username, String email, String password) {
         this.email = email;
         this.password = password;
         this.username = username;
     }
 
     public static void create(String username, String email, String password) {
-        UserModel.user = new UserModel(username, email, password);
+        User.user = new User(username, email, password);
     }
 
-    public static UserModel getInstance() {
-        return UserModel.user;
+    public static User getInstance() {
+        return User.user;
     }
 
     public String username() {
@@ -44,7 +44,7 @@ public class UserModel implements Serializable{
     }
 
     public static String errorMessage() {
-        String str = UserModel.errorMessage;
+        String str = User.errorMessage;
         str = str.replace("{", "").replace("}", "").replace("[", "").replace("]", "").replace("\"", "");
         str = str.replace(",", "\n");
 
@@ -61,12 +61,12 @@ public class UserModel implements Serializable{
         try {
             jo = new JSONObject(returnData);
             if (jo.getBoolean("success")) {
-                UserModel.create(jo.getString("name"), jo.getString("email"), password);
+                User.create(jo.getString("name"), jo.getString("email"), password);
                 created = true;
             }
         } catch (Exception e) {
-            UserModel.errorMessage = jo.toString();
-            Helper.pelle("SUCCESS == FALSE: " + UserModel.errorMessage);
+            User.errorMessage = jo.toString();
+            Helper.pelle("SUCCESS == FALSE: " + User.errorMessage);
             Helper.pelle("Couldn't create user: " + e.getMessage());
         }
 

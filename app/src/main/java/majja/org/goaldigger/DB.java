@@ -149,6 +149,32 @@ public class DB implements Serializable {
         new Networking(urlFor("delete_project"), jsonObject).execute();
     }
 
+    public void deleteMilestone(int id, String email, String password ){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("milestone_id", id);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't delete milestone" + e.getMessage());
+        }
+
+        new Networking(urlFor("delete_milestone"), jsonObject).execute();
+    }
+
+    public void deleteItem(int id, String email, String password) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("item_id", id);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't delete item" + e.getMessage());
+        }
+
+        new Networking(urlFor("delete_item"), jsonObject).execute();
+    }
+
     public void toggleItem(int itemId, String email, String password){
         JSONObject jsonObject = new JSONObject();
         try {

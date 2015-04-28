@@ -25,7 +25,7 @@ public class LoginModel implements Serializable {
             jsonObj = new JSONObject(db.getReturnData());
             String returnName = jsonObj.getString("name");
             String returnEmail = jsonObj.getString("email");
-            UserModel.create(returnName, returnEmail, password);
+            User.create(returnName, returnEmail, password);
 
             login = true;
         } catch (JSONException e) {

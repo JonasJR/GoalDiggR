@@ -29,7 +29,7 @@ class CustomItemAdapter extends ArrayAdapter<Item> {
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item.toggle(item.id(), UserModel.getInstance());
+                Item.toggle(item.id(), User.getInstance());
                 item.toggleDone();
             }
         });
