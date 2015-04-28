@@ -16,7 +16,6 @@ public class MainActivity extends ActionBarActivity {
     Context context;
     public static EditText loginText;
     public static EditText passwordText;
-    private DB db;
     private PopupWindow popUp;
 
     TextView forgotPasswordButton;
@@ -29,8 +28,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         context = MainActivity.this;
-
-        db = DB.getInstance();
 
         newUser();
         forgotPass();
@@ -52,14 +49,12 @@ public class MainActivity extends ActionBarActivity {
 
         forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
 
-        final EditText email = (EditText)findViewById(R.id.editTextForgotPassEmail);
-
         forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View v){
                         Helper.popup(new PromptRunnable(){
                             public void run() {
                                 Helper.toast("Mail sent", context);
-                                DB.getInstance().resetPassword(email.getText().toString());
+                                DB.getInstance().resetPassword(this.getValue());
                             }
                         }, context, "email");
 
