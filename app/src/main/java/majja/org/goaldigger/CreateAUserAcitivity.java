@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class createUserAcitivity extends ActionBarActivity {
+public class CreateAUserAcitivity extends ActionBarActivity {
 
     Context context;
 
