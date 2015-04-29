@@ -16,7 +16,6 @@ public class MainActivity extends ActionBarActivity {
     Context context;
     public static EditText loginText;
     public static EditText passwordText;
-    private PopupWindow popUp;
 
     TextView forgotPasswordButton;
     Button send,cancel;
@@ -38,7 +37,9 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
+
                         checkLogin(v);
+
                     }
                 }
         );

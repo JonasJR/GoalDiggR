@@ -27,6 +27,24 @@ public class ProjectActivity extends ActionBarActivity {
         context = ProjectActivity.this;
         user = User.getInstance();
 
+        updateList();
+
+        addMilestone = (Button) findViewById(R.id.addMileStoneButton);
+        addMilestone.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Helper.popup(new PromptRunnable(){
+                    @Override
+                public void run(){
+                        Milestone.create(this.getValue(),project.id(), user);
+                        updateList();
+                    }
+                }, context, "name of milestone");
+            }
+        });
+
+    }
+
+    private void updateList() {
         projectListView = (ExpandableListView) findViewById(R.id.projectListView);
         project = (Project)getIntent().getExtras().getSerializable("project");
 
@@ -37,7 +55,7 @@ public class ProjectActivity extends ActionBarActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemType = ExpandableListView.getPackedPositionType(id);
 
-                     if(itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                if(itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
 
                     final Milestone headerMilestone = (Milestone) milestoneAdapter.getGroup(groupPosition);
@@ -55,19 +73,6 @@ public class ProjectActivity extends ActionBarActivity {
                 return false;
             }
         });
-
-        addMilestone = (Button) findViewById(R.id.addMileStoneButton);
-        addMilestone.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Helper.popup(new PromptRunnable(){
-                    @Override
-                public void run(){
-                        Milestone.create(this.getValue(), user);
-                    }
-                }, context, "name of milestone");
-            }
-        });
-
     }
 
     @Override

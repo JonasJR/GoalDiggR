@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,8 @@ public class Helper {
 
     private static final String DEBUG_TAG = "Goaldigger";
     private static String str = null;
+    private static ProgressBar spinner;
+
     /**
      * Method to show a toast
      * @param message
@@ -101,5 +104,17 @@ public class Helper {
      */
     public static void pelle(String message) {
         Log.d(DEBUG_TAG, message);
+    }
+
+    public static void showProgress(Context context){
+        LayoutInflater progressInflater = LayoutInflater.from(context);
+        View progressView = progressInflater.inflate(R.layout.progress_layout, null);
+
+        spinner = (ProgressBar)progressView.findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.VISIBLE);
+    }
+
+    public static void hideProgress(){
+        spinner.setVisibility(View.GONE);
     }
 }

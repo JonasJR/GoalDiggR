@@ -18,9 +18,9 @@ public class Milestone implements Serializable {
         this.id = id;
     }
 
-    public static void create(String name, User user) {
+    public static void create(String name, int projectID, User user) {
         DB db = DB.getInstance();
-        db.createMilestone(name, user.email(), user.password());
+        db.createMilestone(name, projectID, user.email(), user.password());
         db.getReturnData();
     }
 
