@@ -103,10 +103,10 @@ public class DB implements Serializable {
     public void searchFriend(String searchPhrase) {
         JSONObject jsonObj = new JSONObject();
         try {
-            jsonObj.put("users", searchPhrase);
+            jsonObj.put("search_phrase", searchPhrase);
         } catch (JSONException e ) {}
 
-        new Networking(urlFor("search_friend"), jsonObj).execute();
+        new Networking(urlFor("search_friends"), jsonObj).execute();
     }
 
     public void getJSON(String url, JSONObject jsonObj) {
@@ -207,10 +207,11 @@ public class DB implements Serializable {
         new Networking(urlFor("toggle_item"), jsonObject).execute();
     }
 
-    public void createMilestone(String milestoneName, String email, String password) {
+    public void createMilestone(String milestoneName, int projectID, String email, String password) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("milestone_name", milestoneName);
+            jsonObject.put("project_id", projectID);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
         } catch (JSONException e) {
