@@ -31,15 +31,14 @@ class CustomFriendAdapter extends ArrayAdapter<Friend> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        userTextField = (EditText) convertView.findViewById(R.id.addUserTextField);
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_friend, parent, false);
-        String temp = userTextField.getText().toString();
 
         final Friend friend = getItem(position);
 
         TextView friendName = (TextView) customView.findViewById(R.id.friendName);
         TextView friendEmail = (TextView) customView.findViewById(R.id.friendEmail);
+
         Button addFriend = (Button) customView.findViewById(R.id.friendAddButton);
 
         friendName.setText(friend.getName());

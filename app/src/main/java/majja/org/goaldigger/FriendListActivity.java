@@ -27,7 +27,7 @@ public class FriendListActivity extends ActionBarActivity {
                String temp = userField.getText().toString();
                 //Search for the friend in the database
                 //friends = all possible matches
-                //then update the listview
+                updateFriendsList();
             }
         });
         
