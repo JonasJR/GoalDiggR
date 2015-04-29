@@ -25,8 +25,7 @@ public class FriendListActivity extends ActionBarActivity {
         searchFriend.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v) {
                String temp = userField.getText().toString();
-                //Search for the friend in the database
-                //friends = all possible matches
+                friends = Friend.search(temp);
                 updateFriendsList();
             }
         });
@@ -38,7 +37,7 @@ public class FriendListActivity extends ActionBarActivity {
 
         if(friends == null){
             friends = new Friend[1];
-            friends[0] = new Friend("No matching friends...", "No matching friends...");
+            friends[0] = new Friend("No matching friends...", null);
         }
 
         ListAdapter friendsAdapter = new CustomFriendAdapter(this, friends);
