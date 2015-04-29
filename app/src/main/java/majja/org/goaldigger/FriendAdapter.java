@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-class CustomFriendAdapter extends ArrayAdapter<Friend> {
+class FriendAdapter extends ArrayAdapter<Friend> {
 
     private String newFriend;
     private Friend[] friends;
@@ -18,12 +18,12 @@ class CustomFriendAdapter extends ArrayAdapter<Friend> {
     public static ListView listView;
 
 
-    CustomFriendAdapter(Context context, Friend[] friends) {
+    FriendAdapter(Context context, Friend[] friends) {
         super(context, R.layout.custom_friend, friends);
         this.friends = friends;
     }
 
-    CustomFriendAdapter(Context context, Friend[] friends, String newFriend) {
+    FriendAdapter(Context context, Friend[] friends, String newFriend) {
         super(context, R.layout.custom_friend, friends);
         this.newFriend = newFriend;
         this.friends = friends;

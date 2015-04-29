@@ -49,17 +49,17 @@ public class MainActivity extends ActionBarActivity {
 
         forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
 
-        forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
-                    public void onClick(View v){
-                        Helper.popup(new PromptRunnable(){
-                            public void run() {
-                                Helper.toast("Mail sent", context);
-                                DB.getInstance().resetPassword(this.getValue());
-                            }
-                        }, context, "email");
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+                                                    public void onClick(View v) {
+                                                        Helper.popup(new PromptRunnable() {
+                                                            public void run() {
+                                                                Helper.toast("Mail sent", context);
+                                                                DB.getInstance().resetPassword(this.getValue());
+                                                            }
+                                                        }, context, "email");
 
-                    }
-                }
+                                                    }
+                                                }
         );
 
     }
@@ -85,7 +85,7 @@ public class MainActivity extends ActionBarActivity {
         newUserTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), createUserAcitivity.class);
+                Intent intent = new Intent(v.getContext(), CreateUserAcitivity.class);
                 startActivity(intent);
             }
         });

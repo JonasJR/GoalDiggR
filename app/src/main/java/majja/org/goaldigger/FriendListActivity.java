@@ -40,7 +40,7 @@ public class FriendListActivity extends ActionBarActivity {
             friends[0] = new Friend("No matching friends...", null);
         }
 
-        ListAdapter friendsAdapter = new CustomFriendAdapter(this, friends);
+        ListAdapter friendsAdapter = new FriendAdapter(this, friends);
         ListView friendsListView = (ListView)findViewById(R.id.friendListView);
         friendsListView.setAdapter(friendsAdapter);
     }
