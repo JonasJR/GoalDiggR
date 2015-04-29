@@ -5,25 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-class CustomFriendAdapter extends ArrayAdapter<String> {
+class CustomFriendAdapter extends ArrayAdapter<Friend> {
 
     private String newFriend;
-    private String[] friends;
+    private Friend[] friends;
     public static EditText userTextField;
     public static ListView listView;
 
 
-    CustomFriendAdapter(Context context, String[] friends) {
+    CustomFriendAdapter(Context context, Friend[] friends) {
         super(context, R.layout.custom_friend, friends);
         this.friends = friends;
     }
 
-    CustomFriendAdapter(Context context, String[] friends, String newFriend) {
+    CustomFriendAdapter(Context context, Friend[] friends, String newFriend) {
         super(context, R.layout.custom_friend, friends);
         this.newFriend = newFriend;
         this.friends = friends;
@@ -31,16 +31,27 @@ class CustomFriendAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        userTextField = (EditText) convertView.findViewById(R.id.addUserTextField);
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_friend, parent, false);
-        String temp = userTextField.getText().toString();
 
-        String friend = getItem(position);
+        final Friend friend = getItem(position);
 
-        TextView friendUnit = (TextView) customView.findViewById(R.id.friendUnit);
+        TextView friendName = (TextView) customView.findViewById(R.id.friendName);
+        TextView friendEmail = (TextView) customView.findViewById(R.id.friendEmail);
 
-        friendUnit.setText(friend);
+        Button addFriend = (Button) customView.findViewById(R.id.friendAddButton);
+
+        friendName.setText(friend.getName());
+        friendEmail.setText(friend.getEmail());
+        addFriend.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                public void onClick(View v){
+                    friend.addFriend(User.getInstance());
+                }
+        }
+        );
+
 
         return customView;
     }

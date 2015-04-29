@@ -18,19 +18,20 @@ public class ProjectActivity extends ActionBarActivity {
     private ExpandableListView projectListView;
     private Button addMilestone;
     private Context context;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
         context = ProjectActivity.this;
+        user = User.getInstance();
 
         projectListView = (ExpandableListView) findViewById(R.id.projectListView);
         project = (Project)getIntent().getExtras().getSerializable("project");
 
         final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);
-
         projectListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -43,7 +44,7 @@ public class ProjectActivity extends ActionBarActivity {
                     Helper.delete(new PromptRunnable(){
                         @Override
                         public void run() {
-                            Milestone.delete(headerMilestone.id(), User.getInstance());
+                            Milestone.delete(headerMilestone.id(), user);
                             Helper.toast(headerMilestone.name() + " removed from milestones", context);
                         }
                     }, context, headerMilestone.name());
@@ -58,7 +59,12 @@ public class ProjectActivity extends ActionBarActivity {
         addMilestone = (Button) findViewById(R.id.addMileStoneButton);
         addMilestone.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-
+                Helper.popup(new PromptRunnable(){
+                    @Override
+                public void run(){
+                        Milestone.create(this.getValue(), user);
+                    }
+                }, context, "name of milestone");
             }
         });
 

@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,25 +53,24 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.milestone_adapter, null);
         }
 
+        ImageButton addItem = (ImageButton) convertView.findViewById(R.id.addItemButton);
+        addItem.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Helper.popup(new PromptRunnable(){
+                    @Override
+                    public void run(){
+                        Item.create(this.getValue(), headerMilestone.id(), User.getInstance());
+                    }
+                }, context, "name of Item");
+            }
+        });
+
         TextView textHead = (TextView) convertView
                 .findViewById(R.id.milestoneTextView);
         textHead.setTypeface(null, Typeface.BOLD);
         textHead.setText(headerMilestone.name());
-//        textHead.setOnLongClickListener(
-//                new View.OnLongClickListener(){
-//                    @Override
-//                    public boolean onLongClick(View v) {
-//                        Helper.delete(new PromptRunnable(){
-//                            @Override
-//                            public void run() {
-////                                 Delete Item from milestone
-//                                Helper.toast(headerMilestone.name() + " removed from milestones", context);
-//                            }
-//                        }, context, headerMilestone.name());
-//                        return true;
-//                    }
-//                }
-//        );
+
         return convertView;
     }
 
@@ -97,6 +98,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                     Item.toggle(childItem.id(), User.getInstance());
                 }
             });
+
             itemCheckBox.setOnLongClickListener(
                     new View.OnLongClickListener(){
                         @Override

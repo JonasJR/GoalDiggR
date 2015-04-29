@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/milestoneOrientation"
@@ -10,7 +10,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Milestone"
-        android:id="@+id/milestoneTextView" />
+        android:id="@+id/milestoneTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
     <ListView
         android:layout_width="match_parent"
@@ -19,5 +23,20 @@
         android:layout_weight="1"
         android:nestedScrollingEnabled="false"
         android:padding="1dp"
-        android:stackFromBottom="true" />
-</LinearLayout>
+        android:stackFromBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="52dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addItemButton"
+        android:src="@drawable/logo2"
+        android:background="#00000000"
+        android:baselineAlignBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
