@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 
-class CustomItemAdapter extends ArrayAdapter<Item> {
+class ItemAdapter extends ArrayAdapter<Item> {
 
 
-    CustomItemAdapter(Context context, Item[] items) {
+    ItemAdapter(Context context, Item[] items) {
         super(context, R.layout.custom_milestone_item, items);
     }
 

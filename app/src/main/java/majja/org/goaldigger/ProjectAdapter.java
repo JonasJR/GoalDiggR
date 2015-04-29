@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-class CustomProjectAdapter extends ArrayAdapter<Project> {
+class ProjectAdapter extends ArrayAdapter<Project> {
 
 
-    CustomProjectAdapter(Context context, Project[] projects) {
+    ProjectAdapter(Context context, Project[] projects) {
         super(context, R.layout.custom_project_row, projects);
     }
 

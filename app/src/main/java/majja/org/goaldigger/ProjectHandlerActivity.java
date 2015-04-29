@@ -104,7 +104,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             projects[0] = new Project(0, "No created projects...");
         }
 
-        ListAdapter projectAdapter = new CustomProjectAdapter(this, projects);
+        ListAdapter projectAdapter = new ProjectAdapter(this, projects);
         ListView projectListView = (ListView)findViewById(R.id.projectsListView);
         projectListView.setAdapter(projectAdapter);
 
