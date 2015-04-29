@@ -7,10 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 
 public class FriendListActivity extends ActionBarActivity {
     public static EditText userField;
+    private static Friend[] friends;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +25,25 @@ public class FriendListActivity extends ActionBarActivity {
         searchFriend.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v) {
                String temp = userField.getText().toString();
+                //Search for the friend in the database
+                //friends = all possible matches
+                //then update the listview
             }
         });
+        
+        updateFriendsList();
+    }
+
+    private void updateFriendsList() {
+
+        if(friends == null){
+            friends = new Friend[1];
+            friends[0] = new Friend("No matching friends...", "No matching friends...");
+        }
+
+        ListAdapter friendsAdapter = new CustomFriendAdapter(this, friends);
+        ListView friendsListView = (ListView)findViewById(R.id.friendListView);
+        friendsListView.setAdapter(friendsAdapter);
     }
 
 

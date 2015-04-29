@@ -18,12 +18,14 @@ public class ProjectActivity extends ActionBarActivity {
     private ExpandableListView projectListView;
     private Button addMilestone;
     private Context context;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
         context = ProjectActivity.this;
+        user = User.getInstance();
 
         projectListView = (ExpandableListView) findViewById(R.id.projectListView);
         project = (Project)getIntent().getExtras().getSerializable("project");
@@ -42,7 +44,7 @@ public class ProjectActivity extends ActionBarActivity {
                     Helper.delete(new PromptRunnable(){
                         @Override
                         public void run() {
-                            Milestone.delete(headerMilestone.id(), User.getInstance());
+                            Milestone.delete(headerMilestone.id(), user);
                             Helper.toast(headerMilestone.name() + " removed from milestones", context);
                         }
                     }, context, headerMilestone.name());
@@ -60,7 +62,7 @@ public class ProjectActivity extends ActionBarActivity {
                 Helper.popup(new PromptRunnable(){
                     @Override
                 public void run(){
-                        Milestone.create(this.getValue(), User.getInstance());
+                        Milestone.create(this.getValue(), user);
                     }
                 }, context, "name of milestone");
             }
