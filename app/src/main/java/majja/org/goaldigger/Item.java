@@ -1,5 +1,8 @@
 package majja.org.goaldigger;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +12,7 @@ public class Item implements Serializable{
     private int id;
     private String name;
     private boolean done;
+    private static DB db = DB.getInstance();
 
     public Item(int id, String name, boolean done) {
         this.name = name;
@@ -28,14 +32,22 @@ public class Item implements Serializable{
         return this.id;
     }
 
-    public static void create (String name, int mileStoneID, User user){
-        DB db = DB.getInstance();
+    public static Item create (String name, int mileStoneID, User user){
         db.createItem(name, mileStoneID, user.email(), user.password());
-        db.getReturnData();
+        String data = db.getReturnData();
+
+        Item item = null;
+
+        try {
+            JSONObject jo = new JSONObject(data);
+            item = new Item(jo.getInt("item_id"), jo.getString("item_name"), false);
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't create item from json" + e.getMessage());
+        }
+        return item;
     }
 
     public static void delete (int id, User user){
-        DB db = DB.getInstance();
         db.deleteItem(id, user.email(), user.password());
         db.getReturnData();
     }
@@ -49,8 +61,6 @@ public class Item implements Serializable{
     }
 
     public static void toggle(int itemId, User user) {
-        DB db = DB.getInstance();
-
         db.toggleItem(itemId, user.email(), user.password());
     }
 }

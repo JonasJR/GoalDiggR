@@ -29,6 +29,7 @@ public class DB implements Serializable {
     private HttpClient httpClient = new DefaultHttpClient();
     private HttpPost request;
     private String returnData;
+    private JSONObject jsonObject;
 
     private DB() {}
     public static DB getInstance() {
@@ -45,12 +46,7 @@ public class DB implements Serializable {
         long endTime = System.nanoTime() + TIMEOUT;
         while (returnData == null) {
             if (System.nanoTime() > endTime) {
-                try {
-                    JSONObject jsonObj = new JSONObject();
-                    jsonObj.put("message", "Request timed out");
-                    jsonObj.put("success", false);
-                    return jsonObj.toString();
-                } catch (JSONException e) {}
+                return "Request timed out";
             }
         }
         String returndata = this.returnData;
@@ -59,13 +55,13 @@ public class DB implements Serializable {
     }
 
     public void login(String email, String password) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("email", email);
-            jsonObj.put("password", password);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
         } catch (JSONException e ) {}
 
-        new Networking(urlFor("login"), jsonObj).execute();
+        action("login");
     }
 
     public void getProjects(String email, String password) {
@@ -247,17 +243,18 @@ public class DB implements Serializable {
     }
 
     public void changePassword(String newPassword, String oldPassword) {
-        JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("new_password", newPassword);
             jsonObject.put("old_password", oldPassword);
         } catch (JSONException e) {
             Helper.pelle("Couldn't change password: " + e.getMessage());
         }
-
-        new Networking(urlFor("change_password"), jsonObject).execute();
+        action("change_password");
     }
 
+    private void action(String action) {
+        new Networking(urlFor(action), jsonObject).execute();
+    }
     private String urlFor(String action) {
         return URL + action + ".json";
     }
