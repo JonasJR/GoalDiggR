@@ -48,7 +48,7 @@ class CustomFriendAdapter extends ArrayAdapter<Friend> {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Friend.addFriend(User.getInstance(), friend.getEmail());
+                            Friend.add(User.getInstance(), friend.getEmail());
                         }
                     }
             );
