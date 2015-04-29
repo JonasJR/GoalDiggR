@@ -90,6 +90,25 @@ public class DB implements Serializable {
         new Networking(urlFor("signup"), jsonObj).execute();
     }
 
+    public void createFriend(String userEmail, String friendEmail) {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("email", userEmail);
+            jsonObj.put("friend_email", friendEmail);
+        } catch (JSONException e ) {}
+
+        new Networking(urlFor("create_friend"), jsonObj).execute();
+    }
+
+    public void searchFriend(String searchPhrase) {
+        JSONObject jsonObj = new JSONObject();
+        try {
+            jsonObj.put("users", searchPhrase);
+        } catch (JSONException e ) {}
+
+        new Networking(urlFor("search_friend"), jsonObj).execute();
+    }
+
     public void getJSON(String url, JSONObject jsonObj) {
         request = new HttpPost(url);
 
