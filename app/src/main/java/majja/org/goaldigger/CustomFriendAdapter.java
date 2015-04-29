@@ -39,18 +39,23 @@ class CustomFriendAdapter extends ArrayAdapter<Friend> {
         TextView friendName = (TextView) customView.findViewById(R.id.friendName);
         TextView friendEmail = (TextView) customView.findViewById(R.id.friendEmail);
 
-        Button addFriend = (Button) customView.findViewById(R.id.friendAddButton);
+        if(friend.getEmail() == null){
+            Button addFriend = (Button) customView.findViewById(R.id.friendAddButton);
+            addFriend.setVisibility(View.INVISIBLE);
+        }else {
+            Button addFriend = (Button) customView.findViewById(R.id.friendAddButton);
+            addFriend.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Friend.addFriend(User.getInstance(), friend.getEmail());
+                        }
+                    }
+            );
+        }
 
         friendName.setText(friend.getName());
         friendEmail.setText(friend.getEmail());
-        addFriend.setOnClickListener(
-                new View.OnClickListener(){
-                    @Override
-                public void onClick(View v){
-                    friend.addFriend(User.getInstance());
-                }
-        }
-        );
 
 
         return customView;
