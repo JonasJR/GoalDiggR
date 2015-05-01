@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -65,11 +66,18 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 }, context, "name of Item");
             }
         });
+        addItem.setFocusable(false);
 
         TextView textHead = (TextView) convertView
                 .findViewById(R.id.milestoneTextView);
         textHead.setTypeface(null, Typeface.BOLD);
         textHead.setText(headerMilestone.name());
+
+        ProgressBar milestoneProgressBar = (ProgressBar) convertView.findViewById(R.id.milestoneProgressBar);
+        milestoneProgressBar.setProgress(headerMilestone.percent());
+
+        TextView milestoneProgressPercent = (TextView) convertView.findViewById(R.id.milestoneProgressPercent);
+        milestoneProgressPercent.setText(headerMilestone.percent() + "%");
 
         return convertView;
     }
