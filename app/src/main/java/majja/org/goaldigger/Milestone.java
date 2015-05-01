@@ -30,6 +30,22 @@ public class Milestone implements Serializable {
         db.getReturnData();
     }
 
+    public int percent() {
+        int totalItems = 0;
+        int itemsDone = 0;
+
+        for (Item item : items) {
+            if (item.done()) {
+                itemsDone++;
+            }
+            totalItems++;
+        }
+
+        double percent = (double)itemsDone / (double) totalItems;
+
+        return (int)(percent*100);
+    }
+
     public Item[] getItems() {
         return items.toArray(new Item[items.size()]);
     }

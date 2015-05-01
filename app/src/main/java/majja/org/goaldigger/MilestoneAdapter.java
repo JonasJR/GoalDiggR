@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -65,17 +65,29 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 }, context, "name of Item");
             }
         });
+        addItem.setFocusable(false);
 
         TextView textHead = (TextView) convertView
                 .findViewById(R.id.milestoneTextView);
         textHead.setTypeface(null, Typeface.BOLD);
         textHead.setText(headerMilestone.name());
 
+        ProgressBar milestoneProgressBar = (ProgressBar) convertView.findViewById(R.id.milestoneProgressBar);
+        TextView milestoneProgressPercent = (TextView) convertView.findViewById(R.id.milestoneProgressPercent);
+
+        if(headerMilestone.getItems().length != 0) {
+            milestoneProgressBar.setProgress(headerMilestone.percent());
+            milestoneProgressPercent.setText(headerMilestone.percent() + "%");
+        }else{
+            milestoneProgressBar.setProgress(0);
+            milestoneProgressPercent.setText("No items");
+        }
+
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
 
             final Item childItem = (Item) getChild(groupPosition, childPosition);
 
