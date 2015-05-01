@@ -37,9 +37,8 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-
+                        Helper.showProgress(context);
                         checkLogin(v);
-
                     }
                 }
         );
@@ -78,6 +77,7 @@ public class MainActivity extends ActionBarActivity {
         }
         else {
             Helper.toast("Invalid email or password", this);
+            Helper.hideProgress();
         }
     }
 

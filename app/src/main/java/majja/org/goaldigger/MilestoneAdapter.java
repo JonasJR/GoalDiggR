@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -74,16 +73,21 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         textHead.setText(headerMilestone.name());
 
         ProgressBar milestoneProgressBar = (ProgressBar) convertView.findViewById(R.id.milestoneProgressBar);
-        milestoneProgressBar.setProgress(headerMilestone.percent());
-
         TextView milestoneProgressPercent = (TextView) convertView.findViewById(R.id.milestoneProgressPercent);
-        milestoneProgressPercent.setText(headerMilestone.percent() + "%");
+
+        if(headerMilestone.getItems().length != 0) {
+            milestoneProgressBar.setProgress(headerMilestone.percent());
+            milestoneProgressPercent.setText(headerMilestone.percent() + "%");
+        }else{
+            milestoneProgressBar.setProgress(0);
+            milestoneProgressPercent.setText("No items");
+        }
 
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
 
             final Item childItem = (Item) getChild(groupPosition, childPosition);
 
