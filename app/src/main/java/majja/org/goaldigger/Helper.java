@@ -110,7 +110,7 @@ public class Helper {
         LayoutInflater progressInflater = LayoutInflater.from(context);
         View progressView = progressInflater.inflate(R.layout.progress_layout, null);
 
-        spinner = (ProgressBar)progressView.findViewById(R.id.progressBar1);
+        spinner = (ProgressBar)progressView.findViewById(R.id.loadingProgressBar);
         spinner.setVisibility(View.VISIBLE);
     }
 
