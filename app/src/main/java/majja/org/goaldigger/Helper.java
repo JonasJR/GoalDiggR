@@ -107,13 +107,12 @@ public class Helper {
         Log.d(DEBUG_TAG, message);
     }
 
-    public static void showProgress(Context context){
+    public static void newProgress(Context context){
         progress = new ProgressDialog(context);
 
         progress.setMessage("Loading...");
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.setIndeterminate(true);
-        progress.show();
 
         final int totalProgressTime = 100;
 
@@ -129,7 +128,6 @@ public class Helper {
                         progress.setProgress(jumpTime);
                         sleep(200);
                     } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
 
@@ -138,7 +136,10 @@ public class Helper {
             }
         };
         t.start();
+    }
 
+    public static void showProgress(){
+        progress.show();
     }
 
 
