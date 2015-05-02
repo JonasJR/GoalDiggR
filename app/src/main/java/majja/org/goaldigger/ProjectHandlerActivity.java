@@ -59,6 +59,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         });
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        Helper.hideProgress();
+    }
+
     private void addProjectButton() {
         Button addProjectButton = (Button) findViewById(R.id.addProjectButton);
         addProjectButton.setOnClickListener(new View.OnClickListener() {

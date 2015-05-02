@@ -1,6 +1,7 @@
 package majja.org.goaldigger;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
@@ -20,7 +21,7 @@ public class Helper {
 
     private static final String DEBUG_TAG = "Goaldigger";
     private static String str = null;
-    private static ProgressBar spinner;
+    private static ProgressDialog progress;
 
     /**
      * Method to show a toast
@@ -106,15 +107,44 @@ public class Helper {
         Log.d(DEBUG_TAG, message);
     }
 
-    public static void showProgress(Context context){
-        LayoutInflater progressInflater = LayoutInflater.from(context);
-        View progressView = progressInflater.inflate(R.layout.progress_layout, null);
+    public static void newProgress(Context context){
+        progress = new ProgressDialog(context);
 
-        spinner = (ProgressBar)progressView.findViewById(R.id.progressBar1);
-        spinner.setVisibility(View.VISIBLE);
+        progress.setMessage("Loading...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+
+        final int totalProgressTime = 100;
+
+        final Thread t = new Thread(){
+
+            @Override
+            public void run(){
+
+                int jumpTime = 0;
+                while(jumpTime < totalProgressTime){
+                    try {
+                        jumpTime += 5;
+                        progress.setProgress(jumpTime);
+                        sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+        };
+        t.start();
     }
 
+    public static void showProgress(){
+        progress.show();
+    }
+
+
+
     public static void hideProgress(){
-        spinner.setVisibility(View.GONE);
+        progress.hide();
     }
 }

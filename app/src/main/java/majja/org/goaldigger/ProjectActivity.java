@@ -35,7 +35,8 @@ public class ProjectActivity extends ActionBarActivity {
                 Helper.popup(new PromptRunnable(){
                     @Override
                 public void run(){
-                        Milestone.create(this.getValue(),project.id(), user);
+                        //Milestone newMilestone = Milestone.create(this.getValue(),project.id(), user);
+                        //project.milestones().add(newMilestone);
                         updateList();
                     }
                 }, context, "name of milestone");
@@ -63,7 +64,9 @@ public class ProjectActivity extends ActionBarActivity {
                         @Override
                         public void run() {
                             Milestone.delete(headerMilestone.id(), user);
+                            project.milestones().remove(headerMilestone);
                             Helper.toast(headerMilestone.name() + " removed from milestones", context);
+                            updateList();
                         }
                     }, context, headerMilestone.name());
                     //do your per-group callback here
