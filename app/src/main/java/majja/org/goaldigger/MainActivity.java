@@ -72,13 +72,16 @@ public class MainActivity extends ActionBarActivity {
         email = loginText.getText().toString();
         password = passwordText.getText().toString();
 
+        Helper.newProgress(this);
+        Helper.showProgress();
         if (loginModel.login(email, password)) {
             Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
+            Helper.hideProgress();
             startActivity(intent);
         }
         else {
-            Helper.toast("Invalid email or password", this);
             Helper.hideProgress();
+            Helper.toast("Invalid email or password", this);
         }
     }
 

@@ -60,8 +60,8 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 Helper.popup(new PromptRunnable(){
                     @Override
                     public void run(){
-                        //Item newItem = Item.create(this.getValue(), headerMilestone.id(), User.getInstance());
-                        //headerMilestone.items().add(newItem);
+                        Item newItem = Item.create(this.getValue(), headerMilestone.id(), User.getInstance());
+                        headerMilestone.items().add(newItem);
                         notifyDataSetChanged();
                     }
                 }, context, "name of Item");
