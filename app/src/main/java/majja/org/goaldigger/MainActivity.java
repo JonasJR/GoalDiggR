@@ -13,9 +13,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
-    Context context;
-    public static EditText loginText;
-    public static EditText passwordText;
+    private static Context context;
+    private static EditText loginText;
+    private static EditText passwordText;
 
     TextView forgotPasswordButton;
     Button send,cancel;
@@ -27,6 +27,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         context = MainActivity.this;
+        Helper.newProgress(context);
 
         newUser();
         forgotPass();
@@ -37,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-                        Helper.showProgress(context);
+                        Helper.showProgress();
                         checkLogin(v);
                     }
                 }

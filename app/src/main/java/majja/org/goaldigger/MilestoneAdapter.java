@@ -60,7 +60,9 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 Helper.popup(new PromptRunnable(){
                     @Override
                     public void run(){
-                        Item.create(this.getValue(), headerMilestone.id(), User.getInstance());
+                        //Item newItem = Item.create(this.getValue(), headerMilestone.id(), User.getInstance());
+                        //headerMilestone.items().add(newItem);
+                        notifyDataSetChanged();
                     }
                 }, context, "name of Item");
             }
@@ -108,6 +110,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 public void onClick(View v) {
                     childItem.toggleDone();
                     Item.toggle(childItem.id(), User.getInstance());
+                    notifyDataSetChanged();
                 }
             });
 
@@ -120,6 +123,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                                 public void run() {
                                    Item.delete(childItem.id(), User.getInstance());
                                    Helper.toast(childItem.name() + " removed from items", context);
+                                    notifyDataSetChanged();
                                 }
                             }, context, childItem.name());
                             return true;
