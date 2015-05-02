@@ -26,6 +26,7 @@ public class ProjectActivity extends ActionBarActivity {
         setContentView(R.layout.activity_project);
         context = ProjectActivity.this;
         user = User.getInstance();
+        project = (Project)getIntent().getExtras().getSerializable("project");
 
         updateList();
 
@@ -35,8 +36,8 @@ public class ProjectActivity extends ActionBarActivity {
                 Helper.popup(new PromptRunnable(){
                     @Override
                 public void run(){
-                        //Milestone newMilestone = Milestone.create(this.getValue(),project.id(), user);
-                        //project.milestones().add(newMilestone);
+                        Milestone newMilestone = Milestone.create(this.getValue(),project.id(), user);
+                        project.milestones().add(newMilestone);
                         updateList();
                     }
                 }, context, "name of milestone");
@@ -47,7 +48,6 @@ public class ProjectActivity extends ActionBarActivity {
 
     private void updateList() {
         projectListView = (ExpandableListView) findViewById(R.id.projectListView);
-        project = (Project)getIntent().getExtras().getSerializable("project");
 
         final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);

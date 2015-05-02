@@ -12,32 +12,31 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by xeronic on 2015-04-24.
- */
 public class MilestoneAdapter extends BaseExpandableListAdapter {
 
+    private Milestone[] resource;
     private Context context;
     private HashMap<Milestone, List<Item>> hashMap;
     private List<Milestone> listDataHeader;
+
     public MilestoneAdapter(Context context, Milestone[] resource) {
         this.context = context;
-        hashMap = createHashMap(resource);
+        this.resource = resource;
+        hashMap = createHashMap(this.resource);
     }
 
     public HashMap<Milestone, List<Item>> createHashMap(Milestone[] resource){
-        HashMap<Milestone, List<Item>> newHashMap = new HashMap<Milestone, List<Item>>();
-        listDataHeader = new ArrayList<Milestone>();
+        HashMap<Milestone, List<Item>> newHashMap = new HashMap<>();
+        listDataHeader = new ArrayList<>();
         int i = 0;
         for (Milestone milestone : resource){
             listDataHeader.add(milestone);
-            List<Item> temp = new ArrayList<Item>();
-            for(Item item : milestone.getItems()){
-                temp.add(item);
-            }
+            List<Item> temp = new ArrayList<>();
+            Collections.addAll(temp, milestone.getItems());
             newHashMap.put(listDataHeader.get(i), temp);
             i++;
         }
@@ -45,7 +44,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final Milestone headerMilestone = (Milestone) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -61,7 +60,8 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                     @Override
                     public void run(){
                         Item newItem = Item.create(this.getValue(), headerMilestone.id(), User.getInstance());
-                        headerMilestone.items().add(newItem);
+                        resource[groupPosition].items().add(newItem);
+                        hashMap = createHashMap(resource);
                         notifyDataSetChanged();
                     }
                 }, context, "name of Item");
@@ -89,7 +89,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(final int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
 
             final Item childItem = (Item) getChild(groupPosition, childPosition);
 
@@ -123,6 +123,8 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                                 public void run() {
                                    Item.delete(childItem.id(), User.getInstance());
                                    Helper.toast(childItem.name() + " removed from items", context);
+                                    resource[groupPosition].items().remove(childPosition);
+                                    hashMap = createHashMap(resource);
                                     notifyDataSetChanged();
                                 }
                             }, context, childItem.name());

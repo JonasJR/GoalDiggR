@@ -1,5 +1,8 @@
 package majja.org.goaldigger;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +21,21 @@ public class Milestone implements Serializable {
         this.id = id;
     }
 
-    public static void create(String name, int projectID, User user) {
+    public static Milestone create(String name, int projectID, User user) {
         DB db = DB.getInstance();
         db.createMilestone(name, projectID, user.email(), user.password());
-        db.getReturnData();
+        String data = db.getReturnData();
+
+        Milestone milestone = null;
+
+        try {
+            JSONObject jo = new JSONObject(data);
+            milestone = new Milestone(jo.getInt("milestone_id"), jo.getString("milestone_name"));
+        } catch (JSONException e) {
+            Helper.pelle("Couldn't create milestone from json" + e.getMessage());
+        }
+
+        return milestone;
     }
 
     public static void delete (int id, User user) {
