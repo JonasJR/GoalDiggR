@@ -69,7 +69,6 @@ public class ProjectActivity extends ActionBarActivity {
                             updateList();
                         }
                     }, context, headerMilestone.name());
-                    //do your per-group callback here
                     return true;
                 }
 

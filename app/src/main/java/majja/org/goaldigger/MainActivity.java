@@ -25,7 +25,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         context = MainActivity.this;
-        Helper.newProgress(context);
 
         newUser();
         forgotPass();
@@ -36,8 +35,7 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-                        Helper.showProgress();
-                        checkLogin(v);
+                        checkLogin();
                     }
                 }
         );
@@ -63,24 +61,21 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public void checkLogin(View v) {
-        String email, password;
-        LoginModel loginModel = new LoginModel();
+    public void checkLogin(){
 
-        email = loginText.getText().toString();
-        password = passwordText.getText().toString();
+            String email, password;
+            LoginModel loginModel = new LoginModel();
 
-        Helper.newProgress(this);
-        Helper.showProgress();
-        if (loginModel.login(email, password)) {
-            Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-            Helper.hideProgress();
-            startActivity(intent);
-        }
-        else {
-            Helper.hideProgress();
-            Helper.toast("Invalid email or password", this);
-        }
+            email = loginText.getText().toString();
+            password = passwordText.getText().toString();
+
+            if (loginModel.login(email, password)) {
+                Intent intent = new Intent(context, ProjectHandlerActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Helper.toast("Invalid email or password", context);
+            }
     }
 
     private void newUser(){
