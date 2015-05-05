@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
                                                         Helper.popup(new PromptRunnable() {
                                                             public void run() {
                                                                 Helper.toast("Mail sent", context);
-                                                                DB.getInstance().resetPassword(this.getValue());
+                                                                DB.getInstance().resetPassword(this.getValue().trim());
                                                             }
                                                         }, context, "email");
 

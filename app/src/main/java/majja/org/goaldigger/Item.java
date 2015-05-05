@@ -8,13 +8,13 @@ import java.io.Serializable;
 public class Item implements Serializable{
     private int id;
     private String name;
-    private boolean done;
+    private boolean done = false;
     private static DB db = DB.getInstance();
 
     public Item(int id, String name, boolean done) {
         this.name = name;
-        this.done = done;
         this.id = id;
+        this.done = done;
     }
 
     public String name() {
