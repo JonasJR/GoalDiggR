@@ -18,19 +18,27 @@
         android:layout_height="wrap_content"
         android:text="@string/addProjectString"
         android:id="@+id/addProjectButton"
+        android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
+        style="@style/AppTheme"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#FFF3CF29" />
+        android:background="@drawable/coolbutton"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Friend"
+        android:text="add friend"
         android:id="@+id/addFriendButton"
+        android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
+        style="@style/AppTheme"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#FFF3CF29" />
+        android:background="@drawable/coolbutton"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp" />
 
 </RelativeLayout>
