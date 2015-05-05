@@ -164,10 +164,11 @@ public class DB implements Serializable {
         action("delete_project");
     }
 
-    public void deleteMilestone(int id, String email, String password ){
+    public void deleteMilestone(int id, int projectId, String email, String password ){
         jsonObject = new JSONObject();
         try {
             jsonObject.put("milestone_id", id);
+            jsonObject.put("project_id", projectId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
         } catch (JSONException e) {
