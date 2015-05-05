@@ -71,7 +71,7 @@ public class DB implements Serializable {
             jsonObj.put("password", password);
         } catch (JSONException e ) {}
 
-        new Networking(urlFor("projects"), jsonObj).execute();
+        action("projects");
     }
 
     public void createUser(String username, String email, String password, String passwordConfirmation) {
@@ -83,7 +83,7 @@ public class DB implements Serializable {
             jsonObj.put("password_confirmation", passwordConfirmation);
         } catch (JSONException e ) {}
 
-        new Networking(urlFor("signup"), jsonObj).execute();
+        action("signup");
     }
 
     public void createFriend(String userEmail, String friendEmail) {
@@ -93,7 +93,7 @@ public class DB implements Serializable {
             jsonObj.put("friend_email", friendEmail);
         } catch (JSONException e ) {}
 
-        new Networking(urlFor("create_friend"), jsonObj).execute();
+        action("create_friend");
     }
 
     public void searchFriend(String searchPhrase) {
@@ -102,7 +102,7 @@ public class DB implements Serializable {
             jsonObj.put("search_phrase", searchPhrase);
         } catch (JSONException e ) {}
 
-        new Networking(urlFor("search_friends"), jsonObj).execute();
+        action("search_friends");
     }
 
     public void getJSON(String url, JSONObject jsonObj) {
@@ -148,7 +148,7 @@ public class DB implements Serializable {
             jsonObj.put("password", password);
         } catch (JSONException e ) {}
 
-        new Networking(urlFor("add_project"), jsonObj).execute();
+       action("add_project");
     }
 
     public void deleteProject(int id, String email, String password){
@@ -161,7 +161,7 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't delete project" + e.getMessage());
         }
 
-        new Networking(urlFor("delete_project"), jsonObject).execute();
+        action("delete_project");
     }
 
     public void deleteMilestone(int id, String email, String password ){
@@ -174,7 +174,7 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't delete milestone" + e.getMessage());
         }
 
-        new Networking(urlFor("delete_milestone"), jsonObject).execute();
+        action("delete_milestone");
     }
 
     public void deleteItem(int id, String email, String password) {
@@ -187,7 +187,7 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't delete item" + e.getMessage());
         }
 
-        new Networking(urlFor("delete_item"), jsonObject).execute();
+        action("delete_item");
     }
 
     public void toggleItem(int itemId, String email, String password){
@@ -200,7 +200,7 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't toggle item: " + e.getMessage());
         }
 
-        new Networking(urlFor("toggle_item"), jsonObject).execute();
+        action("toggle_item");
     }
 
     public void createMilestone(String milestoneName, int projectID, String email, String password) {
@@ -214,7 +214,7 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't create milestone: " + e.getMessage());
         }
 
-        new Networking(urlFor("create_milestone"), jsonObject).execute();
+        action("create_milestone");
     }
 
     public void createItem(String itemName, int milestoneId, String email, String password) {
@@ -228,7 +228,7 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't create item: " + e.getMessage());
         }
 
-        new Networking(urlFor("create_item"), jsonObject).execute();
+        action("create_item");
     }
 
     public void resetPassword(String email) {
@@ -239,7 +239,7 @@ public class DB implements Serializable {
             Helper.pelle("Couldn't reset password: " + e.getMessage());
         }
 
-        new Networking(urlFor("reset_password"), jsonObject).execute();
+        action("reset_password");
     }
 
     public void changePassword(String newPassword, String oldPassword) {
