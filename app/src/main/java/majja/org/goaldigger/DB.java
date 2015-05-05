@@ -65,41 +65,41 @@ public class DB implements Serializable {
     }
 
     public void getProjects(String email, String password) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("email", email);
-            jsonObj.put("password", password);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
         } catch (JSONException e ) {}
 
         action("projects");
     }
 
     public void createUser(String username, String email, String password, String passwordConfirmation) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("name", username);
-            jsonObj.put("email", email);
-            jsonObj.put("password", password);
-            jsonObj.put("password_confirmation", passwordConfirmation);
+            jsonObject.put("name", username);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+            jsonObject.put("password_confirmation", passwordConfirmation);
         } catch (JSONException e ) {}
 
         action("signup");
     }
 
     public void createFriend(String userEmail, String friendEmail) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("email", userEmail);
-            jsonObj.put("friend_email", friendEmail);
+            jsonObject.put("email", userEmail);
+            jsonObject.put("friend_email", friendEmail);
         } catch (JSONException e ) {}
 
         action("create_friend");
     }
 
     public void searchFriend(String searchPhrase) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("search_phrase", searchPhrase);
+            jsonObject.put("search_phrase", searchPhrase);
         } catch (JSONException e ) {}
 
         action("search_friends");
@@ -132,7 +132,7 @@ public class DB implements Serializable {
         } catch (IOException e) {
             Helper.pelle("IOException: " + e.getMessage());
         } catch (Exception e) {
-            Helper.pelle("Exception: " + e.getMessage());
+            Helper.pelle("Exception nu: " + e.getMessage());
         }
 
         Helper.pelle("Return mess: " + stringBuffer.toString());
@@ -141,18 +141,18 @@ public class DB implements Serializable {
     }
 
     public void createProject(String name, String email, String password) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("project_name", name);
-            jsonObj.put("email", email);
-            jsonObj.put("password", password);
+            jsonObject.put("project_name", name);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
         } catch (JSONException e ) {}
 
        action("add_project");
     }
 
     public void deleteProject(int id, String email, String password){
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("id", id);
             jsonObject.put("email", email);
@@ -165,7 +165,7 @@ public class DB implements Serializable {
     }
 
     public void deleteMilestone(int id, String email, String password ){
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("milestone_id", id);
             jsonObject.put("email", email);
@@ -178,7 +178,7 @@ public class DB implements Serializable {
     }
 
     public void deleteItem(int id, String email, String password) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("item_id", id);
             jsonObject.put("email", email);
@@ -191,7 +191,7 @@ public class DB implements Serializable {
     }
 
     public void toggleItem(int itemId, String email, String password){
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("item_id", itemId);
             jsonObject.put("email", email);
@@ -204,7 +204,7 @@ public class DB implements Serializable {
     }
 
     public void createMilestone(String milestoneName, int projectID, String email, String password) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("milestone_name", milestoneName);
             jsonObject.put("project_id", projectID);
@@ -218,7 +218,7 @@ public class DB implements Serializable {
     }
 
     public void createItem(String itemName, int milestoneId, String email, String password) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("item_name", itemName);
             jsonObject.put("milestone_id", milestoneId);
@@ -232,7 +232,7 @@ public class DB implements Serializable {
     }
 
     public void resetPassword(String email) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("email", email);
         } catch (JSONException e) {
