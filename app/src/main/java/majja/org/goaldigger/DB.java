@@ -253,7 +253,7 @@ public class DB implements Serializable {
     }
 
     private void action(String action) {
-        new Networking(urlFor(action), jsonObject).execute();
+        new Networking(urlFor(action), jsonObject).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, action);
     }
     private String urlFor(String action) {
         return URL + action + ".json";
