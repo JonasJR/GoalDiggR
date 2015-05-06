@@ -1,7 +1,9 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -45,14 +47,40 @@ public class ProjectActivity extends ActionBarActivity {
                 Helper.popup(new PromptRunnable(){
                     @Override
                 public void run(){
-                        Milestone newMilestone = Milestone.create(this.getValue(),project.id(), user);
-                        project.milestones().add(newMilestone);
-                        updateList();
+                        new AddMile(this.getValue()).execute();
                     }
                 }, context, "name of milestone");
             }
         });
 
+    }
+    private class AddMile extends AsyncTask{
+
+        private String value;
+        private ProgressDialog pd;
+        public AddMile(String value){
+            this.value = value;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Loading...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            Milestone newMilestone = Milestone.create(value,project.id(), user);
+            project.milestones().add(newMilestone);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            updateList();
+            pd.dismiss();
+        }
     }
 
     private void updateList() {
@@ -72,10 +100,7 @@ public class ProjectActivity extends ActionBarActivity {
                     Helper.delete(new PromptRunnable(){
                         @Override
                         public void run() {
-                            Milestone.delete(headerMilestone.id(), project.id(), user);
-                            project.milestones().remove(headerMilestone);
-                            Helper.toast(headerMilestone.name() + " removed from milestones", context);
-                            updateList();
+                            new RemoveMile(headerMilestone).execute();
                         }
                     }, context, headerMilestone.name());
                     return true;
@@ -84,6 +109,36 @@ public class ProjectActivity extends ActionBarActivity {
                 return false;
             }
         });
+    }
+    public class RemoveMile extends AsyncTask{
+
+        private Milestone headerMilestone;
+        private ProgressDialog pd;
+
+        public RemoveMile(Milestone milestone){
+            this.headerMilestone = milestone;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context, "", "Loading...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            Milestone.delete(headerMilestone.id(), project.id(), user);
+            project.milestones().remove(headerMilestone);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            Helper.toast(headerMilestone.name() + " removed from milestones", context);
+            updateList();
+            pd.dismiss();
+        }
     }
 
     @Override
