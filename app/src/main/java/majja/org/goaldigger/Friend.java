@@ -43,16 +43,15 @@ public class Friend implements Serializable{
         db.getReturnData();
     }
 
-    public static Friend[]  search(String searchPhrase){
-
+    public static Friend[]  search(User user, String searchPhrase){
+        
         DB db = DB.getInstance();
         JSONArray ja = null;
 
-        db.searchFriend(searchPhrase);
+        db.searchFriend(user.email(), user.password(), searchPhrase);
 
         try {
             ja = new JSONArray(db.getReturnData());
-            Helper.pelle(ja.toString());
         } catch (JSONException e) {
             Helper.pelle("Error making jsonarray from returndata: " + e.getMessage());
         }

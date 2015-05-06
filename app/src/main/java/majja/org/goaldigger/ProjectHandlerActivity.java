@@ -54,7 +54,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             public void onClick(View v){
                 Intent intent = new Intent(v.getContext(), FriendListActivity.class);
                 startActivityForResult(intent, 0);
-                Toast.makeText(ProjectHandlerActivity.this, "Sends user tooooo the list of Friends", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProjectHandlerActivity.this, "Friendlist", Toast.LENGTH_SHORT).show();
             }
         });
     }

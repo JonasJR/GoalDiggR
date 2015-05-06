@@ -1,5 +1,7 @@
 package majja.org.goaldigger;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -18,6 +20,36 @@ public class User implements Serializable{
         this.password = password;
         this.username = username;
     }
+
+    public Friend[] getFriends() {
+        DB db = DB.getInstance();
+        JSONArray ja = null;
+
+        db.showFriends(email, password);
+
+        try {
+            ja = new JSONArray(db.getReturnData());
+        } catch (JSONException e) {
+            Helper.pelle("Error making jsonarray from returndata: " + e.getMessage());
+        }
+
+        Friend[] friends= null;
+
+        if(ja != null) {
+            JSONObject jo;
+
+            friends = new Friend[ja.length()];
+            for (int i = 0; i < ja.length(); i++) {
+                try {
+                    jo = ja.getJSONObject(i);
+                    friends[i] = new Friend(jo.getString("name"), jo.getString("email"));
+                } catch (JSONException e){}
+
+            }
+        }
+        return friends;
+    }
+
 
     public static void create(String username, String email, String password) {
         User.user = new User(username, email, password);
