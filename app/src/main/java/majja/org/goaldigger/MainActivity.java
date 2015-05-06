@@ -26,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         context = MainActivity.this;
+        Helper.newProgress(context);
 
         newUser();
         forgotPass();
@@ -36,6 +37,7 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
+                        Helper.showProgress();
                         new checkLogin(loginText.getText().toString(),passwordText.getText().toString()).execute();
                     }
                 }
