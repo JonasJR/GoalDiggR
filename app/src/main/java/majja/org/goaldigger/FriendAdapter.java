@@ -1,5 +1,6 @@
 package majja.org.goaldigger;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +14,17 @@ import android.widget.TextView;
 
 class FriendAdapter extends ArrayAdapter<Friend> {
 
+    private Activity activity;
     private String newFriend;
     private Friend[] friends;
     public static EditText userTextField;
     public static ListView listView;
 
 
-    FriendAdapter(Context context, Friend[] friends) {
+    FriendAdapter(Activity context, Friend[] friends) {
         super(context, R.layout.custom_friend, friends);
         this.friends = friends;
+        this.activity = context;
     }
 
     FriendAdapter(Context context, Friend[] friends, String newFriend) {
@@ -49,6 +52,7 @@ class FriendAdapter extends ArrayAdapter<Friend> {
                         @Override
                         public void onClick(View v) {
                             Friend.add(User.getInstance(), friend.getEmail());
+                            ((FriendListActivity) activity).fetch();
                         }
                     }
             );
