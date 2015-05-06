@@ -18,7 +18,7 @@
     <string name="addMilestoneString">+ milestone</string>
     <string name="addItemButtonString">+ item</string>
     <string name="shareButtonString">share!</string>
-    <string name="addFriendString">add friend</string>
+    <string name="addFriendString">+ friend</string>
     <string name="title_activity_friend_list">FriendListActivity</string>
     <string name="newUserString"><u>create new user</u></string>
     <string name="title_activity_create_user">createUser</string>
