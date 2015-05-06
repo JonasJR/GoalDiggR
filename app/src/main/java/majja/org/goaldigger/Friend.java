@@ -43,7 +43,7 @@ public class Friend implements Serializable{
         db.getReturnData();
     }
 
-    public static Friend[]  search(User user, String searchPhrase){
+    public static Friend[] search(User user, String searchPhrase){
         
         DB db = DB.getInstance();
         JSONArray ja = null;
