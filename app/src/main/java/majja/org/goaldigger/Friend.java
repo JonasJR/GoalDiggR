@@ -39,7 +39,7 @@ public class Friend implements Serializable{
 
     public static void add(User user, String friendEmail){
         DB db = DB.getInstance();
-        db.createFriend(user.email(), friendEmail);
+        db.createFriend(friendEmail, user.email(), user.password());
         db.getReturnData();
     }
 

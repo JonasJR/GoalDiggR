@@ -26,7 +26,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add"
+        android:text="+"
         android:id="@+id/friendAddButton"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
@@ -34,7 +34,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:background="@drawable/coolbutton"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp" />
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:layout_alignBottom="@+id/friendEmail" />
 
 </RelativeLayout>
