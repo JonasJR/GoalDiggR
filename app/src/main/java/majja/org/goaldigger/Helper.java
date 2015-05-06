@@ -26,6 +26,7 @@ public class Helper {
 
     /**
      * Method to show a toast
+     *
      * @param message
      * @param context
      */
@@ -39,7 +40,7 @@ public class Helper {
         });
     }
 
-    public static void popup(final PromptRunnable postrun, final Context context, String hint){
+    public static void popup(final PromptRunnable postrun, final Context context, String hint) {
         LayoutInflater li = LayoutInflater.from(context);
         View promptView = li.inflate(R.layout.prompt, null);
 
@@ -53,7 +54,7 @@ public class Helper {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         str = userInput.getText().toString();
-                        if (str.equals("")){
+                        if (str.equals("")) {
                             Helper.toast("You must enter a name", context);
                             return;
                         }
@@ -73,7 +74,7 @@ public class Helper {
         alertDialog.show();
     }
 
-    public static void delete(final PromptRunnable postrun, Context context, String name){
+    public static void delete(final PromptRunnable postrun, Context context, String name) {
         str = name;
         LayoutInflater li = LayoutInflater.from(context);
         View promptView = li.inflate(R.layout.prompt, null);
@@ -86,14 +87,14 @@ public class Helper {
         txtView.setEnabled(false);
 
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
-                new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         postrun.setValue(str);
                         postrun.run();
                         return;
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 str = null;
                 dialog.cancel();
                 return;
@@ -106,50 +107,10 @@ public class Helper {
 
     /**
      * Method used for debugging messages.
+     *
      * @param message
      */
     public static void pelle(String message) {
         Log.d(DEBUG_TAG, message);
-    }
-
-    public static void newProgress(Context context){
-        progress = new ProgressDialog(context);
-
-        progress.setMessage("Loading...");
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progress.setIndeterminate(true);
-
-        final int totalProgressTime = 100;
-
-        final Thread t = new Thread(){
-
-            @Override
-            public void run(){
-
-                int jumpTime = 0;
-                while(jumpTime < totalProgressTime){
-                    try {
-                        jumpTime += 5;
-                        progress.setProgress(jumpTime);
-                        sleep(200);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
-        };
-        t.start();
-    }
-
-    public static void showProgress(){
-        progress.show();
-    }
-
-
-
-    public static void hideProgress(){
-        progress.hide();
     }
 }

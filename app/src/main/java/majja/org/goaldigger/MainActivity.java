@@ -1,5 +1,6 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -26,7 +27,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         context = MainActivity.this;
-        Helper.newProgress(context);
 
         newUser();
         forgotPass();
@@ -37,7 +37,6 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-                        Helper.showProgress();
                         new checkLogin(loginText.getText().toString(),passwordText.getText().toString()).execute();
                     }
                 }
@@ -67,10 +66,18 @@ public class MainActivity extends ActionBarActivity {
     public class checkLogin extends AsyncTask<Void, Void, Boolean> {
 
         String email, password;
+        ProgressDialog pd;
         public checkLogin(String email, String password){
             this.email = email;
             this.password = password;
         }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Loading...");
+        }
+
         @Override
         protected Boolean doInBackground(Void... params) {
             LoginModel loginModel = new LoginModel();
@@ -91,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
             }else {
                 Helper.toast("Invalid email or password", MainActivity.this);
             }
-            Helper.hideProgress();
+            pd.dismiss();
         }
     }
 
