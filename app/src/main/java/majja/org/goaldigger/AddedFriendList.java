@@ -18,7 +18,7 @@ public class AddedFriendList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_friend_list);
 
-        ListAdapter friendAdapter = new AddedFriendAdapter(this, Friend.getFriends());
+        ListAdapter friendAdapter = new AddedFriendAdapter(this, User.getInstance().getFriends());
         ListView friendListView = (ListView)findViewById(R.id.addedFriendsListView);
         friendListView.setAdapter(friendAdapter);
 
