@@ -86,14 +86,25 @@ public class DB implements Serializable {
         action("signup");
     }
 
-    public void createFriend(String userEmail, String friendEmail) {
+    public void createFriend(String friendEmail, String userEmail, String password) {
         jsonObject = new JSONObject();
         try {
-            jsonObject.put("email", userEmail);
             jsonObject.put("friend_email", friendEmail);
+            jsonObject.put("email", userEmail);
+            jsonObject.put("password", password);
         } catch (JSONException e ) {Helper.pelle("Create friend: " + e.getMessage());}
 
         action("create_friend");
+    }
+
+    public void showFriends(String userEmail, String password) {
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("email", userEmail);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Couldn't fetch friendlist: " + e.getMessage());}
+
+        action("show_friends");
     }
 
     public void searchFriend(String searchPhrase) {
