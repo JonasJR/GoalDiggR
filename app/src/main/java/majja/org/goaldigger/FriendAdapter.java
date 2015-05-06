@@ -40,8 +40,7 @@ class FriendAdapter extends ArrayAdapter<Friend> {
         TextView friendName = (TextView) customView.findViewById(R.id.friendName);
         TextView friendEmail = (TextView) customView.findViewById(R.id.friendEmail);
 
-        ImageButton addFriend = (ImageButton) customView.findViewById(R.id.friendAddButton);
-        
+        final ImageButton addFriend = (ImageButton) customView.findViewById(R.id.friendAddButton);
         if(friend.getEmail() == null){
             addFriend.setVisibility(View.INVISIBLE);
         }else {

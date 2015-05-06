@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/addedFriendsListView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false" />
+        android:layout_alignParentStart="false"
+        android:layout_above="@+id/shareWithFriendsButton" />
 
     <Button
         android:layout_width="fill_parent"
