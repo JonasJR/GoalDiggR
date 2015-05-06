@@ -36,7 +36,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fetchAndUpdateList();
+        new Fetch().execute();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
         this.context = ProjectHandlerActivity.this;
 
-        fetchAndUpdateList();
+        new Fetch().execute();
 
         addProjectButton();
 
@@ -74,7 +74,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     public void run() {
                         Project.create(user, this.getValue());
                         Helper.toast(this.getValue() + " added to projects", context);
-                        fetchAndUpdateList();
+                        new Fetch().execute();
                     }
                 }, context, "project name");
             }
@@ -120,12 +120,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            fetchAndUpdateList();
             pd.dismiss();
         }
     }
 
     private void fetchAndUpdateList() {
-        new Fetch().execute();
 
         if (projects == null ){
             projects = new Project[1];
@@ -157,7 +157,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                             public void run() {
                                 Project.delete(projects[position].id(), user);
                                 Helper.toast(this.getValue() + " removed from projects", context);
-                                fetchAndUpdateList();
+                                new Fetch().execute();
                             }
                         }, context, projects[position].name());
                         return true;
