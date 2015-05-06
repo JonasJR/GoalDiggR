@@ -9,11 +9,10 @@
         android:allowBackup="true"
         android:icon="@drawable/logo2"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,6 +34,10 @@
         <activity
             android:name=".CreateAUserAcitivity"
             android:label="@string/title_activity_create_user" >
+        </activity>
+        <activity
+            android:name=".AddedFriendList"
+            android:label="@string/title_activity_added_friend_list" >
         </activity>
     </application>
 
