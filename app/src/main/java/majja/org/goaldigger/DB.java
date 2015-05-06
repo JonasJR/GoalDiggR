@@ -1,5 +1,6 @@
 package majja.org.goaldigger;
 
+import android.app.Application;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -252,7 +253,7 @@ public class DB implements Serializable {
     }
 
     private void action(String action) {
-        new Networking(urlFor(action), jsonObject).execute();
+        new Networking(urlFor(action), jsonObject).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
     private String urlFor(String action) {
         return URL + action + ".json";

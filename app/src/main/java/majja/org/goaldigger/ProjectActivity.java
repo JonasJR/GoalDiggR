@@ -1,6 +1,7 @@
 package majja.org.goaldigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -19,6 +20,7 @@ public class ProjectActivity extends ActionBarActivity {
     private Button addMilestone;
     private Context context;
     private User user;
+    private Button shareButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,14 @@ public class ProjectActivity extends ActionBarActivity {
         project = (Project)getIntent().getExtras().getSerializable("project");
 
         updateList();
-
+        shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
+        shareButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(context, AddedFriendList.class);
+                intent.putExtra("project", project);
+                startActivity(intent);
+            }
+        });
         addMilestone = (Button) findViewById(R.id.addMileStoneButton);
         addMilestone.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
