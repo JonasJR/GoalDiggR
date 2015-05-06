@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,11 +40,11 @@ class FriendAdapter extends ArrayAdapter<Friend> {
         TextView friendName = (TextView) customView.findViewById(R.id.friendName);
         TextView friendEmail = (TextView) customView.findViewById(R.id.friendEmail);
 
+        ImageButton addFriend = (ImageButton) customView.findViewById(R.id.friendAddButton);
+        
         if(friend.getEmail() == null){
-            Button addFriend = (Button) customView.findViewById(R.id.friendAddButton);
             addFriend.setVisibility(View.INVISIBLE);
         }else {
-            Button addFriend = (Button) customView.findViewById(R.id.friendAddButton);
             addFriend.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
