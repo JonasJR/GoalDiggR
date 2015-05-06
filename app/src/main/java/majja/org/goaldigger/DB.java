@@ -34,7 +34,8 @@ public class DB implements Serializable {
     private DB() {}
     public static DB getInstance() {
         if (db == null) {
-            return new DB();
+            db = new DB();
+            return db;
         }
         else
         {
