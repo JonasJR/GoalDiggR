@@ -1,7 +1,9 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -101,8 +103,29 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private class Fetch extends AsyncTask{
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Loading...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            projects = Project.all(User.getInstance());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            pd.dismiss();
+        }
+    }
+
     private void fetchAndUpdateList() {
-        projects = Project.all(User.getInstance());
+        new Fetch().execute();
 
         if (projects == null ){
             projects = new Project[1];
