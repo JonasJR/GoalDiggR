@@ -25,7 +25,7 @@ public class FriendListActivity extends ActionBarActivity {
         searchFriend.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v) {
                String temp = userField.getText().toString();
-                friends = Friend.search(temp);
+                friends = Friend.search(User.getInstance(), temp);
                 updateFriendsList();
             }
         });

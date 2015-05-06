@@ -96,9 +96,11 @@ public class DB implements Serializable {
         action("create_friend");
     }
 
-    public void searchFriend(String searchPhrase) {
+    public void searchFriend(String email, String password, String searchPhrase) {
         jsonObject = new JSONObject();
         try {
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
             jsonObject.put("search_phrase", searchPhrase);
         } catch (JSONException e ) { Helper.pelle("search friends: " + e.getMessage()); }
 
