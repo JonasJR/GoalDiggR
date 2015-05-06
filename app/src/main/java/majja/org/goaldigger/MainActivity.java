@@ -2,6 +2,7 @@ package majja.org.goaldigger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -35,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-                        checkLogin();
+                        new checkLogin(loginText.getText().toString(),passwordText.getText().toString()).execute();
                     }
                 }
         );
@@ -61,22 +62,37 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    public void checkLogin(){
+    public class checkLogin extends AsyncTask<Void, Void, Boolean> {
 
-            String email, password;
+        String email, password;
+        public checkLogin(String email, String password){
+            this.email = email;
+            this.password = password;
+        }
+        @Override
+        protected Boolean doInBackground(Void... params) {
             LoginModel loginModel = new LoginModel();
 
-            email = loginText.getText().toString();
-            password = passwordText.getText().toString();
-
             if (loginModel.login(email, password)) {
-                Intent intent = new Intent(context, ProjectHandlerActivity.class);
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if(success){
+                finish();
+                Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
                 startActivity(intent);
+            }else {
+                Helper.toast("Invalid email or password", MainActivity.this);
             }
-            else {
-                Helper.toast("Invalid email or password", context);
-            }
+            Helper.hideProgress();
+        }
     }
+
 
     private void newUser(){
         final TextView newUserTextview = (TextView) findViewById(R.id.clickableTextCreate);
