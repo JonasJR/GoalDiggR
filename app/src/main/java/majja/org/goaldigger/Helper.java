@@ -39,7 +39,7 @@ public class Helper {
         });
     }
 
-    public static void popup(final PromptRunnable postrun, Context context, String hint){
+    public static void popup(final PromptRunnable postrun, final Context context, String hint){
         LayoutInflater li = LayoutInflater.from(context);
         View promptView = li.inflate(R.layout.prompt, null);
 
@@ -50,15 +50,19 @@ public class Helper {
         userInput.setHint(hint);
 
         alertDialogBuilder.setCancelable(false).setPositiveButton("OK",
-                new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id){
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         str = userInput.getText().toString();
+                        if (str.equals("")){
+                            Helper.toast("You must enter a name", context);
+                            return;
+                        }
                         postrun.setValue(str);
                         postrun.run();
                         return;
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int id){
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 str = null;
                 dialog.cancel();
                 return;
