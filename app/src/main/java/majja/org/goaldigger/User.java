@@ -42,7 +42,7 @@ public class User implements Serializable{
             for (int i = 0; i < ja.length(); i++) {
                 try {
                     jo = ja.getJSONObject(i);
-                    friends[i] = new Friend(jo.getString("name"), jo.getString("email"));
+                    friends[i] = new Friend(jo.getString("name"), jo.getString("email"),jo.getInt("friend_id"));
                 } catch (JSONException e){}
 
             }

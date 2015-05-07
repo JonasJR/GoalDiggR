@@ -70,9 +70,14 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Helper.popup(new PromptRunnable() {
                     public void run() {
-                        Project.create(user, this.getValue());
-                        Helper.toast(this.getValue() + " added to projects", context);
-                        fetchAndUpdateList();
+                        if (this.getValue() != null) {
+                            Project.create(user, this.getValue());
+                            Helper.toast(this.getValue() + " added to projects", context);
+                            fetchAndUpdateList();
+                        }
+                        else {
+                            Helper.toast(this.getValue() + "Your project need a valid name!", context);
+                        }
                     }
                 }, context, "project name");
             }

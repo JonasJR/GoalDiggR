@@ -11,10 +11,21 @@ import java.io.Serializable;
  */
 public class Friend implements Serializable{
     private String name, email;
+    private int id;
 
-    public Friend(String name, String email){
+
+    public Friend(String name, String email, int id){
         this.name = name;
         this.email = email;
+        this.id = id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -34,7 +45,7 @@ public class Friend implements Serializable{
     }
 
     public String toString(){
-        return "Name: " + name + " Email: " + email;
+        return "Name: " + name + " Email: " + email + "id" + id;
     }
 
     public static void add(User user, String friendEmail){
@@ -65,7 +76,7 @@ public class Friend implements Serializable{
             for (int i = 0; i < ja.length(); i++) {
                 try {
                     jo = ja.getJSONObject(i);
-                    friends[i] = new Friend(jo.getString("name"), jo.getString("email"));
+                    friends[i] = new Friend(jo.getString("name"), jo.getString("email"), jo.getInt("friend_id"));
                 } catch (JSONException e){}
 
             }

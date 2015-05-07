@@ -1,6 +1,5 @@
 package majja.org.goaldigger;
 
-import android.app.Application;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -175,6 +174,18 @@ public class DB implements Serializable {
         } catch (JSONException e) { Helper.pelle("Couldn't delete project" + e.getMessage());}
 
         action("delete_project");
+    }
+
+    public void shareProject(String name, String email, int id, String members) {
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("project_name", name);
+            jsonObject.put("email", email);
+            jsonObject.put("user_id", id);
+            jsonObject.put("friend_id", members);
+        } catch (JSONException e ) {Helper.pelle("share project: " + e.getMessage());}
+
+        action("share_project");
     }
 
     public void deleteMilestone(int id, int projectId, String email, String password ){

@@ -37,7 +37,7 @@ public class FriendListActivity extends ActionBarActivity {
 
         if(friends == null){
             friends = new Friend[1];
-            friends[0] = new Friend("No matching friends...", null);
+            friends[0] = new Friend("No matching friends...", null, 0);
         }
 
         ListAdapter friendsAdapter = new FriendAdapter(this, friends);

@@ -83,6 +83,12 @@ public class Project implements Serializable{
         db.getReturnData();
     }
 
+    public static void share(int id, User user, String members){
+        DB db = DB.getInstance();
+        db.shareProject(user.email(),user.password(), id, members);
+        db.getReturnData();
+    }
+
 
     public static Project[] all(User user) {
         DB db = DB.getInstance();
