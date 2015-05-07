@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Xeronic on 15-04-15.
@@ -253,7 +254,13 @@ public class DB implements Serializable {
     }
 
     private void action(String action) {
-        new Networking(urlFor(action), jsonObject).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        try {
+            Object obj = new Networking(urlFor(action), jsonObject).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
     private String urlFor(String action) {
         return URL + action + ".json";

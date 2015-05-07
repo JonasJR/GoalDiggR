@@ -58,6 +58,7 @@ public class ProjectActivity extends ActionBarActivity {
 
         private String value;
         private ProgressDialog pd;
+
         public AddMile(String value){
             this.value = value;
         }
@@ -65,7 +66,7 @@ public class ProjectActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = ProgressDialog.show(context,"", "Loading...");
+            pd = ProgressDialog.show(context,"", "Creating Milestone...");
         }
 
         @Override
@@ -110,6 +111,7 @@ public class ProjectActivity extends ActionBarActivity {
             }
         });
     }
+
     public class RemoveMile extends AsyncTask{
 
         private Milestone headerMilestone;
@@ -122,7 +124,7 @@ public class ProjectActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = ProgressDialog.show(context, "", "Loading...");
+            pd = ProgressDialog.show(context, "", "Deleting Milestone...");
         }
 
         @Override

@@ -43,7 +43,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
-        context = getBaseContext();
 
         this.context = ProjectHandlerActivity.this;
 
@@ -108,7 +107,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = ProgressDialog.show(context,"", "Loading...");
+            pd = ProgressDialog.show(context,"", "Retrieving Projects...");
         }
 
         @Override
