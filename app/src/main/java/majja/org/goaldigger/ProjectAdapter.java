@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-class CustomProjectAdapter extends ArrayAdapter<String> {
+class ProjectAdapter extends ArrayAdapter<Project> {
 
 
-    CustomProjectAdapter(Context context, String[] projects) {
+    ProjectAdapter(Context context, Project[] projects) {
         super(context, R.layout.custom_project_row, projects);
     }
 
@@ -20,16 +20,13 @@ class CustomProjectAdapter extends ArrayAdapter<String> {
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_project_row, parent, false);
 
-        String singleProjectItem = getItem(position);
-        String[] separated = singleProjectItem.split(",");
-
         TextView projectName = (TextView) customView.findViewById(R.id.projectName);
         TextView projectPercentage = (TextView) customView.findViewById(R.id.projectPercentage);
         ProgressBar progress = (ProgressBar) customView.findViewById(R.id.progressBar);
 
-        projectName.setText(separated[0]);
-        projectPercentage.setText(separated[1] + "%");
-        progress.setProgress(Integer.parseInt(separated[1]));
+        projectName.setText(getItem(position).name());
+        projectPercentage.setText(getItem(position).percent() + "%");
+        progress.setProgress(getItem(position).percent());
 
         return customView;
     }

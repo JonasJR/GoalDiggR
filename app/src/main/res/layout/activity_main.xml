@@ -12,12 +12,12 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_above="@+id/editText2"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_marginBottom="53dp"
         android:hint="email"
-        android:backgroundTint="#fff3cf29" />
+        android:backgroundTint="#fff3cf29"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -25,57 +25,59 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText2"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="65dp"
         android:hint="password"
-        android:backgroundTint="#FFF3CF29" />
+        android:backgroundTint="#FFF3CF29"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/LoginButton"
         android:id="@+id/loginButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
-        android:background="#FFF3CF29"
-        android:clickable="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/GoalDiggerLabel"
-        android:id="@+id/textView3"
-        android:textColor="#FFF3CF29"
-        android:textSize="30dp"
-        android:layout_marginBottom="52dp"
-        android:layout_above="@+id/editText"
-        android:layout_centerHorizontal="true" />
+        android:background="@drawable/coolbutton"
+        android:clickable="true"
+        android:layout_below="@+id/editText2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_above="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/goaldigger_logom" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/newUserString"
-        android:id="@+id/newUserButton"
+        android:src="@drawable/logo2"
+        android:layout_marginTop="121dp"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:background="#FFF3CF29"
-        android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
-        style="@style/AppTheme"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/forgotPasswordString"
+        android:id="@+id/clickableTextForgot"
+        android:textColor="#ff1329ff"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/newUserString"
+        android:id="@+id/clickableTextCreate"
+        android:clickable="true"
+        android:textColor="#ff1329ff"
+        android:linksClickable="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

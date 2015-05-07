@@ -4,44 +4,42 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="majja.org.goaldigger.ProjectActivity">
+    tools:context="majja.org.goaldigger.ProjectActivity"
+    android:id="@+id/projectLayout">
 
-    <ListView
+    <ExpandableListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mileStoneListView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/addItemButton" />
+        android:layout_height="match_parent"
+        android:id="@+id/projectListView"
+        android:stackFromBottom="false"
+        android:layout_above="@+id/addMileStoneButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addItemButtonString"
-        android:id="@+id/addItemButton"
+        android:text="@string/addMilestoneString"
+        android:id="@+id/addMileStoneButton"
+        android:background="@drawable/coolbutton"
+        android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
+        style="@style/AppTheme"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#FFF3CF29" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addMileStoneButtonString"
-        android:id="@+id/addMileStoneButton"
-        android:layout_alignTop="@+id/shareButton"
-        android:layout_centerHorizontal="true"
-        android:background="#FFF3CF29" />
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/shareButtonString"
-        android:id="@+id/shareButton"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/shareWithFriendsButton"
+        android:background="@drawable/coolbutton"
+        android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
+        style="@style/AppTheme"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_below="@+id/projectListView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#FFF3CF29" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

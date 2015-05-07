@@ -1,60 +1,117 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-        public static EditText login;
-        public static EditText password;
+    private static Context context;
+    private static EditText loginText;
+    private static EditText passwordText;
+
+    TextView forgotPasswordButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = MainActivity.this;
+
         newUser();
-        Button loginButton = (Button)findViewById(R.id.loginButton); //Knappen är knappen
-        login = (EditText) findViewById(R.id.editText);
-        password = (EditText) findViewById(R.id.editText2);
+        forgotPass();
+
+        Button loginButton = (Button)findViewById(R.id.loginButton);
+        loginText = (EditText) findViewById(R.id.editText);
+        passwordText = (EditText) findViewById(R.id.editText2);
         loginButton.setOnClickListener(
-                new Button.OnClickListener(){
+                new View.OnClickListener(){
                     public void onClick(View v){
-                        checkLogin(v);
+                        new checkLogin(loginText.getText().toString(),passwordText.getText().toString()).execute();
                     }
                 }
         );
     }
 
+    private void forgotPass() {
 
-    public void checkLogin(View v){
-        //if(login is correct)
-        if(login.getText().toString().equals("Kalle") && password.getText().toString().equals("blomma")){
-            Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-            startActivityForResult(intent, 0);
-            Toast.makeText(MainActivity.this, "Inlogg: " + login.getText() + "\nLösenord:" + password.getText()
-                    , Toast.LENGTH_SHORT).show();
+
+        forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
+
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
+                                                    public void onClick(View v) {
+                                                        Helper.popup(new PromptRunnable() {
+                                                            public void run() {
+                                                                Helper.toast("Mail sent", context);
+                                                                DB.getInstance().resetPassword(this.getValue().trim());
+                                                            }
+                                                        }, context, "email");
+
+                                                    }
+                                                }
+        );
+
+    }
+
+    public class checkLogin extends AsyncTask<Void, Void, Boolean> {
+
+        String email, password;
+        ProgressDialog pd;
+        public checkLogin(String email, String password){
+            this.email = email;
+            this.password = password;
         }
-       else{
-            Toast.makeText(MainActivity.this, "Fel!" + "\nInlogg:" + login.getText() + "\nLösenord:" + password.getText(), Toast.LENGTH_SHORT).show();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Loading...");
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            LoginModel loginModel = new LoginModel();
+
+            if (loginModel.login(email, password)) {
+                return true;
+            }else {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if(success){
+                finish();
+                Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
+                startActivity(intent);
+            }else {
+                Helper.toast("Invalid email or password", MainActivity.this);
+            }
+            pd.dismiss();
         }
     }
 
-    public void newUser(){
-        Button newUser = (Button) findViewById(R.id.newUserButton);
-        newUser.setOnClickListener(
-                new Button.OnClickListener(){
-                    public void onClick(View v){
-                        Intent intent = new Intent(v.getContext(), createUserAcitivity.class);
-                        startActivityForResult(intent, 0);
-                    }
-                }
-        );
+
+    private void newUser(){
+        final TextView newUserTextview = (TextView) findViewById(R.id.clickableTextCreate);
+        newUserTextview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CreateAUserAcitivity.class);
+                startActivity(intent);
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

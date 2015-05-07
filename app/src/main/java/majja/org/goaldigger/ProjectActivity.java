@@ -1,61 +1,147 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseExpandableListAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupCollapseListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ProjectActivity extends ActionBarActivity {
 
-    String title = "Title";
-    List<String> items = new ArrayList<String>();
-    String[] theTitle={"Title", "Pierre", "Axel Preben", "Dorius Agosta", "Lille Pia Dreng", "Stygge Sesser", "Sven Dennis"};
+    private Project project;
+    private ExpandableListView projectListView;
+    private Button addMilestone;
+    private Context context;
+    private User user;
+    private Button shareButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
+        context = ProjectActivity.this;
+        user = User.getInstance();
+        project = (Project)getIntent().getExtras().getSerializable("project");
 
-        //prepare the explistview content
-        prepareContent();
-
-        addItem();
+        updateList();
+        shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
+        shareButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(context, AddedFriendList.class);
+                intent.putExtra("project", project);
+                startActivity(intent);
+            }
+        });
+        addMilestone = (Button) findViewById(R.id.addMileStoneButton);
+        addMilestone.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Helper.popup(new PromptRunnable(){
+                    @Override
+                public void run(){
+                        new AddMile(this.getValue()).execute();
+                    }
+                }, context, "name of milestone");
+            }
+        });
 
     }
+    private class AddMile extends AsyncTask{
 
-    private void addItem() {
-        ListAdapter projectAdapter = new CustomItemAdapter(ProjectActivity.this, theTitle);
-        ListView projectListView = (ListView) findViewById(R.id.mileStoneListView);
-        projectListView.setAdapter(projectAdapter);
+        private String value;
+        private ProgressDialog pd;
+
+        public AddMile(String value){
+            this.value = value;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Creating Milestone...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            Milestone newMilestone = Milestone.create(value,project.id(), user);
+            project.milestones().add(newMilestone);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            updateList();
+            pd.dismiss();
+        }
     }
 
-    private void prepareContent() {
-        // hämtar info från databas, om milestones/delmål
+    private void updateList() {
+        projectListView = (ExpandableListView) findViewById(R.id.projectListView);
 
-        title = "Title";
-        items.add("delmål1");
-        items.add("mellanmål");
-        items.add("skrovmål");
+        final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
+        projectListView.setAdapter(milestoneAdapter);
+        projectListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                int itemType = ExpandableListView.getPackedPositionType(id);
+
+                if(itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+
+                    final Milestone headerMilestone = (Milestone) milestoneAdapter.getGroup(groupPosition);
+                    Helper.delete(new PromptRunnable(){
+                        @Override
+                        public void run() {
+                            new RemoveMile(headerMilestone).execute();
+                        }
+                    }, context, headerMilestone.name());
+                    return true;
+                }
+
+                return false;
+            }
+        });
     }
 
+    public class RemoveMile extends AsyncTask{
+
+        private Milestone headerMilestone;
+        private ProgressDialog pd;
+
+        public RemoveMile(Milestone milestone){
+            this.headerMilestone = milestone;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context, "", "Deleting Milestone...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            Milestone.delete(headerMilestone.id(), project.id(), user);
+            project.milestones().remove(headerMilestone);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            Helper.toast(headerMilestone.name() + " removed from milestones", context);
+            updateList();
+            pd.dismiss();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
