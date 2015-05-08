@@ -39,6 +39,12 @@
             android:name=".AddedFriendList"
             android:label="@string/title_activity_added_friend_list" >
         </activity>
+
+        <service
+            android:name=".CheckDBService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

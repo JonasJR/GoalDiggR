@@ -93,6 +93,8 @@ public class MainActivity extends ActionBarActivity {
         protected void onPostExecute(final Boolean success) {
             if(success){
                 finish();
+                Intent i = new Intent(MainActivity.this, CheckDBService.class);
+                startService(i);
                 Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
                 startActivity(intent);
             }else {
