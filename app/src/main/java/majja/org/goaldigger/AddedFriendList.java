@@ -33,11 +33,15 @@ public class AddedFriendList extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Friend friend = null;
-                int friends = friendAdapter.getCount();
+                int friends = friendListView.getCount();
                 String shareFriends = null;
                 for (int i = 0; i < friends; i++) {
-                    if (friendListView.isItemChecked(i)) {
+                    if (friendListView.isItemChecked(i)) { // Denna koden funkar inte
+
+                        // Koden här under bör vara rätt, problemet är att
+                        // jag inte vet hur man kontrollerar vilka som är ikryssade.
                         friend = (Friend)friendAdapter.getItem(i);
+                        friend.getId();
                         if (shareFriends == null) {
                             shareFriends = "" + friend.getId();
                         } else {
