@@ -12,20 +12,46 @@ import android.widget.ListView;
 
 
 public class AddedFriendList extends ActionBarActivity {
+
     private Button shareWithFriendsButton;
+    private int projectId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_friend_list);
 
-        ListAdapter friendAdapter = new AddedFriendAdapter(this, User.getInstance().getFriends());
-        ListView friendListView = (ListView)findViewById(R.id.addedFriendsListView);
+        Bundle extras = getIntent().getExtras();
+        projectId = extras.getInt("projectId");
+
+        final ListAdapter friendAdapter = new AddedFriendAdapter(this, User.getInstance().getFriends());
+        final ListView friendListView = (ListView)findViewById(R.id.addedFriendsListView);
         friendListView.setAdapter(friendAdapter);
 
         shareWithFriendsButton = (Button) findViewById(R.id.shareWithFriendsButton);
         shareWithFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Friend friend = null;
+                int friends = friendAdapter.getCount();
+                String shareFriends = null;
+                for (int i = 0; i < friends; i++) {
+                    if (friendListView.isItemChecked(i)) {
+                        friend = (Friend)friendAdapter.getItem(i);
+                        if (shareFriends == null) {
+                            shareFriends = "" + friend.getId();
+                        } else {
+                            shareFriends += ":" + friend.getId();
+                        }
+                    }
+                }
+
+                User.getInstance().share(shareFriends, projectId);
+
+                if (shareFriends != null) {
+                    User.getInstance().share(shareFriends, projectId);
+                }
+
                 Intent intent = new Intent(AddedFriendList.this, ProjectHandlerActivity.class);
                 startActivity(intent);
             }

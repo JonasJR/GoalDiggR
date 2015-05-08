@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 public class User implements Serializable{
     private String email, password, username;
+    private DB db;
 
     private static User user;
     private static String errorMessage;
@@ -19,6 +20,11 @@ public class User implements Serializable{
         this.email = email;
         this.password = password;
         this.username = username;
+        this.db = DB.getInstance();
+    }
+
+    public void share(String shareFriends, int projectId) {
+        db.shareProject(shareFriends, projectId, email, password);
     }
 
     public Friend[] getFriends() {
@@ -42,7 +48,7 @@ public class User implements Serializable{
             for (int i = 0; i < ja.length(); i++) {
                 try {
                     jo = ja.getJSONObject(i);
-                    friends[i] = new Friend(jo.getString("name"), jo.getString("email"));
+                    friends[i] = new Friend(jo.getInt("id"), jo.getString("name"), jo.getString("email"));
                 } catch (JSONException e){}
 
             }

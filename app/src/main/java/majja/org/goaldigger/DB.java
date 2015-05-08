@@ -67,6 +67,18 @@ public class DB implements Serializable {
         action("login");
     }
 
+    public void shareProject(String shareFriends, int projectId, String email, String password) {
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("share_friends", shareFriends);
+            jsonObject.put("project_id", projectId);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Share project: " + e.getMessage());}
+
+        action("share_project");
+    }
+
     public void getProjects(String email, String password) {
         jsonObject = new JSONObject();
         try {
