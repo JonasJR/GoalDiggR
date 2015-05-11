@@ -15,17 +15,25 @@ public class Project implements Serializable{
 
     private List<Milestone> milestones = new ArrayList<Milestone>();
     private List<Item> items = new ArrayList<Item>();
-    private String name;
+    private String name, owner;
     private int id;
-
-    public Milestone[] getMilestones() {
-        return milestones.toArray(new Milestone[milestones.size()]);
-    }
+    private String[] participants;
 
     public Project(int id, String name) {
         this.name = name;
         this.id = id;
     }
+
+    public Project(int id, String name, String owner, String[] participants) {
+        this(id, name);
+        this.participants = participants;
+        this.owner = owner;
+    }
+
+    public Milestone[] getMilestones() {
+        return milestones.toArray(new Milestone[milestones.size()]);
+    }
+
 
     public String name() {
         return this.name;
@@ -104,13 +112,22 @@ public class Project implements Serializable{
             JSONObject milestone;
             JSONArray items;
             JSONObject item;
+            JSONArray json_participants;
+            String[] participants;
 
             projects = new Project[ja.length()];
             for (int i = 0; i < ja.length(); i++) {
                 try {
                     // Skapa projekt
                     jo = ja.getJSONObject(i);
-                    projects[i] = new Project(jo.getInt("id"), jo.getString("name"));
+
+                    json_participants = jo.getJSONArray("participants");
+                    participants = new String[json_participants.length()];
+                    for (int ii = 0; ii < participants.length; ii++) {
+                        participants[ii] = json_participants.getString(ii);
+                    }
+
+                    projects[i] = new Project(jo.getInt("id"), jo.getString("name"), jo.getString("owner"), participants);
 
                     // Skapa milestone och items
                     milestones = jo.getJSONArray("milestones");
