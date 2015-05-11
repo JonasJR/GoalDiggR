@@ -6,3 +6,4 @@
 /build
 .idea/gradle.xml
 app/app.iml
+./app/app.iml
