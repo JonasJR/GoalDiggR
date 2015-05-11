@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ public class ProjectActivity extends ActionBarActivity {
     private Context context;
     private User user;
     private Button shareButton;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,17 @@ public class ProjectActivity extends ActionBarActivity {
                         new AddMile(this.getValue()).execute();
                     }
                 }, context, "name of milestone");
+            }
+        });
+
+        // /You will setup the action bar with pull to refresh layout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_swipe_refresh_layout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateList();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
