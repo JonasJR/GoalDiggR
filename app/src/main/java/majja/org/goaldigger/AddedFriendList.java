@@ -14,7 +14,8 @@ import android.widget.ListView;
 public class AddedFriendList extends ActionBarActivity {
 
     private Button shareWithFriendsButton;
-    private int projectId;
+    private Project project;
+    private Friend[] friends = User.getInstance().getFriends();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +23,9 @@ public class AddedFriendList extends ActionBarActivity {
         setContentView(R.layout.activity_added_friend_list);
 
         Bundle extras = getIntent().getExtras();
-        projectId = extras.getInt("projectId");
+        project = (Project) extras.get("project");
 
-        final ListAdapter friendAdapter = new AddedFriendAdapter(this, User.getInstance().getFriends());
+        final ListAdapter friendAdapter = new AddedFriendAdapter(this, friends, project);
         final ListView friendListView = (ListView)findViewById(R.id.addedFriendsListView);
         friendListView.setAdapter(friendAdapter);
 
@@ -32,31 +33,24 @@ public class AddedFriendList extends ActionBarActivity {
         shareWithFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Friend friend = null;
-                int friends = friendListView.getCount();
+                int count = friends.length;
                 String shareFriends = null;
-                for (int i = 0; i < friends; i++) {
-                    if (friendListView.isItemChecked(i)) { // Denna koden funkar inte
-
-                        // Koden här under bör vara rätt, problemet är att
-                        // jag inte vet hur man kontrollerar vilka som är ikryssade.
-                        friend = (Friend)friendAdapter.getItem(i);
-                        friend.getId();
-                        if (shareFriends == null) {
-                            shareFriends = "" + friend.getId();
-                        } else {
-                            shareFriends += ":" + friend.getId();
-                        }
+                for(int i = 0; i < count; i ++){
+                    Friend friend = (Friend) friendListView.getItemAtPosition(i);
+                    if (shareFriends == null) {
+                        shareFriends = "" + friend.getId();
+                    } else {
+                        shareFriends += ":" + friend.getId();
                     }
                 }
-
-                User.getInstance().share(shareFriends, projectId);
+                User.getInstance().share(shareFriends, project.id());
 
                 if (shareFriends != null) {
-                    User.getInstance().share(shareFriends, projectId);
+                    User.getInstance().share(shareFriends, project.id());
                 }
 
-                Intent intent = new Intent(AddedFriendList.this, ProjectHandlerActivity.class);
+                Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
+                intent.putExtra("project", project);
                 startActivity(intent);
             }
         });

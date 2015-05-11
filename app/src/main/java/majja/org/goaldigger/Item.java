@@ -10,12 +10,21 @@ public class Item implements Serializable{
     private String name, done_by;
     private boolean done = false;
     private static DB db = DB.getInstance();
+    private String doneBy = "";
 
     public Item(int id, String name, boolean done, String done_by) {
         this.name = name;
         this.id = id;
         this.done = done;
         this.done_by = done_by;
+    }
+
+    public String doneBy(){
+        return this.doneBy;
+    }
+
+    public void doneBy(String name){
+        this.doneBy = name;
     }
 
     public String name() {
