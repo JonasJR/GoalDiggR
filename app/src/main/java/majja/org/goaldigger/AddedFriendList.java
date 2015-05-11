@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -33,7 +34,32 @@ public class AddedFriendList extends ActionBarActivity {
         shareWithFriendsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int count = friends.length;
+                CheckBox cb;
+                String shareFriends = null;
+                for (int x = 0; x <friendListView.getChildCount();x++)
+                {
+                    Friend friend = (Friend) friendListView.getItemAtPosition(x);
+                    cb = (CheckBox)friendListView.getChildAt(x).findViewById(R.id.itemCheckBox);
+                    if(cb.isChecked())
+                    {
+                        if (shareFriends == null) {
+                            shareFriends = "" + friend.getId();
+                        } else {
+                            shareFriends += ":" + friend.getId();
+                        }
+                    }
+                    }
+                    if (shareFriends != null) {
+                        Helper.pelle(shareFriends);
+                        User.getInstance().share(shareFriends, project.id());
+                    }
+
+                    Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
+                    intent.putExtra("project", project);
+                    startActivity(intent);
+                }
+
+                /*int count = friends.length;
                 String shareFriends = null;
                 for(int i = 0; i < count; i ++){
                     Friend friend = (Friend) friendListView.getItemAtPosition(i);
@@ -50,7 +76,7 @@ public class AddedFriendList extends ActionBarActivity {
                 Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
                 intent.putExtra("project", project);
                 startActivity(intent);
-            }
+            }*/
         });
     }
 

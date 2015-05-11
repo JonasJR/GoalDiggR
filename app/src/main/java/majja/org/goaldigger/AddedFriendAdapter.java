@@ -31,7 +31,9 @@ public class AddedFriendAdapter extends ArrayAdapter<Friend> {
         View customView = projectInflater.inflate(R.layout.custom_milestone_item, parent, false);
         CheckBox friendName = (CheckBox) customView.findViewById(R.id.itemCheckBox);
 
-        friendName.setChecked(Arrays.asList(temp).contains(getItem(position).getEmail()));
+        if(Arrays.asList(temp).contains(getItem(position).getEmail())){
+            friendName.setChecked(true);
+        }
 
         /*for(String temp : project.getParticipants()){
             if (getItem(position).getEmail().equals(temp)) {
