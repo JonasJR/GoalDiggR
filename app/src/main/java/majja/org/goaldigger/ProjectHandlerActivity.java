@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     EditText addProject;
     DB db = DB.getInstance();
     Project[] projects;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public ProjectHandlerActivity() {
         this.user = User.getInstance();
@@ -56,6 +58,16 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 Intent intent = new Intent(v.getContext(), FriendListActivity.class);
                 startActivityForResult(intent, 0);
                 Toast.makeText(ProjectHandlerActivity.this, "Friendlist", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_handler_swipe_refresh_layout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Fetch().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -164,5 +176,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 }
         );
     }
+
 
 }

@@ -7,11 +7,19 @@
     tools:context="majja.org.goaldigger.ProjectHandlerActivity"
     android:id="@+id/projectHandler">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/activity_project_handler_swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addProjectButton">
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/projectsListView"
         android:layout_above="@+id/addProjectButton"></ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
         android:layout_width="wrap_content"
