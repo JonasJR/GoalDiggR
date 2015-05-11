@@ -158,6 +158,10 @@ public class Project implements Serializable{
         return projects;
     }
 
+    public String[] getParticipants(){
+        return participants;
+    }
+
     public String toString() {
         String result;
 
