@@ -124,8 +124,10 @@ public class Project implements Serializable{
                             if (items.length() > 0) {
                                 for (int k = 0; k < items.length(); k++) {
                                     item = items.getJSONObject(k);
-                                    projects[i].addItem(new Item(item.getInt("id"), item.getString("name"), item.getBoolean("done")));
-                                    projects[i].milestone(j).addItem(new Item(item.getInt("id"), item.getString("name"), item.getBoolean("done")));
+                                    projects[i].addItem(new Item(item.getInt("id"), item.getString("name"),
+                                                                 item.getBoolean("done"), item.getString("done_by")));
+                                    projects[i].milestone(j).addItem(new Item(item.getInt("id"), item.getString("name"),
+                                                                              item.getBoolean("done"), item.getString("done_by")));
                                 }
                             }
                         }

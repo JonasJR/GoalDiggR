@@ -7,14 +7,15 @@ import java.io.Serializable;
 
 public class Item implements Serializable{
     private int id;
-    private String name;
+    private String name, done_by;
     private boolean done = false;
     private static DB db = DB.getInstance();
 
-    public Item(int id, String name, boolean done) {
+    public Item(int id, String name, boolean done, String done_by) {
         this.name = name;
         this.id = id;
         this.done = done;
+        this.done_by = done_by;
     }
 
     public String name() {
@@ -37,7 +38,7 @@ public class Item implements Serializable{
 
         try {
             JSONObject jo = new JSONObject(data);
-            item = new Item(jo.getInt("item_id"), jo.getString("item_name"), false);
+            item = new Item(jo.getInt("item_id"), jo.getString("item_name"), false, "");
         } catch (JSONException e) {
             Helper.pelle("Couldn't create item from json" + e.getMessage());
         }
