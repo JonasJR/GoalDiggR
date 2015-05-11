@@ -135,17 +135,12 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 convertView = infalInflater.inflate(R.layout.custom_milestone_item, null);
             }
 
-            CheckBox itemCheckBox = (CheckBox) convertView
-                    .findViewById(R.id.itemCheckBox);
-
-        TextView itemDoneBy = (TextView) convertView.findViewById(R.id.itemCheckBox);
-        itemDoneBy.setText(childItem.doneBy());
-            if (childItem.doneBy() != "") {
-                itemDoneBy.setText(childItem.doneBy());
-            }
+            CheckBox itemCheckBox = (CheckBox) convertView.findViewById(R.id.itemCheckBox);
+            TextView itemDoneBy = (TextView) convertView.findViewById(R.id.doneByTextView);
 
             itemCheckBox.setText(childItem.name());
             itemCheckBox.setChecked(childItem.done());
+            itemDoneBy.setText(childItem.doneBy());
 
             itemCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override

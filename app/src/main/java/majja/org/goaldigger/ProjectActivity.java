@@ -19,6 +19,7 @@ import android.widget.ExpandableListView;
 public class ProjectActivity extends ActionBarActivity {
 
     private Project project;
+    private Project[] projects;
     private ExpandableListView projectListView;
     private Button addMilestone;
     private Context context;
@@ -32,9 +33,11 @@ public class ProjectActivity extends ActionBarActivity {
         setContentView(R.layout.activity_project);
         context = ProjectActivity.this;
         user = User.getInstance();
-        project = (Project)getIntent().getExtras().getSerializable("project");
+        new Fetch().execute();
 
-        updateList();
+        project = (Project)getIntent().getExtras().getSerializable("project");// Ändra till det hämtade projectet!
+
+
         shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
         shareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -61,7 +64,7 @@ public class ProjectActivity extends ActionBarActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateList();
+                new Fetch().execute();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -86,6 +89,30 @@ public class ProjectActivity extends ActionBarActivity {
         protected Object doInBackground(Object[] params) {
             Milestone newMilestone = Milestone.create(value,project.id(), user);
             project.milestones().add(newMilestone);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            new Fetch().execute();
+            pd.dismiss();
+        }
+    }
+
+    private class Fetch extends AsyncTask{
+
+        private ProgressDialog pd;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Fetching projects...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            projects = Project.all(User.getInstance());
             return null;
         }
 
@@ -151,7 +178,7 @@ public class ProjectActivity extends ActionBarActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             Helper.toast(headerMilestone.name() + " removed from milestones", context);
-            updateList();
+            new Fetch().execute();
             pd.dismiss();
         }
     }

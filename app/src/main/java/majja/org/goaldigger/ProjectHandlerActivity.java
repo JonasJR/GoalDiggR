@@ -131,12 +131,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            fetchAndUpdateList();
+            updateList();
             pd.dismiss();
         }
     }
 
-    private void fetchAndUpdateList() {
+    private void updateList() {
 
         if (projects == null ){
             projects = new Project[1];

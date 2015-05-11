@@ -1,6 +1,7 @@
 package majja.org.goaldigger;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -49,38 +50,39 @@ public class AddedFriendList extends ActionBarActivity {
                         }
                     }
                     }
-                    if (shareFriends != null) {
-                        Helper.pelle(shareFriends);
-                        User.getInstance().share(shareFriends, project.id());
-                    }
-
-                    Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
-                    intent.putExtra("project", project);
-                    startActivity(intent);
+                    new ShareWithFriends(shareFriends).execute();
                 }
-
-                /*int count = friends.length;
-                String shareFriends = null;
-                for(int i = 0; i < count; i ++){
-                    Friend friend = (Friend) friendListView.getItemAtPosition(i);
-                    if (shareFriends == null) {
-                        shareFriends = "" + friend.getId();
-                    } else {
-                        shareFriends += ":" + friend.getId();
-                    }
-                }
-                if (shareFriends != null) {
-                    User.getInstance().share(shareFriends, project.id());
-                }
-
-                Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
-                intent.putExtra("project", project);
-                startActivity(intent);
-            }*/
         });
     }
 
+    private class ShareWithFriends extends AsyncTask{
 
+        private String shareFriends;
+        public ShareWithFriends(String shareFriends){
+            this.shareFriends = shareFriends;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            if (shareFriends != null) {
+                Helper.pelle(shareFriends);
+                User.getInstance().share(shareFriends, project.id());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
+            intent.putExtra("project", project);
+            startActivity(intent);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
