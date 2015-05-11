@@ -124,7 +124,7 @@ public class Project implements Serializable{
                     json_participants = jo.getJSONArray("participants");
                     participants = new String[json_participants.length()];
                     for (int ii = 0; ii < participants.length; ii++) {
-                        participants[ii] = json_participants.getString(ii);
+                        participants[ii] = json_participants.getJSONObject(ii).getString("participants");
                     }
 
                     projects[i] = new Project(jo.getInt("id"), jo.getString("name"), jo.getString("owner"), participants);
