@@ -49,11 +49,9 @@ public class AddedFriendList extends ActionBarActivity {
                         }
                     }
                 }
-
-                User.getInstance().share(shareFriends, projectId);
-
                 if (shareFriends != null) {
                     User.getInstance().share(shareFriends, projectId);
+                    Helper.pelle(projectId + "Kolla id");
                 }
 
                 Intent intent = new Intent(AddedFriendList.this, ProjectHandlerActivity.class);
