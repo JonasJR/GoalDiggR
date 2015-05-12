@@ -63,7 +63,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/createNewUserLabel"
         android:layout_alignStart="@+id/createNewUserLabel"
-        android:src="@drawable/goaldigger_logom" />
+        android:src="@drawable/logo2" />
 
     <EditText
         android:layout_width="fill_parent"
