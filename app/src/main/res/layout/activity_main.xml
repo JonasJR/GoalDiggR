@@ -39,7 +39,7 @@
         android:id="@+id/loginButton"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
-        android:background="#FFF3CF29"
+        android:background="@drawable/coolbutton"
         android:clickable="true"
         android:layout_below="@+id/editText2"
         android:layout_alignParentLeft="true"

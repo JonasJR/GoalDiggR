@@ -33,12 +33,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addItemButton"
-        android:src="@drawable/logo2"
+        android:src="@drawable/iclauncher"
         android:background="#00000000"
         android:baselineAlignBottom="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"

@@ -1,5 +1,7 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,20 +26,44 @@ public class FriendListActivity extends ActionBarActivity {
         Button searchFriend = (Button) findViewById(R.id.searchFriendButton);
         searchFriend.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v) {
-               String temp = userField.getText().toString();
-                friends = Friend.search(temp);
-                updateFriendsList();
+                fetch();
             }
         });
-        
-        updateFriendsList();
+
+        fetch();
+    }
+    public void fetch(){
+        new Fetch().execute();
     }
 
-    private void updateFriendsList() {
+    private class Fetch extends AsyncTask{
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(FriendListActivity.this, "", "Loading...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            String temp = userField.getText().toString();
+            friends = Friend.search(User.getInstance(), temp);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            updateFriendsList();
+            pd.dismiss();
+        }
+    }
+
+    public void updateFriendsList() {
 
         if(friends == null){
             friends = new Friend[1];
-            friends[0] = new Friend("No matching friends...", null);
+            friends[0] = new Friend(0, "No matching friends...", null);
         }
 
         ListAdapter friendsAdapter = new FriendAdapter(this, friends);

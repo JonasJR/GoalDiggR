@@ -1,8 +1,11 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +29,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     EditText addProject;
     DB db = DB.getInstance();
     Project[] projects;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public ProjectHandlerActivity() {
         this.user = User.getInstance();
@@ -34,18 +38,17 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        fetchAndUpdateList();
+        new Fetch().execute();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
-        context = getBaseContext();
 
         this.context = ProjectHandlerActivity.this;
 
-        fetchAndUpdateList();
+        new Fetch().execute();
 
         addProjectButton();
 
@@ -54,7 +57,17 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             public void onClick(View v){
                 Intent intent = new Intent(v.getContext(), FriendListActivity.class);
                 startActivityForResult(intent, 0);
-                Toast.makeText(ProjectHandlerActivity.this, "Sends user tooooo the list of Friends", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProjectHandlerActivity.this, "Friendlist", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_handler_swipe_refresh_layout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Fetch().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -72,7 +85,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     public void run() {
                         Project.create(user, this.getValue());
                         Helper.toast(this.getValue() + " added to projects", context);
-                        fetchAndUpdateList();
+                        new Fetch().execute();
                     }
                 }, context, "project name");
             }
@@ -101,8 +114,29 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void fetchAndUpdateList() {
-        projects = Project.all(User.getInstance());
+    private class Fetch extends AsyncTask{
+        ProgressDialog pd;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Retrieving Projects...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            projects = Project.all(User.getInstance());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            updateList();
+            pd.dismiss();
+        }
+    }
+
+    private void updateList() {
 
         if (projects == null ){
             projects = new Project[1];
@@ -134,7 +168,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                             public void run() {
                                 Project.delete(projects[position].id(), user);
                                 Helper.toast(this.getValue() + " removed from projects", context);
-                                fetchAndUpdateList();
+                                new Fetch().execute();
                             }
                         }, context, projects[position].name());
                         return true;
@@ -142,5 +176,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 }
         );
     }
+
 
 }

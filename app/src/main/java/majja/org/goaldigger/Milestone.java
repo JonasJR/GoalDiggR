@@ -38,9 +38,9 @@ public class Milestone implements Serializable {
         return milestone;
     }
 
-    public static void delete (int id, User user) {
+    public static void delete (int id, int projectId, User user) {
         DB db = DB.getInstance();
-        db.deleteMilestone(id, user.email(), user.password());
+        db.deleteMilestone(id, projectId, user.email(), user.password());
         db.getReturnData();
     }
 

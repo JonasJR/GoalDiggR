@@ -1,5 +1,6 @@
 package majja.org.goaldigger;
 
+import android.app.Application;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -15,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Xeronic on 15-04-15.
@@ -34,7 +36,8 @@ public class DB implements Serializable {
     private DB() {}
     public static DB getInstance() {
         if (db == null) {
-            return new DB();
+            db = new DB();
+            return db;
         }
         else
         {
@@ -59,50 +62,75 @@ public class DB implements Serializable {
         try {
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e ) {}
+        } catch (JSONException e ) {Helper.pelle("Login: " + e.getMessage());}
 
         action("login");
     }
 
-    public void getProjects(String email, String password) {
-        JSONObject jsonObj = new JSONObject();
+    public void shareProject(String shareFriends, int projectId, String email, String password) {
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("email", email);
-            jsonObj.put("password", password);
-        } catch (JSONException e ) {}
+            jsonObject.put("share_friends", shareFriends);
+            jsonObject.put("project_id", projectId);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Share project: " + e.getMessage());}
 
-        new Networking(urlFor("projects"), jsonObj).execute();
+        action("share_project");
+    }
+
+    public void getProjects(String email, String password) {
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Get projects: " + e.getMessage());}
+
+        action("projects");
     }
 
     public void createUser(String username, String email, String password, String passwordConfirmation) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("name", username);
-            jsonObj.put("email", email);
-            jsonObj.put("password", password);
-            jsonObj.put("password_confirmation", passwordConfirmation);
-        } catch (JSONException e ) {}
+            jsonObject.put("name", username);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+            jsonObject.put("password_confirmation", passwordConfirmation);
+        } catch (JSONException e ) {Helper.pelle("Create user: " + e.getMessage());}
 
-        new Networking(urlFor("signup"), jsonObj).execute();
+        action("signup");
     }
 
-    public void createFriend(String userEmail, String friendEmail) {
-        JSONObject jsonObj = new JSONObject();
+    public void createFriend(String friendEmail, String userEmail, String password) {
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("email", userEmail);
-            jsonObj.put("friend_email", friendEmail);
-        } catch (JSONException e ) {}
+            jsonObject.put("friend_email", friendEmail);
+            jsonObject.put("email", userEmail);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Create friend: " + e.getMessage());}
 
-        new Networking(urlFor("create_friend"), jsonObj).execute();
+        action("create_friend");
+    }
+    
+    public void showFriends(String userEmail, String password) {
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("email", userEmail);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Couldn't fetch friendlist: " + e.getMessage());}
+
+        action("show_friends");
     }
 
-    public void searchFriend(String searchPhrase) {
-        JSONObject jsonObj = new JSONObject();
+    public void searchFriend(String email, String password, String searchPhrase) {
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("search_phrase", searchPhrase);
-        } catch (JSONException e ) {}
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+            jsonObject.put("search_phrase", searchPhrase);
+        } catch (JSONException e ) { Helper.pelle("search friends: " + e.getMessage()); }
 
-        new Networking(urlFor("search_friends"), jsonObj).execute();
+        action("search_friends");
     }
 
     public void getJSON(String url, JSONObject jsonObj) {
@@ -132,7 +160,7 @@ public class DB implements Serializable {
         } catch (IOException e) {
             Helper.pelle("IOException: " + e.getMessage());
         } catch (Exception e) {
-            Helper.pelle("Exception: " + e.getMessage());
+            Helper.pelle("Exception nu: " + e.getMessage());
         }
 
         Helper.pelle("Return mess: " + stringBuffer.toString());
@@ -141,119 +169,110 @@ public class DB implements Serializable {
     }
 
     public void createProject(String name, String email, String password) {
-        JSONObject jsonObj = new JSONObject();
+        jsonObject = new JSONObject();
         try {
-            jsonObj.put("project_name", name);
-            jsonObj.put("email", email);
-            jsonObj.put("password", password);
-        } catch (JSONException e ) {}
+            jsonObject.put("project_name", name);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Create project: " + e.getMessage());}
 
-        new Networking(urlFor("add_project"), jsonObj).execute();
+       action("add_project");
     }
 
     public void deleteProject(int id, String email, String password){
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("id", id);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't delete project" + e.getMessage());
-        }
+        } catch (JSONException e) { Helper.pelle("Couldn't delete project" + e.getMessage());}
 
-        new Networking(urlFor("delete_project"), jsonObject).execute();
+        action("delete_project");
     }
 
-    public void deleteMilestone(int id, String email, String password ){
-        JSONObject jsonObject = new JSONObject();
+    public void deleteMilestone(int id, int projectId, String email, String password ){
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("milestone_id", id);
+            jsonObject.put("project_id", projectId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't delete milestone" + e.getMessage());
-        }
+        } catch (JSONException e) {Helper.pelle("Couldn't delete milestone" + e.getMessage());}
 
-        new Networking(urlFor("delete_milestone"), jsonObject).execute();
+        action("delete_milestone");
     }
 
     public void deleteItem(int id, String email, String password) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("item_id", id);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't delete item" + e.getMessage());
-        }
+        } catch (JSONException e) { Helper.pelle("Couldn't delete item" + e.getMessage()); }
 
-        new Networking(urlFor("delete_item"), jsonObject).execute();
+        action("delete_item");
     }
 
     public void toggleItem(int itemId, String email, String password){
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("item_id", itemId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't toggle item: " + e.getMessage());
-        }
+        } catch (JSONException e) { Helper.pelle("Couldn't toggle item: " + e.getMessage()); }
 
-        new Networking(urlFor("toggle_item"), jsonObject).execute();
+        action("toggle_item");
     }
 
     public void createMilestone(String milestoneName, int projectID, String email, String password) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("milestone_name", milestoneName);
             jsonObject.put("project_id", projectID);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't create milestone: " + e.getMessage());
-        }
+        } catch (JSONException e) { Helper.pelle("Couldn't create milestone: " + e.getMessage()); }
 
-        new Networking(urlFor("create_milestone"), jsonObject).execute();
+        action("create_milestone");
     }
 
     public void createItem(String itemName, int milestoneId, String email, String password) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("item_name", itemName);
             jsonObject.put("milestone_id", milestoneId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't create item: " + e.getMessage());
-        }
+        } catch (JSONException e) { Helper.pelle("Couldn't create item: " + e.getMessage()); }
 
-        new Networking(urlFor("create_item"), jsonObject).execute();
+        action("create_item");
     }
 
     public void resetPassword(String email) {
-        JSONObject jsonObject = new JSONObject();
+        jsonObject = new JSONObject();
         try {
             jsonObject.put("email", email);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't reset password: " + e.getMessage());
-        }
+        } catch (JSONException e) { Helper.pelle("Couldn't reset password: " + e.getMessage()); }
 
-        new Networking(urlFor("reset_password"), jsonObject).execute();
+        action("reset_password");
     }
 
     public void changePassword(String newPassword, String oldPassword) {
         try {
             jsonObject.put("new_password", newPassword);
             jsonObject.put("old_password", oldPassword);
-        } catch (JSONException e) {
-            Helper.pelle("Couldn't change password: " + e.getMessage());
-        }
+        } catch (JSONException e) { Helper.pelle("Couldn't change password: " + e.getMessage()); }
         action("change_password");
     }
 
     private void action(String action) {
-        new Networking(urlFor(action), jsonObject).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, action);
+        try {
+            Object obj = new Networking(urlFor(action), jsonObject).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
     private String urlFor(String action) {
         return URL + action + ".json";

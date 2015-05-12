@@ -1,7 +1,9 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,10 +60,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 Helper.popup(new PromptRunnable(){
                     @Override
                     public void run(){
-                        Item newItem = Item.create(this.getValue(), headerMilestone.id(), User.getInstance());
-                        resource[groupPosition].items().add(newItem);
-                        hashMap = createHashMap(resource);
-                        notifyDataSetChanged();
+                        new CreateItem(this.getValue(),headerMilestone,groupPosition).execute();
                     }
                 }, context, "name of Item");
             }
@@ -78,6 +76,9 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         TextView milestoneProgressPercent = (TextView) convertView.findViewById(R.id.milestoneProgressPercent);
 
         if(headerMilestone.getItems().length != 0) {
+            /*if(headerMilestone.percent() == 100){
+                milestoneProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+            }*/
             milestoneProgressBar.setProgress(headerMilestone.percent());
             milestoneProgressPercent.setText(headerMilestone.percent() + "%");
         }else{
@@ -86,6 +87,41 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         }
 
         return convertView;
+    }
+
+    private class CreateItem extends AsyncTask{
+
+        private String value;
+        private Milestone milestone;
+        private int groupPosition;
+        private ProgressDialog pd;
+
+        public CreateItem(String value, Milestone milestone, int groupPosition){
+            this.value = value;
+            this.milestone = milestone;
+            this.groupPosition = groupPosition;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context, "", "Adding Item...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            Item newItem = Item.create(value, milestone.id(), User.getInstance());
+            resource[groupPosition].items().add(newItem);
+            hashMap = createHashMap(resource);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            pd.dismiss();
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -99,18 +135,18 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 convertView = infalInflater.inflate(R.layout.custom_milestone_item, null);
             }
 
-            CheckBox itemCheckBox = (CheckBox) convertView
-                    .findViewById(R.id.itemCheckBox);
+            CheckBox itemCheckBox = (CheckBox) convertView.findViewById(R.id.itemCheckBox);
+            TextView itemDoneBy = (TextView) convertView.findViewById(R.id.doneByTextView);
 
             itemCheckBox.setText(childItem.name());
             itemCheckBox.setChecked(childItem.done());
+            itemDoneBy.setText(childItem.doneBy());
 
             itemCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    childItem.toggleDone();
-                    Item.toggle(childItem.id(), User.getInstance());
-                    notifyDataSetChanged();
+                    new ToggleItem(childItem, groupPosition, childPosition).execute();
+
                 }
             });
 
@@ -136,6 +172,40 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
             return convertView;
         }
 
+    private class ToggleItem extends AsyncTask{
+
+        private Item childItem;
+        private int groupPosition, childPosition;
+        private ProgressDialog pd;
+
+        public ToggleItem(Item childItem, int groupPosition, int childPosition){
+            this.childItem = childItem;
+            this.groupPosition = groupPosition;
+            this.childPosition = childPosition;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Setting item done...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {Item.toggle(childItem.id(), User.getInstance());
+            childItem.toggleDone();
+            childItem.doneBy(User.getInstance().username());
+            resource[groupPosition].items().set(childPosition, childItem);
+            hashMap = createHashMap(resource);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            notifyDataSetChanged();
+            pd.dismiss();
+        }
+    }
 
     @Override
     public int getGroupCount() {

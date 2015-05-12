@@ -11,10 +11,16 @@ import java.io.Serializable;
  */
 public class Friend implements Serializable{
     private String name, email;
+    private int id;
 
-    public Friend(String name, String email){
+    public Friend(int id, String name, String email){
+        this.id = id;
         this.name = name;
         this.email = email;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getName() {
@@ -39,20 +45,19 @@ public class Friend implements Serializable{
 
     public static void add(User user, String friendEmail){
         DB db = DB.getInstance();
-        db.createFriend(user.email(), friendEmail);
+        db.createFriend(friendEmail, user.email(), user.password());
         db.getReturnData();
     }
 
-    public static Friend[]  search(String searchPhrase){
-
+    public static Friend[] search(User user, String searchPhrase){
+        
         DB db = DB.getInstance();
         JSONArray ja = null;
 
-        db.searchFriend(searchPhrase);
+        db.searchFriend(user.email(), user.password(), searchPhrase);
 
         try {
             ja = new JSONArray(db.getReturnData());
-            Helper.pelle(ja.toString());
         } catch (JSONException e) {
             Helper.pelle("Error making jsonarray from returndata: " + e.getMessage());
         }
@@ -66,7 +71,7 @@ public class Friend implements Serializable{
             for (int i = 0; i < ja.length(); i++) {
                 try {
                     jo = ja.getJSONObject(i);
-                    friends[i] = new Friend(jo.getString("name"), jo.getString("email"));
+                    friends[i] = new Friend(jo.getInt("id"), jo.getString("name"), jo.getString("email"));
                 } catch (JSONException e){}
 
             }
