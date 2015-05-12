@@ -113,6 +113,11 @@ public class ProjectActivity extends ActionBarActivity {
         @Override
         protected Object doInBackground(Object[] params) {
             projects = Project.all(User.getInstance());
+            for (Project temp :projects){
+                if(temp.id() == project.id()){
+                    project = temp;
+                }
+            }
             return null;
         }
 
