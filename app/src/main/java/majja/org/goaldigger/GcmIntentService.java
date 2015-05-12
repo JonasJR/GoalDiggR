@@ -19,7 +19,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
  * helper methods.
  */
 public class GcmIntentService extends IntentService {
-    public static final int NOTIFICATION_ID = 1;
+    public static final int NOTIFICATION_ID = 356254729;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
 
@@ -92,4 +92,31 @@ public class GcmIntentService extends IntentService {
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
+
+    //ALTERNATE NOTIFICATION
+    /*
+    //this goes in the top
+    private NotificationCompat.Builder notification;
+    private static final int uniqueID = 522462134;
+
+        //This goes in the sendNotification()
+        //Buil the notification
+        notification = new NotificationCompat.Builder(this);
+        notification.setAutoCancel(true);
+        notification.setSmallIcon(R.drawable.logo2);
+        notification.setTicker("This is the ticker");
+        notification.setWhen(System.currentTimeMillis());
+        notification.setContentTitle("GoalDigger");
+        notification.setContentText("You have new updated projects!");
+        notification.setOnlyAlertOnce(true);
+
+        //When notification is clicked sends to Main activity (change later on)
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pendingIntent);
+
+        //Builds notification and issues it
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(uniqueID,notification.build());
+    */
 }

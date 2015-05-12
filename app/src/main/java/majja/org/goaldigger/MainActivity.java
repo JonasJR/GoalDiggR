@@ -133,6 +133,9 @@ public class MainActivity extends ActionBarActivity {
                     if (regid.isEmpty()) {
                         registerInBackground();
                         Helper.pelle("Ny regid skapad");
+                    }else {
+                        sendRegistrationIdToBackend();
+                        Helper.pelle("Regid skickad till backend");
                     }
                 } else {
                     Helper.pelle("No valid Google Play Services APK found.");

@@ -49,12 +49,6 @@
             android:label="@string/title_activity_added_friend_list" >
         </activity>
 
-        <service
-            android:name=".CheckDBService"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
-
         <receiver
             android:name=".GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
