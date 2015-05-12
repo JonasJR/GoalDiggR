@@ -274,6 +274,16 @@ public class DB implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void setRegId(String regId, String email, String password){
+        try {
+            jsonObject.put("reg_id", regId);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e) { Helper.pelle("Couldn't set regid: " + e.getMessage()); }
+        action("set_reg_id");
+    }
+
     private String urlFor(String action) {
         return URL + action + ".json";
     }

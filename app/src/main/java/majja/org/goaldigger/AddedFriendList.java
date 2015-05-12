@@ -1,5 +1,6 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -57,6 +58,7 @@ public class AddedFriendList extends ActionBarActivity {
 
     private class ShareWithFriends extends AsyncTask{
 
+        private ProgressDialog pd;
         private String shareFriends;
         public ShareWithFriends(String shareFriends){
             this.shareFriends = shareFriends;
@@ -65,6 +67,7 @@ public class AddedFriendList extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pd = ProgressDialog.show(AddedFriendList.this,"", "Sharing with friends...");
         }
 
         @Override
@@ -81,6 +84,7 @@ public class AddedFriendList extends ActionBarActivity {
             Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
             intent.putExtra("project", project);
             startActivity(intent);
+            pd.dismiss();
         }
     }
     @Override
