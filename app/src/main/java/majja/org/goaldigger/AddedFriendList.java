@@ -50,8 +50,9 @@ public class AddedFriendList extends ActionBarActivity {
                             shareFriends += ":" + friend.getId();
                         }
                     }
-                    }
-                    new ShareWithFriends(shareFriends).execute();
+                }
+                if (shareFriends == null) shareFriends = "";
+                new ShareWithFriends(shareFriends).execute();
                 }
         });
     }

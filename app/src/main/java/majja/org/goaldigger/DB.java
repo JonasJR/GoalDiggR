@@ -296,6 +296,7 @@ public class DB implements Serializable {
         public Networking(String url, JSONObject obj) {
             this.url = url;
             this.obj = obj;
+            Helper.pelle(url + " : " + obj.toString());
         }
         @Override
         protected Object doInBackground(Object[] params) {
