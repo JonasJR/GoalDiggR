@@ -16,7 +16,9 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:buttonTint="#FFF3CF29"
-        android:checked="false" />
+        android:checked="false"
+        android:layout_toStartOf="@+id/doneByTextView"
+        android:layout_toLeftOf="@+id/doneByTextView" />
 
     <TextView
         android:layout_width="wrap_content"
