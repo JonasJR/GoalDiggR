@@ -108,7 +108,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = ProgressDialog.show(context,"", "Loading...");
+            pd = ProgressDialog.show(MainActivity.this,"", "Loading...");
         }
 
         @Override

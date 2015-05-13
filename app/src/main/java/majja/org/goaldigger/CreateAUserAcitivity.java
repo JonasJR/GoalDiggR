@@ -1,7 +1,9 @@
 package majja.org.goaldigger;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -30,18 +32,49 @@ public class CreateAUserAcitivity extends ActionBarActivity {
         createUserButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        boolean created = User.createUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString());
-                        if(created){
-                            Helper.toast("Det gick!", context);
-                            Intent intent = new Intent(v.getContext(), ProjectHandlerActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            Helper.toast(User.errorMessage(), context);
-                        }
+                        new CheckCreateUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString()).execute();
                     }
                 }
         );
+    }
+
+    private class CheckCreateUser extends AsyncTask<Void, Void, Boolean>{
+
+        String userName, email, pass, passConfirm;
+        ProgressDialog pd;
+        public CheckCreateUser(String username, String email, String pass, String passConfirm){
+            this.userName = username;
+            this.email = email;
+            this.pass = pass;
+            this.passConfirm = passConfirm;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(CreateAUserAcitivity.this, "", "Loading...");
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            if(User.createUser(userName, email, pass, passConfirm)) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean created) {
+            if(created){
+                Helper.toast("Det gick!", context);
+                Intent intent = new Intent(CreateAUserAcitivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            else{
+                Helper.toast(User.errorMessage(), context);
+            }
+            pd.dismiss();
+        }
     }
 
 
