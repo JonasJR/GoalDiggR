@@ -76,6 +76,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         TextView milestoneProgressPercent = (TextView) convertView.findViewById(R.id.milestoneProgressPercent);
 
         if(headerMilestone.getItems().length != 0) {
+            //sets the progressbar to green, but if it turns green it never turns back.....
             /*if(headerMilestone.percent() == 100){
                 milestoneProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
             }*/
@@ -140,13 +141,17 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
 
             itemCheckBox.setText(childItem.name());
             itemCheckBox.setChecked(childItem.done());
-            itemDoneBy.setText(childItem.doneBy());
+
+            if(itemCheckBox.isChecked()) {
+                itemDoneBy.setText(childItem.doneBy());
+            }else{
+                itemDoneBy.setText("");
+            }
 
             itemCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new ToggleItem(childItem, groupPosition, childPosition).execute();
-
                 }
             });
 

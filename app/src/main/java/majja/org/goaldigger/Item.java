@@ -7,24 +7,24 @@ import java.io.Serializable;
 
 public class Item implements Serializable{
     private int id;
-    private String name, done_by;
+    private String name;
     private boolean done = false;
     private static DB db = DB.getInstance();
-    private String doneBy = "";
+    private String done_By = "";
 
     public Item(int id, String name, boolean done, String done_by) {
         this.name = name;
         this.id = id;
         this.done = done;
-        this.done_by = done_by;
+        this.done_By = done_by;
     }
 
     public String doneBy(){
-        return this.doneBy;
+        return this.done_By;
     }
 
     public void doneBy(String name){
-        this.doneBy = name;
+        this.done_By = name;
     }
 
     public String name() {
