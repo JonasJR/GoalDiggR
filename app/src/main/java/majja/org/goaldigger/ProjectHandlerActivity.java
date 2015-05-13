@@ -46,7 +46,16 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
 
-        this.context = ProjectHandlerActivity.this;
+        if(SaveSharedPreference.getUserName(ProjectHandlerActivity.this).length() == 0)
+        {
+            Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
+            startActivity(intent);
+        }else{
+            LoginModel loginModel = new LoginModel();
+            loginModel.login(SaveSharedPreference.getUserName(ProjectHandlerActivity.this), SaveSharedPreference.getPassword(ProjectHandlerActivity.this));
+        }
+
+            this.context = ProjectHandlerActivity.this;
 
         new Fetch().execute();
 

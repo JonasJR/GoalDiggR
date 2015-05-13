@@ -51,23 +51,35 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db = DB.getInstance();
 
-        context = MainActivity.this;
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0)
+        {
+            db = DB.getInstance();
 
-        newUser();
-        forgotPass();
+            context = MainActivity.this;
 
-        Button loginButton = (Button)findViewById(R.id.loginButton);
-        loginText = (EditText) findViewById(R.id.editText);
-        passwordText = (EditText) findViewById(R.id.editText2);
-        loginButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View v) {
-                        new checkLogin(loginText.getText().toString(), passwordText.getText().toString()).execute();
+            newUser();
+            forgotPass();
+
+            Button loginButton = (Button)findViewById(R.id.loginButton);
+            loginText = (EditText) findViewById(R.id.editText);
+            passwordText = (EditText) findViewById(R.id.editText2);
+            loginButton.setOnClickListener(
+                    new View.OnClickListener() {
+                        public void onClick(View v) {
+                            new checkLogin(loginText.getText().toString(), passwordText.getText().toString()).execute();
+                        }
                     }
-                }
-        );
+            );
+        }
+        else
+        {
+            LoginModel loginModel = new LoginModel();
+
+            loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this));
+            Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -141,6 +153,7 @@ public class MainActivity extends ActionBarActivity {
                     Helper.pelle("No valid Google Play Services APK found.");
                 }
 
+                SaveSharedPreference.setUserName(MainActivity.this, user);
                 Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
                 startActivity(intent);
             }else {

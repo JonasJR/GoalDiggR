@@ -41,7 +41,8 @@
 android:id="@+id/activity_project_swipe_refresh_layout"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-    android:layout_above="@+id/addMileStoneButton">
+    android:layout_above="@+id/addMileStoneButton"
+    android:layout_below="@+id/projectName">
     <ExpandableListView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -51,6 +52,16 @@ android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/projectName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

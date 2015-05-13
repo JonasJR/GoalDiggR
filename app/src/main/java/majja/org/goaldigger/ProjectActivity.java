@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 
 public class ProjectActivity extends ActionBarActivity {
@@ -26,6 +27,7 @@ public class ProjectActivity extends ActionBarActivity {
     private User user;
     private Button shareButton;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView projectName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,8 @@ public class ProjectActivity extends ActionBarActivity {
 
         project = (Project)getIntent().getExtras().getSerializable("project");// Ändra till det hämtade projectet!
 
-
+        projectName = (TextView) findViewById(R.id.projectName);
+        projectName.setText(project.name());
         shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
         shareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){

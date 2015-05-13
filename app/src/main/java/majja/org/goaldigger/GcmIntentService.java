@@ -87,7 +87,7 @@ public class GcmIntentService extends IntentService {
         notification.setOnlyAlertOnce(true);
 
         //When notification is clicked sends to Main activity (change later on)
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ProjectHandlerActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification.setContentIntent(pendingIntent);
 
