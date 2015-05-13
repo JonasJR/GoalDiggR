@@ -75,6 +75,8 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg) {
+        //Dela upp stringen till ett meddelande
+        //msg = delad sträng
 
         //Buil the notification
         notification = new NotificationCompat.Builder(this);
