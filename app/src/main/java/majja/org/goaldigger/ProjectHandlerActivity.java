@@ -105,7 +105,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_project_handler, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -116,7 +116,11 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logout) {
+            Helper.toast("You logged out", ProjectHandlerActivity.this);
+            SaveSharedPreference.logout(ProjectHandlerActivity.this);
+            Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
+            startActivity(intent);
             return true;
         }
 

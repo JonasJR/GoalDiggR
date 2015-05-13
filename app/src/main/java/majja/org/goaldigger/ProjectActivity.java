@@ -206,7 +206,11 @@ public class ProjectActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logout) {
+            Helper.toast("You logged out", ProjectActivity.this);
+            SaveSharedPreference.logout(ProjectActivity.this);
+            Intent intent = new Intent(ProjectActivity.this, MainActivity.class);
+            startActivity(intent);
             return true;
         }
 

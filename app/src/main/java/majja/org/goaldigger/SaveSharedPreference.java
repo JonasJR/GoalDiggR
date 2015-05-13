@@ -33,4 +33,10 @@ public class SaveSharedPreference
     {
         return getSharedPreferences(ctx).getString(PREF_PASSWORD, "");
     }
+
+    public static void logout(Context ctx) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.clear(); //clear all stored data
+        editor.commit();
+    }
 }

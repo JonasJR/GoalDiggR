@@ -102,7 +102,11 @@ public class AddedFriendList extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logout) {
+            Helper.toast("You logged out", AddedFriendList.this);
+            SaveSharedPreference.logout(AddedFriendList.this);
+            Intent intent = new Intent(AddedFriendList.this, MainActivity.class);
+            startActivity(intent);
             return true;
         }
 
