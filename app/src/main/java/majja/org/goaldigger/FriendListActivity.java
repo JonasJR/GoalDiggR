@@ -99,5 +99,6 @@ public class FriendListActivity extends ActionBarActivity {
     public void onBackPressed() {
         Intent intent = new Intent(FriendListActivity.this, ProjectHandlerActivity.class);
         startActivity(intent);
+        finish();
     }
 }

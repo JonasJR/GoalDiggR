@@ -62,6 +62,7 @@ public class AddedFriendList extends ActionBarActivity {
         Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
         intent.putExtra("project", project);
         startActivity(intent);
+        finish();
     }
 
     private class ShareWithFriends extends AsyncTask{

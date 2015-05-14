@@ -204,7 +204,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         alertDialogBuilder.setCancelable(false).setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        onDestroy();
+                        finish();
                         return;
                     }
                 }).setNegativeButton("NO", new DialogInterface.OnClickListener() {

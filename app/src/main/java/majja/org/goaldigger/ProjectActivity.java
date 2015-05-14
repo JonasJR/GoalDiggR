@@ -221,5 +221,6 @@ public class ProjectActivity extends ActionBarActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ProjectActivity.this, ProjectHandlerActivity.class);
         startActivity(intent);
+        finish();
     }
 }
