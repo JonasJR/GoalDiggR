@@ -56,6 +56,7 @@ public class MainActivity extends ActionBarActivity {
             loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this));
             Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
             startActivity(intent);
+            finish();
         }
 
         db = DB.getInstance();
@@ -152,6 +153,7 @@ public class MainActivity extends ActionBarActivity {
                 SaveSharedPreference.setUserName(MainActivity.this, user);
                 Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
                 startActivity(intent);
+                finish();
             }else {
                 Helper.toast("Invalid email or password", MainActivity.this);
             }
@@ -167,6 +169,7 @@ public class MainActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CreateAUserAcitivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

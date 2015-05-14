@@ -69,6 +69,7 @@ public class CreateAUserAcitivity extends ActionBarActivity {
                 Helper.toast("Det gick!", context);
                 Intent intent = new Intent(CreateAUserAcitivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
             else{
                 Helper.toast(User.errorMessage(), context);

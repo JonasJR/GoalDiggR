@@ -55,6 +55,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         {
             Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }else{
             LoginModel loginModel = new LoginModel();
             loginModel.login(SaveSharedPreference.getUserName(ProjectHandlerActivity.this), SaveSharedPreference.getPassword(ProjectHandlerActivity.this));
@@ -72,6 +73,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 Intent intent = new Intent(v.getContext(), FriendListActivity.class);
                 startActivityForResult(intent, 0);
                 Toast.makeText(ProjectHandlerActivity.this, "Friendlist", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
@@ -126,6 +128,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             SaveSharedPreference.logout(ProjectHandlerActivity.this);
             Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
 
@@ -171,8 +174,8 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(view.getContext(), ProjectActivity.class);
                         intent.putExtra("project", projects[position]);
-
                         startActivity(intent);
+                        finish();
                     }
                 }
         );

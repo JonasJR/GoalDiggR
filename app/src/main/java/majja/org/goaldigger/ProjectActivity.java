@@ -47,6 +47,7 @@ public class ProjectActivity extends ActionBarActivity {
                 Intent intent = new Intent(context, AddedFriendList.class);
                 intent.putExtra("project", project);
                 startActivity(intent);
+                finish();
             }
         });
         addMilestone = (Button) findViewById(R.id.addMileStoneButton);
@@ -211,6 +212,7 @@ public class ProjectActivity extends ActionBarActivity {
             SaveSharedPreference.logout(ProjectActivity.this);
             Intent intent = new Intent(ProjectActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
 

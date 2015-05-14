@@ -94,6 +94,7 @@ public class AddedFriendList extends ActionBarActivity {
             intent.putExtra("project", project);
             startActivity(intent);
             pd.dismiss();
+            finish();
         }
     }
     @Override
@@ -116,6 +117,7 @@ public class AddedFriendList extends ActionBarActivity {
             SaveSharedPreference.logout(AddedFriendList.this);
             Intent intent = new Intent(AddedFriendList.this, MainActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
 
