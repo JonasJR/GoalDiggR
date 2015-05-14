@@ -1,6 +1,7 @@
 package majja.org.goaldigger;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -92,5 +93,11 @@ public class FriendListActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(FriendListActivity.this, ProjectHandlerActivity.class);
+        startActivity(intent);
     }
 }

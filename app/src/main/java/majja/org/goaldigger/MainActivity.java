@@ -49,27 +49,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(SaveSharedPreference.getUserName(MainActivity.this).length() == 0)
-        {
-            db = DB.getInstance();
-
-            context = MainActivity.this;
-
-            newUser();
-            forgotPass();
-
-            Button loginButton = (Button)findViewById(R.id.loginButton);
-            loginText = (EditText) findViewById(R.id.editText);
-            passwordText = (EditText) findViewById(R.id.editText2);
-            loginButton.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View v) {
-                            new checkLogin(loginText.getText().toString(), passwordText.getText().toString()).execute();
-                        }
-                    }
-            );
-        }
-        else
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
         {
             LoginModel loginModel = new LoginModel();
 
@@ -77,6 +57,24 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
             startActivity(intent);
         }
+
+        db = DB.getInstance();
+
+        context = MainActivity.this;
+
+        newUser();
+        forgotPass();
+
+        Button loginButton = (Button)findViewById(R.id.loginButton);
+        loginText = (EditText) findViewById(R.id.editText);
+        passwordText = (EditText) findViewById(R.id.editText2);
+        loginButton.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        new checkLogin(loginText.getText().toString(), passwordText.getText().toString()).execute();
+                    }
+                }
+        );
     }
 
     @Override

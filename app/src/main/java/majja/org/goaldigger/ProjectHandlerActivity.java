@@ -1,12 +1,15 @@
 package majja.org.goaldigger;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +20,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import static android.view.View.*;
 
 
 public class ProjectHandlerActivity extends ActionBarActivity {
@@ -62,7 +67,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         addProjectButton();
 
         Button addFriendButton = (Button) findViewById(R.id.addFriendButton);
-        addFriendButton.setOnClickListener(new View.OnClickListener(){
+        addFriendButton.setOnClickListener(new OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(v.getContext(), FriendListActivity.class);
                 startActivityForResult(intent, 0);
@@ -88,7 +93,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private void addProjectButton() {
         Button addProjectButton = (Button) findViewById(R.id.addProjectButton);
-        addProjectButton.setOnClickListener(new View.OnClickListener() {
+        addProjectButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Helper.popup(new PromptRunnable() {
                     public void run() {
@@ -190,5 +195,26 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         );
     }
 
+    @Override
+    public void onBackPressed() {
 
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder.setTitle("Do you want to exit?");
+        alertDialogBuilder.setCancelable(false).setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        onDestroy();
+                        return;
+                    }
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                return;
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }

@@ -57,6 +57,13 @@ public class AddedFriendList extends ActionBarActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
+        intent.putExtra("project", project);
+        startActivity(intent);
+    }
+
     private class ShareWithFriends extends AsyncTask{
 
         private ProgressDialog pd;

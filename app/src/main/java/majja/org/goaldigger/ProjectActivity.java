@@ -216,4 +216,10 @@ public class ProjectActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ProjectActivity.this, ProjectHandlerActivity.class);
+        startActivity(intent);
+    }
 }
