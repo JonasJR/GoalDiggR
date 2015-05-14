@@ -4,12 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -155,7 +152,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
                 finish();
             }else {
-                Helper.toast("Invalid email or password", MainActivity.this);
+                Helper.toast("", MainActivity.this);
             }
             pd.dismiss();
         }
