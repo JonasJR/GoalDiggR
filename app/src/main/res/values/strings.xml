@@ -31,5 +31,6 @@
     <string name="cancelString">Cancel</string>
     <string name="searchString">search</string>
     <string name="title_activity_added_friend_list">AddedFriendList</string>
+    <string name="Logout">Logout</string> />
 
 </resources>

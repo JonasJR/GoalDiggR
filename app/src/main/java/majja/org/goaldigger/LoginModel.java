@@ -1,5 +1,9 @@
 package majja.org.goaldigger;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,7 +12,7 @@ import java.io.Serializable;
 /**
  * Created by xeronic on 2015-04-15.
  */
-public class LoginModel implements Serializable {
+public class LoginModel implements Serializable{
 
     private DB db;
 

@@ -1,11 +1,15 @@
 package majja.org.goaldigger;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +20,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import static android.view.View.*;
 
 
 public class ProjectHandlerActivity extends ActionBarActivity {
@@ -28,6 +34,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     EditText addProject;
     DB db = DB.getInstance();
     Project[] projects;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public ProjectHandlerActivity() {
         this.user = User.getInstance();
@@ -44,18 +51,39 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
 
-        this.context = ProjectHandlerActivity.this;
+        if(SaveSharedPreference.getUserName(ProjectHandlerActivity.this).length() == 0)
+        {
+            Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            LoginModel loginModel = new LoginModel();
+            loginModel.login(SaveSharedPreference.getUserName(ProjectHandlerActivity.this), SaveSharedPreference.getPassword(ProjectHandlerActivity.this));
+        }
+
+            this.context = ProjectHandlerActivity.this;
 
         new Fetch().execute();
 
         addProjectButton();
 
         Button addFriendButton = (Button) findViewById(R.id.addFriendButton);
-        addFriendButton.setOnClickListener(new View.OnClickListener(){
+        addFriendButton.setOnClickListener(new OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(v.getContext(), FriendListActivity.class);
                 startActivityForResult(intent, 0);
                 Toast.makeText(ProjectHandlerActivity.this, "Friendlist", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_handler_swipe_refresh_layout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Fetch().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -67,7 +95,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private void addProjectButton() {
         Button addProjectButton = (Button) findViewById(R.id.addProjectButton);
-        addProjectButton.setOnClickListener(new View.OnClickListener() {
+        addProjectButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Helper.popup(new PromptRunnable() {
                     public void run() {
@@ -84,7 +112,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_project_handler, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -95,7 +123,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logout) {
+            Helper.toast("You logged out", ProjectHandlerActivity.this);
+            SaveSharedPreference.logout(ProjectHandlerActivity.this);
+            Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 
@@ -119,12 +152,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            fetchAndUpdateList();
+            updateList();
             pd.dismiss();
         }
     }
 
-    private void fetchAndUpdateList() {
+    private void updateList() {
 
         if (projects == null ){
             projects = new Project[1];
@@ -141,8 +174,8 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(view.getContext(), ProjectActivity.class);
                         intent.putExtra("project", projects[position]);
-
                         startActivity(intent);
+                        finish();
                     }
                 }
         );
@@ -165,4 +198,26 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         );
     }
 
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        alertDialogBuilder.setTitle("Do you want to exit?");
+        alertDialogBuilder.setCancelable(false).setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                        return;
+                    }
+                }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                return;
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }

@@ -76,6 +76,10 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         TextView milestoneProgressPercent = (TextView) convertView.findViewById(R.id.milestoneProgressPercent);
 
         if(headerMilestone.getItems().length != 0) {
+            //sets the progressbar to green, but if it turns green it never turns back.....
+            /*if(headerMilestone.percent() == 100){
+                milestoneProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+            }*/
             milestoneProgressBar.setProgress(headerMilestone.percent());
             milestoneProgressPercent.setText(headerMilestone.percent() + "%");
         }else{
@@ -132,11 +136,17 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                 convertView = infalInflater.inflate(R.layout.custom_milestone_item, null);
             }
 
-            CheckBox itemCheckBox = (CheckBox) convertView
-                    .findViewById(R.id.itemCheckBox);
+            CheckBox itemCheckBox = (CheckBox) convertView.findViewById(R.id.itemCheckBox);
+            TextView itemDoneBy = (TextView) convertView.findViewById(R.id.doneByTextView);
 
             itemCheckBox.setText(childItem.name());
             itemCheckBox.setChecked(childItem.done());
+
+            if(itemCheckBox.isChecked()) {
+                itemDoneBy.setText(childItem.doneBy());
+            }else{
+                itemDoneBy.setText("");
+            }
 
             itemCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -188,6 +198,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         @Override
         protected Object doInBackground(Object[] params) {Item.toggle(childItem.id(), User.getInstance());
             childItem.toggleDone();
+            childItem.doneBy(User.getInstance().username());
             resource[groupPosition].items().set(childPosition, childItem);
             hashMap = createHashMap(resource);
             return null;

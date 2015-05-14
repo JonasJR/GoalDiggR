@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,16 +14,20 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 
 public class ProjectActivity extends ActionBarActivity {
 
     private Project project;
+    private Project[] projects;
     private ExpandableListView projectListView;
     private Button addMilestone;
     private Context context;
     private User user;
     private Button shareButton;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView projectName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +35,19 @@ public class ProjectActivity extends ActionBarActivity {
         setContentView(R.layout.activity_project);
         context = ProjectActivity.this;
         user = User.getInstance();
-        project = (Project)getIntent().getExtras().getSerializable("project");
+        new Fetch().execute();
 
-        updateList();
+        project = (Project)getIntent().getExtras().getSerializable("project");// Ändra till det hämtade projectet!
+
+        projectName = (TextView) findViewById(R.id.projectName);
+        projectName.setText(project.name());
         shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
         shareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(context, AddedFriendList.class);
                 intent.putExtra("project", project);
                 startActivity(intent);
+                finish();
             }
         });
         addMilestone = (Button) findViewById(R.id.addMileStoneButton);
@@ -50,6 +59,17 @@ public class ProjectActivity extends ActionBarActivity {
                         new AddMile(this.getValue()).execute();
                     }
                 }, context, "name of milestone");
+            }
+        });
+
+        // /You will setup the action bar with pull to refresh layout
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_swipe_refresh_layout);
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Fetch().execute();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -73,6 +93,35 @@ public class ProjectActivity extends ActionBarActivity {
         protected Object doInBackground(Object[] params) {
             Milestone newMilestone = Milestone.create(value,project.id(), user);
             project.milestones().add(newMilestone);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            new Fetch().execute();
+            pd.dismiss();
+        }
+    }
+
+    private class Fetch extends AsyncTask{
+
+        private ProgressDialog pd;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Fetching projects...");
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            projects = Project.all(User.getInstance());
+            for (Project temp :projects){
+                if(temp.id() == project.id()){
+                    project = temp;
+                }
+            }
             return null;
         }
 
@@ -138,7 +187,7 @@ public class ProjectActivity extends ActionBarActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             Helper.toast(headerMilestone.name() + " removed from milestones", context);
-            updateList();
+            new Fetch().execute();
             pd.dismiss();
         }
     }
@@ -158,10 +207,22 @@ public class ProjectActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logout) {
+            Helper.toast("You logged out", ProjectActivity.this);
+            SaveSharedPreference.logout(ProjectActivity.this);
+            Intent intent = new Intent(ProjectActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ProjectActivity.this, ProjectHandlerActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -10,11 +10,21 @@ public class Item implements Serializable{
     private String name;
     private boolean done = false;
     private static DB db = DB.getInstance();
+    private String done_By = "";
 
-    public Item(int id, String name, boolean done) {
+    public Item(int id, String name, boolean done, String done_by) {
         this.name = name;
         this.id = id;
         this.done = done;
+        this.done_By = done_by;
+    }
+
+    public String doneBy(){
+        return this.done_By;
+    }
+
+    public void doneBy(String name){
+        this.done_By = name;
     }
 
     public String name() {
@@ -37,7 +47,7 @@ public class Item implements Serializable{
 
         try {
             JSONObject jo = new JSONObject(data);
-            item = new Item(jo.getInt("item_id"), jo.getString("item_name"), false);
+            item = new Item(jo.getInt("item_id"), jo.getString("item_name"), false, "");
         } catch (JSONException e) {
             Helper.pelle("Couldn't create item from json" + e.getMessage());
         }

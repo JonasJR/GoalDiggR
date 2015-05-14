@@ -67,6 +67,18 @@ public class DB implements Serializable {
         action("login");
     }
 
+    public void shareProject(String shareFriends, int projectId, String email, String password) {
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("share_friends", shareFriends);
+            jsonObject.put("project_id", projectId);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e ) {Helper.pelle("Share project: " + e.getMessage());}
+
+        action("share_project");
+    }
+
     public void getProjects(String email, String password) {
         jsonObject = new JSONObject();
         try {
@@ -262,6 +274,16 @@ public class DB implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void setRegId(String regId, String email, String password){
+        try {
+            jsonObject.put("reg_id", regId);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e) { Helper.pelle("Couldn't set regid: " + e.getMessage()); }
+        action("set_reg_id");
+    }
+
     private String urlFor(String action) {
         return URL + action + ".json";
     }
@@ -274,6 +296,7 @@ public class DB implements Serializable {
         public Networking(String url, JSONObject obj) {
             this.url = url;
             this.obj = obj;
+            Helper.pelle(url + " : " + obj.toString());
         }
         @Override
         protected Object doInBackground(Object[] params) {

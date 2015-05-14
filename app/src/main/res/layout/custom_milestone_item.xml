@@ -16,6 +16,19 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:buttonTint="#FFF3CF29"
-        android:checked="false" />
+        android:checked="false"
+        android:layout_toStartOf="@+id/doneByTextView"
+        android:layout_toLeftOf="@+id/doneByTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/doneByTextView"
+        android:layout_alignBottom="@+id/itemCheckBox"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp" />
 
 </RelativeLayout>

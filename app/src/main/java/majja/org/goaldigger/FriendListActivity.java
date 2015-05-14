@@ -1,6 +1,7 @@
 package majja.org.goaldigger;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -63,7 +64,7 @@ public class FriendListActivity extends ActionBarActivity {
 
         if(friends == null){
             friends = new Friend[1];
-            friends[0] = new Friend("No matching friends...", null);
+            friends[0] = new Friend(0, "No matching friends...", null);
         }
 
         ListAdapter friendsAdapter = new FriendAdapter(this, friends);
@@ -87,10 +88,17 @@ public class FriendListActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.logout) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(FriendListActivity.this, ProjectHandlerActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
