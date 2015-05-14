@@ -22,7 +22,7 @@ public class TopProjectBanner extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.top_projekt_fragment, container, false);
         bigLabel = (Button)view.findViewById(R.id.mainFragmentButton);
-        bigLabel.setText("apa");
+        bigLabel.setText("GoalDigger");
 
         logoutButton= (Button)view.findViewById(R.id.menuButton);
         logoutButton.setOnClickListener(new View.OnClickListener(){

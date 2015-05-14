@@ -12,7 +12,7 @@
     <string name="GoalDiggerLabel">GoalDigger</string>
     <string name="title_activity_project_handler">ProjectHandlerActivity</string>
     <string name="projekt_top_button_string">Projekt</string>
-    <string name="projekt_top_mark_button_string">+</string>
+    <string name="projekt_top_mark_button_string">log out</string>
     <string name="addProjectString">+ project</string>
     <string name="title_activity_project">ProjectActivity</string>
     <string name="addMilestoneString">+ milestone</string>
