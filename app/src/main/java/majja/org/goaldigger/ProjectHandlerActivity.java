@@ -100,14 +100,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         });
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_project_handler, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -129,12 +127,10 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 public void run() {
                     String[] passwords = this.getChangePasswordValue();
                     String old, newP;
-                    old = passwords[0].toString().replace(":", "");
-                    newP = passwords[1].toString().replace(":", "");
-                    Helper.pelle("Värde på lösenord i array "+ old + "     " +  newP);
-                    DB.getInstance().changePassword( user.email(), user.password(), old, newP);
-                        new Fetch().execute();
-
+                    old = passwords[0].replace(":", "");
+                    newP = passwords[1].replace(":", "");
+                    DB.getInstance().changePassword(user.email(), user.password(), old, newP);
+                    new Fetch().execute();
                 }
             }, context);
 
@@ -145,13 +141,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private class Fetch extends AsyncTask{
         ProgressDialog pd;
-        @Override
+
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(context,"", "Retrieving Projects...");
         }
 
-        @Override
         protected Object doInBackground(Object[] params) {
             projects = Project.all(User.getInstance());
             return null;
@@ -210,7 +205,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         );
     }
 
-    @Override
     public void onBackPressed() {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
