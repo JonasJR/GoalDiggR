@@ -9,31 +9,23 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import static android.view.View.*;
+import static android.view.View.OnClickListener;
 
 
 public class ProjectHandlerActivity extends ActionBarActivity {
 
     private User user;
-    private PopupWindow popUp;
     private Context context;
-    Button add;
-    Button cancel;
-    EditText addProject;
-    DB db = DB.getInstance();
-    Project[] projects;
+    private Project[] projects;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public ProjectHandlerActivity() {
@@ -131,7 +123,22 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             finish();
             return true;
         }
+        if( id == R.id.changePassword) {
+            Helper.toast("Lets change Password", ProjectHandlerActivity.this);
+            Helper.passwordPopup(new PromptRunnable() {
+                public void run() {
+                    String[] passwords = this.getChangePasswordValue().split(":");
+                    String old, newP, passC;
+                    old = passwords[0];
+                    newP = passwords[1];
+                    passC = passwords[2];
+                    DB.getInstance().changePassword(old,newP,passC);
+                    new Fetch().execute();
+                }
+            }, context);
 
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

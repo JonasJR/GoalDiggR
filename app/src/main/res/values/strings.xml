@@ -28,7 +28,7 @@
     <string name="insertPassword2String">email</string>
     <string name="insertEmailString">insert email</string>
     <string name="forgotPasswordString"><u>forgot password</u></string>
-    <string name="resetPasswordString"><u>reset password</u></string>
+    <string name="resetPasswordString">Change password</string>
     <string name="cancelString">Cancel</string>
     <string name="searchString">search</string>
     <string name="title_activity_added_friend_list">AddedFriendList</string>

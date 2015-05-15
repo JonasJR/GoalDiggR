@@ -5,10 +5,20 @@ package majja.org.goaldigger;
  */
 public class PromptRunnable implements Runnable{
     private String v;
-    void setValue(String inV){
+    private String oldPass,newPass,passConfirm;
+
+    public void setValue(String inV){
         this.v = inV;
     }
-    String getValue(){
+    public void setPassValue(String oldPass,String newPass,String passConfirm){
+        this.oldPass = oldPass;
+        this.newPass = newPass;
+        this.passConfirm = passConfirm;
+    }
+    public String getChangePasswordValue(){
+        return oldPass + ":" + newPass + ":" + passConfirm;
+    }
+    public String getValue(){
         return this.v;
     }
     public void run(){

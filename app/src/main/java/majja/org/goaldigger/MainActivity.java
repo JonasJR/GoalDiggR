@@ -13,11 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -39,7 +37,6 @@ public class MainActivity extends ActionBarActivity {
 
 
     TextView forgotPasswordButton;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +80,6 @@ public class MainActivity extends ActionBarActivity {
 
     private void forgotPass() {
 
-
         forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
 
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +94,6 @@ public class MainActivity extends ActionBarActivity {
                                                     }
                                                 }
         );
-
     }
 
     public class checkLogin extends AsyncTask<Void, Void, Boolean> {
