@@ -17,7 +17,6 @@ public class CreateAUserAcitivity extends ActionBarActivity {
 
     Context context;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
@@ -32,7 +31,8 @@ public class CreateAUserAcitivity extends ActionBarActivity {
         createUserButton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        new CheckCreateUser(userName.getText().toString(), email.getText().toString(), pass.getText().toString(), passConfirm.getText().toString()).execute();
+                        new CheckCreateUser(userName.getText().toString(), email.getText().toString(),
+                                pass.getText().toString(), passConfirm.getText().toString()).execute();
                     }
                 }
         );
@@ -49,12 +49,10 @@ public class CreateAUserAcitivity extends ActionBarActivity {
             this.passConfirm = passConfirm;
         }
 
-        @Override
         protected void onPreExecute() {
             pd = ProgressDialog.show(CreateAUserAcitivity.this, "", "Loading...");
         }
 
-        @Override
         protected Boolean doInBackground(Void... params) {
             if(User.createUser(userName, email, pass, passConfirm)) {
                 return true;
@@ -63,7 +61,6 @@ public class CreateAUserAcitivity extends ActionBarActivity {
             }
         }
 
-        @Override
         protected void onPostExecute(Boolean created) {
             if(created){
                 Helper.toast("Det gick!", context);

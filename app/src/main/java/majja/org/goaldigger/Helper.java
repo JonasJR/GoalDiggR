@@ -136,10 +136,9 @@ public class Helper {
                         }
                         if (!str2.equals(str3 + ":")) {
                             Helper.toast("passwords doesn't match", context);
-
                         }
 
-                        postrun.setPassValue(str, str2, str3);
+                        postrun.setPassValue(str, str2);
                         postrun.run();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

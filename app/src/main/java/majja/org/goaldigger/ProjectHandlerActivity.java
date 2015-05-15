@@ -128,12 +128,13 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             Helper.passwordPopup(new PromptRunnable() {
                 public void run() {
                     String[] passwords = this.getChangePasswordValue().split(":");
-                    String old, newP, passC;
+                    String old, newP;
                     old = passwords[0];
                     newP = passwords[1];
-                    passC = passwords[2];
-                    DB.getInstance().changePassword(old,newP,passC);
-                    new Fetch().execute();
+
+                    DB.getInstance().changePassword(old, newP);
+                        new Fetch().execute();
+
                 }
             }, context);
 
