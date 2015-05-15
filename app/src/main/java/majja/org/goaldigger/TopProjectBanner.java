@@ -4,6 +4,7 @@ package majja.org.goaldigger;
  * Created by Anton on 2015-04-12.
  */
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +18,14 @@ import android.widget.Button;
 public class TopProjectBanner extends Fragment{
     private Button bigLabel;
     private Button logoutButton;
-    private DB db= DB.getInstance();
+    private Project project;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.top_projekt_fragment, container, false);
         bigLabel = (Button)view.findViewById(R.id.mainFragmentButton);
-        bigLabel.setText("GoalDigger");
+        bigLabel.setText(getActivity().getTitle());
+
 
         logoutButton= (Button)view.findViewById(R.id.menuButton);
         logoutButton.setOnClickListener(new View.OnClickListener(){

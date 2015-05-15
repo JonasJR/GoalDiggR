@@ -8,7 +8,7 @@
         android:text="@string/projekt_top_button_string"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
-        android:id="@+id/button2"
+        android:id="@+id/plainmainbutton"
         android:layout_row="0"
         android:layout_column="0"
         android:textStyle="bold"

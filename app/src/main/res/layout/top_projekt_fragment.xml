@@ -14,7 +14,8 @@
         android:textStyle="bold"
         android:background="@drawable/coolbutton"
         android:layout_gravity="top"
-        android:clickable="false" />
+        android:clickable="false"
+        android:paddingRight="150dp" />
 
     <Button
         android:layout_width="120dp"

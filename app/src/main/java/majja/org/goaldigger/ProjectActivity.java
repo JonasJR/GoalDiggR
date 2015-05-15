@@ -1,5 +1,7 @@
 package majja.org.goaldigger;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -32,15 +34,17 @@ public class ProjectActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project);
         context = ProjectActivity.this;
         user = User.getInstance();
         new Fetch().execute();
-
-        project = (Project)getIntent().getExtras().getSerializable("project");// Ändra till det hämtade projectet!
+        project = (Project)getIntent().getExtras().getSerializable("project");// Ändra till det hämtade projectet
+        setTitle(project.name());
+        setContentView(R.layout.activity_project);
 
         projectName = (TextView) findViewById(R.id.projectName);
         projectName.setText(project.name());
+
+
         shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
         shareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -72,6 +76,7 @@ public class ProjectActivity extends ActionBarActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
 
     }
     private class AddMile extends AsyncTask{
