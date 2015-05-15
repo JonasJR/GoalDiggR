@@ -256,10 +256,12 @@ public class DB implements Serializable {
         action("reset_password");
     }
 
-    public void changePassword(String newPassword, String oldPassword) {
+    public void changePassword( String email, String password, String oldPassword, String newPassword) {
         try {
-            jsonObject.put("new_password", newPassword);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
             jsonObject.put("old_password", oldPassword);
+            jsonObject.put("new_password", newPassword);
         } catch (JSONException e) { Helper.pelle("Couldn't change password: " + e.getMessage()); }
         action("change_password");
     }

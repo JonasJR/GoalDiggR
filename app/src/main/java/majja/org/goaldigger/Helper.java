@@ -138,7 +138,7 @@ public class Helper {
                             Helper.toast("passwords doesn't match", context);
                         }
 
-                        postrun.setPassValue(str, str2);
+                        postrun.setPassValue(str, str2, str3);
                         postrun.run();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -127,12 +127,12 @@ public class ProjectHandlerActivity extends ActionBarActivity {
             Helper.toast("Lets change Password", ProjectHandlerActivity.this);
             Helper.passwordPopup(new PromptRunnable() {
                 public void run() {
-                    String[] passwords = this.getChangePasswordValue().split(":");
+                    String[] passwords = this.getChangePasswordValue();
                     String old, newP;
-                    old = passwords[0];
-                    newP = passwords[1];
-
-                    DB.getInstance().changePassword(old, newP);
+                    old = passwords[0].toString().replace(":", "");
+                    newP = passwords[1].toString().replace(":", "");
+                    Helper.pelle("Värde på lösenord i array "+ old + "     " +  newP);
+                    DB.getInstance().changePassword( user.email(), user.password(), old, newP);
                         new Fetch().execute();
 
                 }
