@@ -194,7 +194,11 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                         Helper.delete(new PromptRunnable(){
                             @Override
                             public void run() {
-                                Project.delete(projects[position].id(), user);
+                                if(projects[position].owner().equals(user.username())) {
+                                    Project.delete(projects[position].id(), user);
+                                }else{
+                                    //gå ur project
+                                }
                                 Helper.toast(this.getValue() + " removed from projects", context);
                                 new Fetch().execute();
                             }

@@ -25,7 +25,7 @@ public class ProjectActivity extends ActionBarActivity {
     private Button addMilestone;
     private Context context;
     private User user;
-    private Button shareButton;
+    private Button shareButton, leaveButton;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView projectName;
 
@@ -41,26 +41,42 @@ public class ProjectActivity extends ActionBarActivity {
 
         projectName = (TextView) findViewById(R.id.projectName);
         projectName.setText(project.name());
-        shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
-        shareButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(context, AddedFriendList.class);
-                intent.putExtra("project", project);
-                startActivity(intent);
-                finish();
-            }
-        });
-        addMilestone = (Button) findViewById(R.id.addMileStoneButton);
-        addMilestone.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Helper.popup(new PromptRunnable(){
-                    @Override
-                public void run(){
-                        new AddMile(this.getValue()).execute();
-                    }
-                }, context, "name of milestone");
-            }
-        });
+
+        if(!project.owner().equals(user.username())){
+            leaveButton = (Button) findViewById(R.id.shareWithFriendsButton);
+            leaveButton.setText("Leave Project");
+            leaveButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //Gå ur project
+                    Intent intent = new Intent(context, ProjectHandlerActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            addMilestone = (Button) findViewById(R.id.addMileStoneButton);
+            addMilestone.setVisibility(View.INVISIBLE);
+        }else {
+            shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
+            shareButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, AddedFriendList.class);
+                    intent.putExtra("project", project);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            addMilestone = (Button) findViewById(R.id.addMileStoneButton);
+            addMilestone.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Helper.popup(new PromptRunnable() {
+                        @Override
+                        public void run() {
+                            new AddMile(this.getValue()).execute();
+                        }
+                    }, context, "name of milestone");
+                }
+            });
+        }
 
         // /You will setup the action bar with pull to refresh layout
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_swipe_refresh_layout);

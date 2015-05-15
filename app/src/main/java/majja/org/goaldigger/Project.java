@@ -34,6 +34,9 @@ public class Project implements Serializable{
         return milestones.toArray(new Milestone[milestones.size()]);
     }
 
+    public String owner(){
+        return this.owner;
+    }
 
     public String name() {
         return this.name;
