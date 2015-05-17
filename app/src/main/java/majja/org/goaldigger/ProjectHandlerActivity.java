@@ -80,7 +80,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         });
     }
 
-    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }

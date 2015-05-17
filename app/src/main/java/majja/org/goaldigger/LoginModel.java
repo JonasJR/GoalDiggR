@@ -1,9 +1,5 @@
 package majja.org.goaldigger;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

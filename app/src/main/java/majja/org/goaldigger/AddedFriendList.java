@@ -55,7 +55,6 @@ public class AddedFriendList extends ActionBarActivity {
         });
     }
 
-
     public void onBackPressed() {
         Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
         intent.putExtra("project", project);
@@ -71,12 +70,10 @@ public class AddedFriendList extends ActionBarActivity {
             this.shareFriends = shareFriends;
         }
 
-
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(AddedFriendList.this,"", "Sharing with friends...");
         }
-
 
         protected Object doInBackground(Object[] params) {
             if (shareFriends != null) {
@@ -85,7 +82,6 @@ public class AddedFriendList extends ActionBarActivity {
             }
             return null;
         }
-
 
         protected void onPostExecute(Object o) {
             Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);

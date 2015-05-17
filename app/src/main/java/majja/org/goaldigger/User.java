@@ -49,13 +49,13 @@ public class User implements Serializable{
                 try {
                     jo = ja.getJSONObject(i);
                     friends[i] = new Friend(jo.getInt("id"), jo.getString("name"), jo.getString("email"));
-                } catch (JSONException e){}
-
+                } catch (JSONException e){
+                    e.getMessage();
+                }
             }
         }
         return friends;
     }
-
 
     public static void create(String username, String email, String password) {
         User.user = new User(username, email, password);
@@ -107,7 +107,6 @@ public class User implements Serializable{
             Helper.pelle("SUCCESS == FALSE: " + User.errorMessage);
             Helper.pelle("Couldn't create user: " + e.getMessage());
         }
-
         return created;
     }
 }

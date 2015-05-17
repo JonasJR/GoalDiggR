@@ -1,7 +1,5 @@
 package majja.org.goaldigger;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +29,7 @@ public class ProjectActivity extends ActionBarActivity {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView projectName;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = ProjectActivity.this;
@@ -102,20 +100,17 @@ public class ProjectActivity extends ActionBarActivity {
             this.value = value;
         }
 
-        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(context,"", "Creating Milestone...");
         }
 
-        @Override
         protected Object doInBackground(Object[] params) {
             Milestone newMilestone = Milestone.create(value,project.id(), user);
             project.milestones().add(newMilestone);
             return null;
         }
 
-        @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             new Fetch().execute();
@@ -127,13 +122,11 @@ public class ProjectActivity extends ActionBarActivity {
 
         private ProgressDialog pd;
 
-        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(context,"", "Fetching projects...");
         }
 
-        @Override
         protected Object doInBackground(Object[] params) {
             projects = Project.all(User.getInstance());
             for (Project temp :projects){
@@ -144,7 +137,6 @@ public class ProjectActivity extends ActionBarActivity {
             return null;
         }
 
-        @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             updateList();
@@ -189,20 +181,17 @@ public class ProjectActivity extends ActionBarActivity {
             this.headerMilestone = milestone;
         }
 
-        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(context, "", "Deleting Milestone...");
         }
 
-        @Override
         protected Object doInBackground(Object[] params) {
             Milestone.delete(headerMilestone.id(), project.id(), user);
             project.milestones().remove(headerMilestone);
             return null;
         }
 
-        @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             Helper.toast(headerMilestone.name() + " removed from milestones", context);
@@ -211,14 +200,12 @@ public class ProjectActivity extends ActionBarActivity {
         }
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_project, menu);
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -238,7 +225,6 @@ public class ProjectActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void onBackPressed() {
         Intent intent = new Intent(ProjectActivity.this, ProjectHandlerActivity.class);
         startActivity(intent);
