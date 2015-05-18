@@ -1,6 +1,8 @@
 package majja.org.goaldigger;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +20,9 @@ class ProjectAdapter extends ArrayAdapter<Project> {
     ProjectAdapter(Context context, Project[] projects) {
         super(context, R.layout.custom_project_row, projects);
         user = User.getInstance();
-
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        user = User.getInstance();
 
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_project_row, parent, false);
@@ -33,14 +33,14 @@ class ProjectAdapter extends ArrayAdapter<Project> {
 
         projectName.setText(getItem(position).name());
         projectPercentage.setText(getItem(position).percent() + "%");
+
         if(!getItem(position).owner().equals(user.email())){
             projectPercentage.setText(getItem(position).percent() + "%  " + getItem(position).owner());
         }
         progress.setProgress(getItem(position).percent());
-        /*if(getItem(position).percent() == 100){
+        if(getItem(position).percent() == 100){
             progress.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
-        }*/
-
+        }
         return customView;
     }
 }
