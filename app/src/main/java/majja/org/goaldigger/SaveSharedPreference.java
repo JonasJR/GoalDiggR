@@ -8,12 +8,12 @@ import android.preference.PreferenceManager;
 /**
  * Created by Jonas on 13/05/15.
  */
-public class SaveSharedPreference
-{
-    static final String PREF_USER_NAME= "username";
-    static final String PREF_PASSWORD= "password";
+public class SaveSharedPreference {
 
-    public static final String PROPERTY_REG_ID = "registration_id";
+    private static final String PREF_USER_NAME= "username";
+    private static final String PREF_PASSWORD= "password";
+
+    private static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
     static SharedPreferences getSharedPreferences(Context ctx) {
