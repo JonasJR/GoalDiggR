@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -17,22 +15,14 @@ import android.widget.TextView;
 class FriendAdapter extends ArrayAdapter<Friend> {
 
     private Activity activity;
-    private String newFriend;
-    private Friend[] friends;
-    public static EditText userTextField;
-    public static ListView listView;
-
 
     FriendAdapter(Activity context, Friend[] friends) {
         super(context, R.layout.custom_friend, friends);
-        this.friends = friends;
         this.activity = context;
     }
 
     FriendAdapter(Context context, Friend[] friends, String newFriend) {
         super(context, R.layout.custom_friend, friends);
-        this.newFriend = newFriend;
-        this.friends = friends;
     }
 
     @Override
