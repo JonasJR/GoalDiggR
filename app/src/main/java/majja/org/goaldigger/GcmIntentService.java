@@ -60,10 +60,10 @@ public class GcmIntentService extends IntentService {
                 Helper.pelle("Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
 
-                String s = extras.toString();
+                String s = extras.getString("message").toString();
 
-                s = s.substring(s.indexOf("=") + 1);
-                s = s.substring(0, s.indexOf(","));
+//                s = s.substring(s.indexOf("=") + 1);
+//                s = s.substring(0, s.indexOf(","));
 
                 sendNotification(s);
                 Helper.pelle(s);
