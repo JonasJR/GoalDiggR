@@ -3,7 +3,6 @@ package majja.org.goaldigger;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -13,30 +12,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity extends ActionBarActivity {
+
+    private final String SENDER_ID = "397138210490";
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    private static DB db;
+    private static User user;
+    private GoogleCloudMessaging gcm;
+    private String regid;
+
     private static Context context;
     private static EditText loginText;
     private static EditText passwordText;
-    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-    private static DB db;
-    private static User user;
-
-    String SENDER_ID = "397138210490";
-
-    GoogleCloudMessaging gcm;
-    AtomicInteger msgId = new AtomicInteger();
-    SharedPreferences prefs;
-
-    String regid;
-
-
-    TextView forgotPasswordButton;
+    private TextView forgotPasswordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
