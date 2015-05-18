@@ -1,8 +1,6 @@
 package majja.org.goaldigger;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +12,8 @@ import android.widget.TextView;
  * Created by Goaldigger on 2015-04-16.
  */
 class ProjectAdapter extends ArrayAdapter<Project> {
-    private Project project;
-    private User user;
 
+    private User user;
 
     ProjectAdapter(Context context, Project[] projects) {
         super(context, R.layout.custom_project_row, projects);
@@ -24,7 +21,6 @@ class ProjectAdapter extends ArrayAdapter<Project> {
 
     }
 
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         user = User.getInstance();
 

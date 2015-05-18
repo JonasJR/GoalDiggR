@@ -22,15 +22,9 @@ import android.widget.TextView;
 public class ProjectActivity extends ActionBarActivity {
 
     private Project project;
-    private Project[] projects;
-    private ExpandableListView projectListView;
-    private Button addMilestone;
     private Context context;
     private User user;
-    private Button shareButton, leaveButton;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private TextView projectName;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +35,11 @@ public class ProjectActivity extends ActionBarActivity {
         setTitle(project.name());
         setContentView(R.layout.activity_project);
 
-        projectName = (TextView) findViewById(R.id.projectName);
+        TextView projectName = (TextView) findViewById(R.id.projectName);
         projectName.setText(project.name());
 
         if(!project.owner().equals(user.email())){
-            leaveButton = (Button) findViewById(R.id.shareWithFriendsButton);
+            Button leaveButton = (Button) findViewById(R.id.shareWithFriendsButton);
             leaveButton.setText("Leave Project");
             leaveButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -55,10 +49,10 @@ public class ProjectActivity extends ActionBarActivity {
                     finish();
                 }
             });
-            addMilestone = (Button) findViewById(R.id.addMileStoneButton);
+            Button addMilestone = (Button) findViewById(R.id.addMileStoneButton);
             addMilestone.setVisibility(View.INVISIBLE);
         }else {
-            shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
+            Button shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
             shareButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(context, AddedFriendList.class);
@@ -67,11 +61,11 @@ public class ProjectActivity extends ActionBarActivity {
                     finish();
                 }
             });
-            addMilestone = (Button) findViewById(R.id.addMileStoneButton);
+            Button addMilestone = (Button) findViewById(R.id.addMileStoneButton);
             addMilestone.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Helper.popup(new PromptRunnable() {
-                        @Override
+
                         public void run() {
                             new AddMile(this.getValue()).execute();
                         }
@@ -84,15 +78,14 @@ public class ProjectActivity extends ActionBarActivity {
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_swipe_refresh_layout);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
+
             public void onRefresh() {
                 new Fetch().execute();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
-
     }
+    
     private class AddMile extends AsyncTask{
 
         private String value;
@@ -130,7 +123,7 @@ public class ProjectActivity extends ActionBarActivity {
         }
 
         protected Object doInBackground(Object[] params) {
-            projects = Project.all(User.getInstance());
+            Project[] projects = Project.all(User.getInstance());
             for (Project temp :projects){
                 if(temp.id() == project.id()){
                     project = temp;
@@ -147,7 +140,7 @@ public class ProjectActivity extends ActionBarActivity {
     }
 
     private void updateList() {
-        projectListView = (ExpandableListView) findViewById(R.id.projectListView);
+        ExpandableListView projectListView = (ExpandableListView) findViewById(R.id.projectListView);
 
         final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.getMilestones());
         projectListView.setAdapter(milestoneAdapter);
