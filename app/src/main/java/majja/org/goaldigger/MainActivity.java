@@ -39,24 +39,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
-        {
-
-//            LoginModel loginModel = new LoginModel();
-//            loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this));
-//            Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
-//            startActivity(intent);
-//            finish();
-
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0) {
             new CheckLogin(SaveSharedPreference.getUserName(MainActivity.this),SaveSharedPreference.getPassword(MainActivity.this));
-//            LoginModel loginModel = new LoginModel();
-//
-//            if (loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this))) {
-//                Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-
         }
 
         db = DB.getInstance();
