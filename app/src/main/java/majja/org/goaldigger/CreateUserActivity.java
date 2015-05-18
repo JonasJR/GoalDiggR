@@ -18,7 +18,7 @@ import android.widget.EditText;
  */
 public class CreateUserActivity extends ActionBarActivity {
 
-    Context context;
+    private Context context;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,43 +39,6 @@ public class CreateUserActivity extends ActionBarActivity {
                     }
                 }
         );
-    }
-
-    private class CheckCreateUser extends AsyncTask<Void, Void, Boolean>{
-
-        String userName, email, pass, passConfirm;
-        ProgressDialog pd;
-        public CheckCreateUser(String username, String email, String pass, String passConfirm){
-            this.userName = username;
-            this.email = email;
-            this.pass = pass;
-            this.passConfirm = passConfirm;
-        }
-
-        protected void onPreExecute() {
-            pd = ProgressDialog.show(CreateUserActivity.this, "", "Loading...");
-        }
-
-        protected Boolean doInBackground(Void... params) {
-            if(User.createUser(userName, email, pass, passConfirm)) {
-                return true;
-            }else{
-                return false;
-            }
-        }
-
-        protected void onPostExecute(Boolean created) {
-            if(created){
-                Helper.toast("Det gick!", context);
-                Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-            else{
-                Helper.toast(User.errorMessage(), context);
-            }
-            pd.dismiss();
-        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,5 +64,38 @@ public class CreateUserActivity extends ActionBarActivity {
         Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private class CheckCreateUser extends AsyncTask<Void, Void, Boolean>{
+
+        String userName, email, pass, passConfirm;
+        ProgressDialog pd;
+        public CheckCreateUser(String username, String email, String pass, String passConfirm){
+            this.userName = username;
+            this.email = email;
+            this.pass = pass;
+            this.passConfirm = passConfirm;
+        }
+
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(CreateUserActivity.this, "", "Loading...");
+        }
+
+        protected Boolean doInBackground(Void... params) {
+            return (User.createUser(userName, email, pass, passConfirm));
+        }
+
+        protected void onPostExecute(Boolean created) {
+            if(created){
+                Helper.toast("Success!", context);
+                Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else{
+                Helper.toast(User.errorMessage(), context);
+            }
+            pd.dismiss();
+        }
     }
 }
