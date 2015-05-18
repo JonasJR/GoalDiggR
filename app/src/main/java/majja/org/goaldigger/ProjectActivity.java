@@ -42,7 +42,7 @@ public class ProjectActivity extends ActionBarActivity {
         projectName = (TextView) findViewById(R.id.projectName);
         projectName.setText(project.name());
 
-        if(!project.owner().equals(user.username())){
+        if(!project.owner().equals(user.email())){
             leaveButton = (Button) findViewById(R.id.shareWithFriendsButton);
             leaveButton.setText("Leave Project");
             leaveButton.setOnClickListener(new View.OnClickListener() {

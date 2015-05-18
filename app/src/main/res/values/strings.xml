@@ -19,7 +19,7 @@
     <string name="addItemButtonString">+ item</string>
     <string name="shareButtonString">share!</string>
     <string name="addFriendString">+ friend</string>
-    <string name="title_activity_friend_list">FriendListActivity</string>
+    <string name="title_activity_friend_list">Sök efter vänner</string>
     <string name="newUserString"><u>create new user</u></string>
     <string name="title_activity_create_user">createUser</string>
     <string name="InsertUsernameString">username</string>
@@ -31,7 +31,7 @@
     <string name="resetPasswordString">Change password</string>
     <string name="cancelString">Cancel</string>
     <string name="searchString">search</string>
-    <string name="title_activity_added_friend_list">AddedFriendList</string>
+    <string name="title_activity_added_friend_list">Dina vänner</string>
     <string name="Logout">Logout</string> />
 
 </resources>
