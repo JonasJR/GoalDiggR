@@ -2,24 +2,22 @@
 <resources>
 
     <string name="app_name">GoalDigger</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="UserLabel">Username</string>
     <string name="PasswordLabel">Password</string>
-    <string name="EmailLabel">Email</string>
-    <string name="passLabel">Password</string>
+    <string name="EmailLabel">email</string>
+    <string name="passLabel">password</string>
     <string name="LoginButton">login</string>
     <string name="GoalDiggerLabel">GoalDigger</string>
     <string name="title_activity_project_handler">Your projects:</string>
-    <string name="projekt_top_button_string">Projekt</string>
+    <string name="projekt_top_button_string">Project</string>
     <string name="projekt_top_mark_button_string">log out</string>
     <string name="addProjectString">+ project</string>
-    <string name="title_activity_project">Your chosen projekt:</string>
+    <string name="title_activity_project">Your chosen project:</string>
     <string name="addMilestoneString">+ milestone</string>
     <string name="addItemButtonString">+ item</string>
     <string name="shareButtonString">share!</string>
     <string name="addFriendString">+ friend</string>
-    <string name="title_activity_friend_list">Sök efter vänner</string>
+    <string name="title_activity_friend_list">Search for friends</string>
     <string name="newUserString"><u>create new user</u></string>
     <string name="title_activity_create_user">createUser</string>
     <string name="InsertUsernameString">username</string>
@@ -29,9 +27,13 @@
     <string name="insertEmailString">insert email</string>
     <string name="forgotPasswordString"><u>forgot password</u></string>
     <string name="resetPasswordString">Change password</string>
-    <string name="cancelString">Cancel</string>
+    <string name="cancelString">cancel</string>
     <string name="searchString">search</string>
-    <string name="title_activity_added_friend_list">Dina vänner</string>
-    <string name="Logout">Logout</string> />
+    <string name="title_activity_added_friend_list">Your friends</string>
+    <string name="Logout">Logout</string>
+    <string name="AcceptNewUserButtonString">start using GoalDigger!</string>
+    <string name="createNewUserLabelString">create new user!</string>
+    <string name="searchFriendHint">username of friend</string>
+    />
 
 </resources>

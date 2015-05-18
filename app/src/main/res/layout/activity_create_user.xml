@@ -32,7 +32,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="start using GoalDigger!"
+        android:text="@string/AcceptNewUserButtonString"
         android:id="@+id/acceptNewUserButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="create new user!"
+        android:text="@string/createNewUserLabelString"
         android:id="@+id/createNewUserLabel"
         android:layout_above="@+id/editTextAddUsername"
         android:layout_centerHorizontal="true"
