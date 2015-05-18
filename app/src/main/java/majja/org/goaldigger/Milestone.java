@@ -58,7 +58,7 @@ public class Milestone implements Serializable {
         return (int)(percent*100);
     }
 
-    public Item[] getItems() {
+    public Item[] Items() {
         return items.toArray(new Item[items.size()]);
     }
 

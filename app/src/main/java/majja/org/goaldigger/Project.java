@@ -17,6 +17,7 @@ public class Project implements Serializable{
     private String name, owner;
     private int id;
     private String[] participants;
+    private static DB db = DB.getInstance();
 
     public Project(int id, String name) {
         this.name = name;
@@ -29,7 +30,7 @@ public class Project implements Serializable{
         this.owner = owner;
     }
 
-    public Milestone[] getMilestones() {
+    public Milestone[] milestonesArray() {
         return milestones.toArray(new Milestone[milestones.size()]);
     }
 
@@ -65,10 +66,6 @@ public class Project implements Serializable{
         items.add(item);
     }
 
-    public List<Item> items() {
-        return this.items;
-    }
-
     public void addMilestone(Milestone milestone) {
         milestones.add(milestone);
     }
@@ -82,21 +79,17 @@ public class Project implements Serializable{
     }
 
     public static void create(User user, String name) {
-        DB db = DB.getInstance();
         db.createProject(name, user.email(), user.password());
         db.getReturnData();
     }
 
     public static void delete (int id, User user) {
-        DB db = DB.getInstance();
         db.deleteProject(id, user.email(), user.password());
         db.getReturnData();
     }
 
     public static Project[] all(User user) {
-        DB db = DB.getInstance();
         JSONArray ja = null;
-
         db.getProjects(user.email(), user.password());
 
         try {
@@ -158,7 +151,7 @@ public class Project implements Serializable{
         return projects;
     }
 
-    public String[] getParticipants(){
+    public String[] participants(){
         return participants;
     }
 

@@ -20,7 +20,7 @@ public class AddedFriendAdapter extends ArrayAdapter<Friend> {
         super(context, R.layout.custom_milestone_item, friends);
         this.friends = friends;
         this.project = project;
-        this.temp = project.getParticipants();
+        this.temp = project.participants();
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

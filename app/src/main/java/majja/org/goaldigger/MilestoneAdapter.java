@@ -40,7 +40,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         for (Milestone milestone : resource){
             listDataHeader.add(milestone);
             List<Item> temp = new ArrayList<>();
-            Collections.addAll(temp, milestone.getItems());
+            Collections.addAll(temp, milestone.Items());
             newHashMap.put(listDataHeader.get(i), temp);
             i++;
         }
@@ -77,7 +77,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         ProgressBar milestoneProgressBar = (ProgressBar) convertView.findViewById(R.id.milestoneProgressBar);
         TextView milestoneProgressPercent = (TextView) convertView.findViewById(R.id.milestoneProgressPercent);
 
-        if(headerMilestone.getItems().length != 0) {
+        if(headerMilestone.Items().length != 0) {
             //sets the progressbar to green, but if it turns green it never turns back.....
             /*if(headerMilestone.percent() == 100){
                 milestoneProgressBar.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
