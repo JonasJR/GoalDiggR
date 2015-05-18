@@ -34,19 +34,16 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         this.user = User.getInstance();
     }
 
-    @Override
     protected void onResume() {
         super.onResume();
         new Fetch().execute();
     }
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_handler);
 
-        if(SaveSharedPreference.getUserName(ProjectHandlerActivity.this).length() == 0)
-        {
+        if(SaveSharedPreference.getUserName(ProjectHandlerActivity.this).length() == 0) {
             Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -74,7 +71,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_project_handler_swipe_refresh_layout);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
+
             public void onRefresh() {
                 new Fetch().execute();
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -140,27 +137,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class Fetch extends AsyncTask{
-        ProgressDialog pd;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(context,"", "Retrieving Projects...");
-        }
-
-        protected Object doInBackground(Object[] params) {
-            projects = Project.all(User.getInstance());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            updateList();
-            pd.dismiss();
-        }
-    }
-
     private void updateList() {
 
         if (projects == null ){
@@ -174,7 +150,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
         projectListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
-                    @Override
+
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(view.getContext(), ProjectActivity.class);
                         intent.putExtra("project", projects[position]);
@@ -186,10 +162,10 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
         projectListView.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener(){
-                    @Override
+
                     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                         Helper.delete(new PromptRunnable(){
-                            @Override
+
                             public void run() {
                                 if(projects[position].owner().equals(user.username())) {
                                     Project.delete(projects[position].id(), user);
@@ -215,16 +191,33 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         finish();
-                        return;
                     }
                 }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                return;
             }
         });
-
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    private class Fetch extends AsyncTask{
+        ProgressDialog pd;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Retrieving Projects...");
+        }
+
+        protected Object doInBackground(Object[] params) {
+            projects = Project.all(User.getInstance());
+            return null;
+        }
+
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            updateList();
+            pd.dismiss();
+        }
     }
 }

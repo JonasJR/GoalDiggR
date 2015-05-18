@@ -3,16 +3,15 @@ package majja.org.goaldigger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 
 /**
  * Created by Goaldigger on 2015-04-16.
  */
 public class User implements Serializable{
+
     private String email, password, username;
     private DB db;
-
     private static User user;
     private static String errorMessage;
 
@@ -103,9 +102,11 @@ public class User implements Serializable{
                 created = true;
             }
         } catch (Exception e) {
-            User.errorMessage = jo.toString();
-            Helper.pelle("SUCCESS == FALSE: " + User.errorMessage);
-            Helper.pelle("Couldn't create user: " + e.getMessage());
+            if(jo != null) {
+                User.errorMessage = jo.toString();
+                Helper.pelle("SUCCESS == FALSE: " + User.errorMessage);
+                Helper.pelle("Couldn't create user: " + e.getMessage());
+            }
         }
         return created;
     }

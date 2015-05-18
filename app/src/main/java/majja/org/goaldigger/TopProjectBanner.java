@@ -1,8 +1,5 @@
 package majja.org.goaldigger;
 
-/**
- * Created by Goaldigger on 2015-04-12.
- */
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+/**
+ * Created by Goaldigger on 2015-04-12.
+ */
 public class TopProjectBanner extends Fragment{
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
