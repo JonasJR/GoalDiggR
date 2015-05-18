@@ -37,9 +37,7 @@ public class DB implements Serializable {
         if (db == null) {
             db = new DB();
             return db;
-        }
-        else
-        {
+        } else {
             return DB.db;
         }
     }

@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0) {
-            new CheckLogin(SaveSharedPreference.getUserName(MainActivity.this),SaveSharedPreference.getPassword(MainActivity.this));
+            new CheckLogin(SaveSharedPreference.getUserName(MainActivity.this),SaveSharedPreference.getPassword(MainActivity.this)).execute();
         }
 
         db = DB.getInstance();

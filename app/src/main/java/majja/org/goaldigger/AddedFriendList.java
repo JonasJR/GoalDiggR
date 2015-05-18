@@ -19,7 +19,7 @@ import android.widget.ListView;
 public class AddedFriendList extends ActionBarActivity {
 
     private Project project;
-    private Friend[] friends = User.getInstance().getFriends();
+    private Friend[] friends;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +27,8 @@ public class AddedFriendList extends ActionBarActivity {
 
         Bundle extras = getIntent().getExtras();
         project = (Project) extras.get("project");
+
+        friends = User.getInstance().getFriends();
 
         final ListAdapter friendAdapter = new AddedFriendAdapter(this, friends, project);
         final ListView friendListView = (ListView)findViewById(R.id.addedFriendsListView);

@@ -32,11 +32,6 @@ public class AddedFriendAdapter extends ArrayAdapter<Friend> {
             friendName.setChecked(true);
         }
 
-        /*for(String temp : project.getParticipants()){
-            if (getItem(position).getEmail().equals(temp)) {
-                friendName.setChecked(true);
-            }
-        }*/
         friendName.setText(getItem(position).getName());
 
         return customView;
