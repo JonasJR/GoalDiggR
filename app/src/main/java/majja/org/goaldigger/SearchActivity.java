@@ -16,11 +16,10 @@ import android.widget.ListView;
 /**
  * Created by Goaldigger on 2015-04-16.
  */
-public class FriendListActivity extends ActionBarActivity {
+public class SearchActivity extends ActionBarActivity {
     private static EditText userField;
     private static Friend[] friends;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_list);
@@ -44,7 +43,7 @@ public class FriendListActivity extends ActionBarActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = ProgressDialog.show(FriendListActivity.this, "", "Loading...");
+            pd = ProgressDialog.show(SearchActivity.this, "", "Loading...");
         }
 
         @Override
@@ -69,7 +68,7 @@ public class FriendListActivity extends ActionBarActivity {
             friends[0] = new Friend(0, "No matching friends...", null);
         }
 
-        ListAdapter friendsAdapter = new FriendAdapter(this, friends);
+        ListAdapter friendsAdapter = new SearchAdapter(this, friends);
         ListView friendsListView = (ListView)findViewById(R.id.friendListView);
         friendsListView.setAdapter(friendsAdapter);
     }
@@ -99,7 +98,7 @@ public class FriendListActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(FriendListActivity.this, ProjectHandlerActivity.class);
+        Intent intent = new Intent(SearchActivity.this, ProjectHandlerActivity.class);
         startActivity(intent);
         finish();
     }

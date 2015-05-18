@@ -94,9 +94,9 @@ public class Project implements Serializable{
 
         try {
             ja = new JSONArray(db.getReturnData());
-            Helper.pelle(ja.toString());
+            Helper.log(ja.toString());
         } catch (JSONException e) {
-            Helper.pelle("Error making jsonarray from returndata: " + e.getMessage());
+            Helper.log("Error making jsonarray from returndata: " + e.getMessage());
         }
 
         Project[] projects = null;
@@ -144,7 +144,7 @@ public class Project implements Serializable{
                         }
                     }
                 } catch (JSONException e) {
-                    Helper.pelle("Error getting json from jsonarray: " + e.getMessage());
+                    Helper.log("Error getting json from jsonarray: " + e.getMessage());
                 }
             }
         }

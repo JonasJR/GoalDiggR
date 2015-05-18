@@ -16,7 +16,7 @@ import android.widget.EditText;
 /**
  * Created by Goaldigger on 2015-04-16.
  */
-public class CreateAUserAcitivity extends ActionBarActivity {
+public class CreateUserActivity extends ActionBarActivity {
 
     Context context;
 
@@ -53,7 +53,7 @@ public class CreateAUserAcitivity extends ActionBarActivity {
         }
 
         protected void onPreExecute() {
-            pd = ProgressDialog.show(CreateAUserAcitivity.this, "", "Loading...");
+            pd = ProgressDialog.show(CreateUserActivity.this, "", "Loading...");
         }
 
         protected Boolean doInBackground(Void... params) {
@@ -67,7 +67,7 @@ public class CreateAUserAcitivity extends ActionBarActivity {
         protected void onPostExecute(Boolean created) {
             if(created){
                 Helper.toast("Det gick!", context);
-                Intent intent = new Intent(CreateAUserAcitivity.this, MainActivity.class);
+                Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -98,7 +98,7 @@ public class CreateAUserAcitivity extends ActionBarActivity {
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(CreateAUserAcitivity.this, MainActivity.class);
+        Intent intent = new Intent(CreateUserActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

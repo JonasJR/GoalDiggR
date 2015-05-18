@@ -126,13 +126,13 @@ public class MainActivity extends ActionBarActivity {
                     //regid = getRegistrationId(context);
                     if (regid.isEmpty()) {
                         registerInBackground();
-                        Helper.pelle("Ny regid skapad");
+                        Helper.log("Ny regid skapad");
                     }else {
                         sendRegistrationIdToBackend();
-                        Helper.pelle("Regid skickad till backend");
+                        Helper.log("Regid skickad till backend");
                     }
                 } else {
-                    Helper.pelle("No valid Google Play Services APK found.");
+                    Helper.log("No valid Google Play Services APK found.");
                 }
 
                 SaveSharedPreference.setUserName(MainActivity.this, user);
@@ -152,7 +152,7 @@ public class MainActivity extends ActionBarActivity {
         newUserTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CreateAUserAcitivity.class);
+                Intent intent = new Intent(v.getContext(), CreateUserActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -187,7 +187,7 @@ public class MainActivity extends ActionBarActivity {
                 GooglePlayServicesUtil.getErrorDialog(resultCode, this,
                         PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
-                Helper.pelle( "This device is not supported.");
+                Helper.log("This device is not supported.");
                 finish();
             }
             return false;
@@ -235,7 +235,7 @@ public class MainActivity extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(String msg) {
-                Helper.pelle(msg);
+                Helper.log(msg);
             }
         }.execute(null, null, null);
     }

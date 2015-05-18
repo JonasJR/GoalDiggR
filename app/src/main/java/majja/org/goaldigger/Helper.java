@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class Helper {
 
     private static final String DEBUG_TAG = "Goaldigger";
-    private static String str = null, str2 = null, str3 = null;
+    private static String str, str2, str3;
 
     /**
      * Method to show a toast
@@ -55,13 +55,11 @@ public class Helper {
                         }
                         postrun.setValue(str);
                         postrun.run();
-                        return;
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 str = null;
                 dialog.cancel();
-                return;
             }
         });
 
@@ -86,13 +84,11 @@ public class Helper {
                     public void onClick(DialogInterface dialog, int id) {
                         postrun.setValue(str);
                         postrun.run();
-                        return;
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 str = null;
                 dialog.cancel();
-                return;
             }
         });
 
@@ -126,15 +122,14 @@ public class Helper {
 
                         if (str.equals("")) {
                             Helper.toast("Can't be blank, \n Enter current password", context);
-                            return;
                         }
-                        if (str2.equals("")) {
+                        else if (str2.equals("")) {
                             Helper.toast("Can't be blank", context);
                         }
-                        if (str3.equals("")) {
+                        else if (str3.equals("")) {
                             Helper.toast("Can't be blank", context);
                         }
-                        if (!str2.equals(str3 + ":")) {
+                        else if (!str2.equals(str3 + ":")) {
                             Helper.toast("passwords doesn't match", context);
                         }
 
@@ -156,10 +151,9 @@ public class Helper {
 
     /**
      * Method used for debugging messages.
-     *
-     * @param message
+     * @param message Message to display in console.
      */
-    public static void pelle(String message) {
+    public static void log(String message) {
         Log.d(DEBUG_TAG, message);
     }
 }

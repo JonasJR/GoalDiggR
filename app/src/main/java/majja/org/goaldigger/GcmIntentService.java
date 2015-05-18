@@ -57,7 +57,7 @@ public class GcmIntentService extends IntentService {
                     MESSAGE_TYPE_MESSAGE.equals(messageType)) {
 
 
-                Helper.pelle("Completed work @ " + SystemClock.elapsedRealtime());
+                Helper.log("Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
 
                 String s = extras.getString("message").toString();
@@ -66,8 +66,8 @@ public class GcmIntentService extends IntentService {
 //                s = s.substring(0, s.indexOf(","));
 
                 sendNotification(s);
-                Helper.pelle(s);
-                Helper.pelle("Received: " + extras.toString());
+                Helper.log(s);
+                Helper.log("Received: " + extras.toString());
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.

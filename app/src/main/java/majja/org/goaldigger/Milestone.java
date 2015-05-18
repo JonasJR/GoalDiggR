@@ -31,7 +31,7 @@ public class Milestone implements Serializable {
             JSONObject jo = new JSONObject(data);
             milestone = new Milestone(jo.getInt("milestone_id"), jo.getString("milestone_name"));
         } catch (JSONException e) {
-            Helper.pelle("Couldn't create milestone from json" + e.getMessage());
+            Helper.log("Couldn't create milestone from json" + e.getMessage());
         }
 
         return milestone;
