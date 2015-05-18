@@ -25,7 +25,5 @@ public class PromptRunnable implements Runnable{
     public String getValue(){
         return this.v;
     }
-    public void run(){
-        this.run();
-    }
+    public void run(){}
 }

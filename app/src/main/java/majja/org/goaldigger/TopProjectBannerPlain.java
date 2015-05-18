@@ -12,14 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class TopProjectBannerPlain extends Fragment{
-    private Button maintext;
-    @Override
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.top_projekt_fragment_plain, container, false);
-        maintext = (Button)view.findViewById(R.id.plainmainbutton);
+        Button maintext = (Button)view.findViewById(R.id.plainmainbutton);
         maintext.setText(getActivity().getTitle());
         return view;
-
-        //Får inte riktigt rätt på hur man får den att ligga rätt?
     }
 }

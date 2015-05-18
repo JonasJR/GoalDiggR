@@ -12,7 +12,6 @@ public class SaveSharedPreference {
 
     private static final String PREF_USER_NAME= "username";
     private static final String PREF_PASSWORD= "password";
-
     private static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
@@ -25,32 +24,31 @@ public class SaveSharedPreference {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, userName.email());
         editor.putString(PREF_PASSWORD, userName.password());
-        editor.commit();
+        editor.apply();
     }
 
-    public static String getUserName(Context ctx)
-    {
+    public static String getUserName(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_USER_NAME, "");
     }
 
-    public static String getPassword(Context ctx)
-    {
+    public static String getPassword(Context ctx) {
         return getSharedPreferences(ctx).getString(PREF_PASSWORD, "");
     }
 
     public static void logout(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.clear(); //clear all stored data
-        editor.commit();
+        editor.apply();
     }
 
     public static String getRegistrationId(Context context) {
         final SharedPreferences prefs = getSharedPreferences(context);
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
-        if (registrationId.isEmpty()) {
+        if (registrationId == null) {
             Helper.pelle("Registration not found.");
             return "";
         }
+
         // Check if app was updated; if so, it must clear the registration ID
         // since the existing registration ID is not guaranteed to work with
         // the new app version.
@@ -70,7 +68,7 @@ public class SaveSharedPreference {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
-        editor.commit();
+        editor.apply();
     }
 
     private static int getAppVersion(Context context) {
