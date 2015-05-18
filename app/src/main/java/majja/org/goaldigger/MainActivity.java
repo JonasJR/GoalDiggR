@@ -16,9 +16,11 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import java.io.IOException;
 
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class MainActivity extends ActionBarActivity {
 
     private final String SENDER_ID = "397138210490";

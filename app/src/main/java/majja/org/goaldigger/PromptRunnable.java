@@ -1,7 +1,7 @@
 package majja.org.goaldigger;
 
 /**
- * Created by Jonas on 28/04/15.
+ * Created by Goaldigger on 28/04/15.
  */
 public class PromptRunnable implements Runnable{
     private String v;

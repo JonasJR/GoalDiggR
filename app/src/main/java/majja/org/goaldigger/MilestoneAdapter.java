@@ -17,6 +17,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class MilestoneAdapter extends BaseExpandableListAdapter {
 
     private Milestone[] resource;

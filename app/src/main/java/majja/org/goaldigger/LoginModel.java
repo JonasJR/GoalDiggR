@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
- * Created by xeronic on 2015-04-15.
+ * Created by Goaldigger on 2015-04-16.
  */
 public class LoginModel implements Serializable{
 

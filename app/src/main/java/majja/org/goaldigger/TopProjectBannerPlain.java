@@ -1,7 +1,7 @@
 package majja.org.goaldigger;
 
 /**
- * Created by Anton on 2015-04-12.
+ * Created by Goaldigger on 2015-04-12.
  */
 import android.os.Bundle;
 import android.support.annotation.Nullable;

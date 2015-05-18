@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by xeronic on 2015-04-16.
+ * Created by Goaldigger on 2015-04-16.
  */
 public class Project implements Serializable{
 

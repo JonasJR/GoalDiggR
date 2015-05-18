@@ -1,12 +1,14 @@
 package majja.org.goaldigger;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
     public GcmBroadcastReceiver() {
     }

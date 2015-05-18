@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
- * Created by xeronic on 2015-04-16.
+ * Created by Goaldigger on 2015-04-16.
  */
 public class User implements Serializable{
     private String email, password, username;

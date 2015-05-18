@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class FriendListActivity extends ActionBarActivity {
     public static EditText userField;
     private static Friend[] friends;

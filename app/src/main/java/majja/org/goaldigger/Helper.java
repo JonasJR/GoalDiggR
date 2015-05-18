@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * Created by Xeronic on 15-04-15.
+ * Created by Goaldigger on 2015-04-16.
  */
 public class Helper {
 

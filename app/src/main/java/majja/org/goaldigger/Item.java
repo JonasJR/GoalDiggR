@@ -5,6 +5,10 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
+
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class Item implements Serializable{
     private int id;
     private String name;

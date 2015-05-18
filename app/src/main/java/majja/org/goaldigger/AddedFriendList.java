@@ -13,7 +13,9 @@ import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class AddedFriendList extends ActionBarActivity {
 
     private Project project;

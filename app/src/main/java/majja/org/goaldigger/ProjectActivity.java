@@ -16,7 +16,9 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class ProjectActivity extends ActionBarActivity {
 
     private Project project;

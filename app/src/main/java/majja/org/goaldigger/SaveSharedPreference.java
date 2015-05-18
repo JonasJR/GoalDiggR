@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo;
 import android.preference.PreferenceManager;
 
 /**
- * Created by Jonas on 13/05/15.
+ * Created by Goaldigger on 13/05/15.
  */
 public class SaveSharedPreference {
 

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 /**
- * Created by Jonas on 29/04/15.
+ * Created by Goaldigger on 2015-04-16.
  */
 public class Friend implements Serializable{
     private String name, email;

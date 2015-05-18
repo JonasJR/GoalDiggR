@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class CreateAUserAcitivity extends ActionBarActivity {
 
     Context context;

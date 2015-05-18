@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Xeronic on 15-04-21.
+ * Created by Goaldigger on 2015-04-16.
  */
 public class Milestone implements Serializable {
     private String name;

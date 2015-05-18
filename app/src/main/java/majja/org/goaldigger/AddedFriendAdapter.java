@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import java.util.Arrays;
 
 /**
- * Created by antonnilsson on 2015-05-06.
+ * Created by Goaldigger on 2015-04-16.
  */
 public class AddedFriendAdapter extends ArrayAdapter<Friend> {
     private Friend[] friends;

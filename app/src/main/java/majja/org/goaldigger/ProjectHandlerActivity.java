@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import static android.view.View.OnClickListener;
 
-
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 public class ProjectHandlerActivity extends ActionBarActivity {
 
     private User user;

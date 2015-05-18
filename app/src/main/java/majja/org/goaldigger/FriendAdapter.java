@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Created by Goaldigger on 2015-04-16.
+ */
 class FriendAdapter extends ArrayAdapter<Friend> {
 
     private Activity activity;
