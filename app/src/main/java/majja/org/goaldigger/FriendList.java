@@ -16,7 +16,7 @@ import android.widget.ListView;
 /**
  * Created by Goaldigger on 2015-04-16.
  */
-public class AddedFriendList extends ActionBarActivity {
+public class FriendList extends ActionBarActivity {
 
     private Project project;
     private Friend[] friends;
@@ -30,7 +30,7 @@ public class AddedFriendList extends ActionBarActivity {
 
         friends = User.getInstance().getFriends();
 
-        final ListAdapter friendAdapter = new AddedFriendAdapter(this, friends, project);
+        final ListAdapter friendAdapter = new FriendAdapter(this, friends, project);
         final ListView friendListView = (ListView)findViewById(R.id.addedFriendsListView);
         friendListView.setAdapter(friendAdapter);
 
@@ -60,7 +60,7 @@ public class AddedFriendList extends ActionBarActivity {
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
+        Intent intent = new Intent(FriendList.this, ProjectActivity.class);
         intent.putExtra("project", project);
         startActivity(intent);
         finish();
@@ -76,19 +76,19 @@ public class AddedFriendList extends ActionBarActivity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = ProgressDialog.show(AddedFriendList.this,"", "Sharing with friends...");
+            pd = ProgressDialog.show(FriendList.this,"", "Sharing with friends...");
         }
 
         protected Object doInBackground(Object[] params) {
             if (shareFriends != null) {
-                Helper.pelle(shareFriends);
+                Helper.log(shareFriends);
                 User.getInstance().share(shareFriends, project.id());
             }
             return null;
         }
 
         protected void onPostExecute(Object o) {
-            Intent intent = new Intent(AddedFriendList.this, ProjectActivity.class);
+            Intent intent = new Intent(FriendList.this, ProjectActivity.class);
             intent.putExtra("project", project);
             startActivity(intent);
             pd.dismiss();
@@ -110,9 +110,9 @@ public class AddedFriendList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
-            Helper.toast("You logged out", AddedFriendList.this);
-            SaveSharedPreference.logout(AddedFriendList.this);
-            Intent intent = new Intent(AddedFriendList.this, MainActivity.class);
+            Helper.toast("You logged out", FriendList.this);
+            SaveSharedPreference.logout(FriendList.this);
+            Intent intent = new Intent(FriendList.this, MainActivity.class);
             startActivity(intent);
             finish();
             return true;

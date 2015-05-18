@@ -61,7 +61,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         Button addFriendButton = (Button) findViewById(R.id.addFriendButton);
         addFriendButton.setOnClickListener(new OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(v.getContext(), FriendListActivity.class);
+                Intent intent = new Intent(v.getContext(), SearchActivity.class);
                 startActivityForResult(intent, 0);
                 Toast.makeText(ProjectHandlerActivity.this, "Friendlist", Toast.LENGTH_SHORT).show();
                 finish();

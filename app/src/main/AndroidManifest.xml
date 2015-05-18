@@ -37,15 +37,15 @@
             android:label="@string/title_activity_project" >
         </activity>
         <activity
-            android:name=".FriendListActivity"
+            android:name=".SearchActivity"
             android:label="@string/title_activity_friend_list" >
         </activity>
         <activity
-            android:name=".CreateAUserAcitivity"
+            android:name=".CreateUserActivity"
             android:label="@string/title_activity_create_user" >
         </activity>
         <activity
-            android:name=".AddedFriendList"
+            android:name=".FriendList"
             android:label="@string/title_activity_added_friend_list" >
         </activity>
 

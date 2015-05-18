@@ -29,7 +29,7 @@ public class LoginModel implements Serializable{
 
             login = true;
         } catch (JSONException e) {
-            Helper.pelle("Couldn't log in: " + e.getMessage());
+            Helper.log("Couldn't log in: " + e.getMessage());
         }
 
         return login;

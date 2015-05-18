@@ -59,7 +59,7 @@ public class DB implements Serializable {
         try {
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e ) {Helper.pelle("Login: " + e.getMessage());}
+        } catch (JSONException e ) {Helper.log("Login: " + e.getMessage());}
 
         action("login");
     }
@@ -71,7 +71,7 @@ public class DB implements Serializable {
             jsonObject.put("project_id", projectId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e ) {Helper.pelle("Share project: " + e.getMessage());}
+        } catch (JSONException e ) {Helper.log("Share project: " + e.getMessage());}
 
         action("share_project");
     }
@@ -81,7 +81,7 @@ public class DB implements Serializable {
         try {
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e ) {Helper.pelle("Get projects: " + e.getMessage());}
+        } catch (JSONException e ) {Helper.log("Get projects: " + e.getMessage());}
 
         action("projects");
     }
@@ -93,7 +93,7 @@ public class DB implements Serializable {
             jsonObject.put("email", email);
             jsonObject.put("password", password);
             jsonObject.put("password_confirmation", passwordConfirmation);
-        } catch (JSONException e ) {Helper.pelle("Create user: " + e.getMessage());}
+        } catch (JSONException e ) {Helper.log("Create user: " + e.getMessage());}
 
         action("signup");
     }
@@ -104,7 +104,7 @@ public class DB implements Serializable {
             jsonObject.put("friend_email", friendEmail);
             jsonObject.put("email", userEmail);
             jsonObject.put("password", password);
-        } catch (JSONException e ) {Helper.pelle("Create friend: " + e.getMessage());}
+        } catch (JSONException e ) {Helper.log("Create friend: " + e.getMessage());}
 
         action("create_friend");
     }
@@ -114,7 +114,7 @@ public class DB implements Serializable {
         try {
             jsonObject.put("email", userEmail);
             jsonObject.put("password", password);
-        } catch (JSONException e ) {Helper.pelle("Couldn't fetch friendlist: " + e.getMessage());}
+        } catch (JSONException e ) {Helper.log("Couldn't fetch friendlist: " + e.getMessage());}
 
         action("show_friends");
     }
@@ -125,7 +125,7 @@ public class DB implements Serializable {
             jsonObject.put("email", email);
             jsonObject.put("password", password);
             jsonObject.put("search_phrase", searchPhrase);
-        } catch (JSONException e ) { Helper.pelle("search friends: " + e.getMessage()); }
+        } catch (JSONException e ) { Helper.log("search friends: " + e.getMessage()); }
 
         action("search_friends");
     }
@@ -155,12 +155,12 @@ public class DB implements Serializable {
             bufferedReader.close();
 
         } catch (IOException e) {
-            Helper.pelle("IOException: " + e.getMessage());
+            Helper.log("IOException: " + e.getMessage());
         } catch (Exception e) {
-            Helper.pelle("Exception nu: " + e.getMessage());
+            Helper.log("Exception nu: " + e.getMessage());
         }
 
-        Helper.pelle("Return mess: " + stringBuffer.toString());
+        Helper.log("Return mess: " + stringBuffer.toString());
 
         this.returnData = stringBuffer.toString();
     }
@@ -171,7 +171,7 @@ public class DB implements Serializable {
             jsonObject.put("project_name", name);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e ) {Helper.pelle("Create project: " + e.getMessage());}
+        } catch (JSONException e ) {Helper.log("Create project: " + e.getMessage());}
 
        action("add_project");
     }
@@ -182,7 +182,7 @@ public class DB implements Serializable {
             jsonObject.put("id", id);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) { Helper.pelle("Couldn't delete project" + e.getMessage());}
+        } catch (JSONException e) { Helper.log("Couldn't delete project" + e.getMessage());}
 
         action("delete_project");
     }
@@ -193,7 +193,7 @@ public class DB implements Serializable {
             jsonObject.put("id", id);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) { Helper.pelle("Couldn't leave project" + e.getMessage());}
+        } catch (JSONException e) { Helper.log("Couldn't leave project" + e.getMessage());}
 
         action("leave_project");
     }
@@ -205,7 +205,7 @@ public class DB implements Serializable {
             jsonObject.put("project_id", projectId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) {Helper.pelle("Couldn't delete milestone" + e.getMessage());}
+        } catch (JSONException e) {Helper.log("Couldn't delete milestone" + e.getMessage());}
 
         action("delete_milestone");
     }
@@ -216,7 +216,7 @@ public class DB implements Serializable {
             jsonObject.put("item_id", id);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) { Helper.pelle("Couldn't delete item" + e.getMessage()); }
+        } catch (JSONException e) { Helper.log("Couldn't delete item" + e.getMessage()); }
 
         action("delete_item");
     }
@@ -227,7 +227,7 @@ public class DB implements Serializable {
             jsonObject.put("item_id", itemId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) { Helper.pelle("Couldn't toggle item: " + e.getMessage()); }
+        } catch (JSONException e) { Helper.log("Couldn't toggle item: " + e.getMessage()); }
 
         action("toggle_item");
     }
@@ -239,7 +239,7 @@ public class DB implements Serializable {
             jsonObject.put("project_id", projectID);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) { Helper.pelle("Couldn't create milestone: " + e.getMessage()); }
+        } catch (JSONException e) { Helper.log("Couldn't create milestone: " + e.getMessage()); }
 
         action("create_milestone");
     }
@@ -251,7 +251,7 @@ public class DB implements Serializable {
             jsonObject.put("milestone_id", milestoneId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) { Helper.pelle("Couldn't create item: " + e.getMessage()); }
+        } catch (JSONException e) { Helper.log("Couldn't create item: " + e.getMessage()); }
 
         action("create_item");
     }
@@ -260,7 +260,7 @@ public class DB implements Serializable {
         jsonObject = new JSONObject();
         try {
             jsonObject.put("email", email);
-        } catch (JSONException e) { Helper.pelle("Couldn't reset password: " + e.getMessage()); }
+        } catch (JSONException e) { Helper.log("Couldn't reset password: " + e.getMessage()); }
 
         action("reset_password");
     }
@@ -271,7 +271,7 @@ public class DB implements Serializable {
             jsonObject.put("password", password);
             jsonObject.put("old_password", oldPassword);
             jsonObject.put("new_password", newPassword);
-        } catch (JSONException e) { Helper.pelle("Couldn't change password: " + e.getMessage()); }
+        } catch (JSONException e) { Helper.log("Couldn't change password: " + e.getMessage()); }
         action("change_password");
     }
 
@@ -290,7 +290,7 @@ public class DB implements Serializable {
             jsonObject.put("reg_id", regId);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
-        } catch (JSONException e) { Helper.pelle("Couldn't set regid: " + e.getMessage()); }
+        } catch (JSONException e) { Helper.log("Couldn't set regid: " + e.getMessage()); }
         action("set_reg_id");
     }
 
@@ -306,7 +306,7 @@ public class DB implements Serializable {
         public Networking(String url, JSONObject obj) {
             this.url = url;
             this.obj = obj;
-            Helper.pelle(url + " : " + obj.toString());
+            Helper.log(url + " : " + obj.toString());
         }
         protected Object doInBackground(Object[] params) {
             getJSON(url, obj);

@@ -45,7 +45,7 @@ public class SaveSharedPreference {
         final SharedPreferences prefs = getSharedPreferences(context);
         String registrationId = prefs.getString(PROPERTY_REG_ID, "");
         if (registrationId == null) {
-            Helper.pelle("Registration not found.");
+            Helper.log("Registration not found.");
             return "";
         }
 
@@ -55,7 +55,7 @@ public class SaveSharedPreference {
         int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
         int currentVersion = getAppVersion(context);
         if (registeredVersion != currentVersion) {
-            Helper.pelle("App version changed.");
+            Helper.log("App version changed.");
             return "";
         }
         return registrationId;
@@ -64,7 +64,7 @@ public class SaveSharedPreference {
     public static void storeRegistrationId(Context context, String regId) {
         final SharedPreferences prefs = getSharedPreferences(context);
         int appVersion = getAppVersion(context);
-        Helper.pelle("Saving regId on app version " + appVersion);
+        Helper.log("Saving regId on app version " + appVersion);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);

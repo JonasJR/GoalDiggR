@@ -53,7 +53,7 @@ public class Item implements Serializable{
             JSONObject jo = new JSONObject(data);
             item = new Item(jo.getInt("item_id"), jo.getString("item_name"), false, "");
         } catch (JSONException e) {
-            Helper.pelle("Couldn't create item from json" + e.getMessage());
+            Helper.log("Couldn't create item from json" + e.getMessage());
         }
         return item;
     }

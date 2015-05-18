@@ -35,7 +35,7 @@ public class User implements Serializable{
         try {
             ja = new JSONArray(db.getReturnData());
         } catch (JSONException e) {
-            Helper.pelle("Error making jsonarray from returndata: " + e.getMessage());
+            Helper.log("Error making jsonarray from returndata: " + e.getMessage());
         }
 
         Friend[] friends= null;
@@ -104,8 +104,8 @@ public class User implements Serializable{
         } catch (Exception e) {
             if(jo != null) {
                 User.errorMessage = jo.toString();
-                Helper.pelle("SUCCESS == FALSE: " + User.errorMessage);
-                Helper.pelle("Couldn't create user: " + e.getMessage());
+                Helper.log("SUCCESS == FALSE: " + User.errorMessage);
+                Helper.log("Couldn't create user: " + e.getMessage());
             }
         }
         return created;

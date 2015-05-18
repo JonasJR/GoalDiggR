@@ -59,7 +59,7 @@ public class Friend implements Serializable{
         try {
             ja = new JSONArray(db.getReturnData());
         } catch (JSONException e) {
-            Helper.pelle("Error making jsonarray from returndata: " + e.getMessage());
+            Helper.log("Error making jsonarray from returndata: " + e.getMessage());
         }
 
         Friend[] friends= null;
