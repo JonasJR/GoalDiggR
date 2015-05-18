@@ -41,11 +41,22 @@ public class MainActivity extends ActionBarActivity {
 
         if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
         {
-            LoginModel loginModel = new LoginModel();
-            loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this));
-            Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
-            startActivity(intent);
-            finish();
+
+//            LoginModel loginModel = new LoginModel();
+//            loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this));
+//            Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
+//            startActivity(intent);
+//            finish();
+
+            new CheckLogin(SaveSharedPreference.getUserName(MainActivity.this),SaveSharedPreference.getPassword(MainActivity.this));
+//            LoginModel loginModel = new LoginModel();
+//
+//            if (loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this))) {
+//                Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+
         }
 
         db = DB.getInstance();
@@ -61,7 +72,7 @@ public class MainActivity extends ActionBarActivity {
         loginButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        new checkLogin(loginText.getText().toString(), passwordText.getText().toString()).execute();
+                        new CheckLogin(loginText.getText().toString(), passwordText.getText().toString()).execute();
                     }
                 }
         );
@@ -91,11 +102,12 @@ public class MainActivity extends ActionBarActivity {
         );
     }
 
-    public class checkLogin extends AsyncTask<Void, Void, Boolean> {
+    public class CheckLogin extends AsyncTask<Void, Void, Boolean> {
 
         String email, password;
         ProgressDialog pd;
-        public checkLogin(String email, String password){
+
+        public CheckLogin(String email, String password){
             this.email = email;
             this.password = password;
         }
