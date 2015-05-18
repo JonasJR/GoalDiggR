@@ -42,7 +42,6 @@ public class MainActivity extends ActionBarActivity {
         if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
         {
             LoginModel loginModel = new LoginModel();
-
             loginModel.login(SaveSharedPreference.getUserName(MainActivity.this), SaveSharedPreference.getPassword(MainActivity.this));
             Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
             startActivity(intent);

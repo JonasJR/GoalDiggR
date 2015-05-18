@@ -129,10 +129,10 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                     old = passwords[0].replace(":", "");
                     newP = passwords[1].replace(":", "");
                     DB.getInstance().changePassword(user.email(), user.password(), old, newP);
+                    SaveSharedPreference.logout(ProjectHandlerActivity.this);
                     new Fetch().execute();
                 }
             }, context);
-
             return true;
         }
         return super.onOptionsItemSelected(item);
