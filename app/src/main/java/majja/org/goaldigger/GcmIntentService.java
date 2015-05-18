@@ -17,6 +17,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
+
 /**
  * Created by Goaldigger on 2015-04-16.
  */
