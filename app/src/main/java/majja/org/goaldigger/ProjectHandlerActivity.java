@@ -169,10 +169,11 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                             public void run() {
                                 if(projects[position].owner().equals(user.username())) {
                                     Project.delete(projects[position].id(), user);
+                                    Helper.toast(this.getValue() + " removed from projects", context);
                                 }else{
-                                    //gå ur project
+                                    DB.getInstance().leaveProject(projects[position].id(), user.email(), user.password());
+                                    Helper.toast(this.getValue() + " You left the project", context);
                                 }
-                                Helper.toast(this.getValue() + " removed from projects", context);
                                 new Fetch().execute();
                             }
                         }, context, projects[position].name());

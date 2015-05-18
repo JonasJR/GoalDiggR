@@ -67,7 +67,7 @@ public class ProjectActivity extends ActionBarActivity {
                     Helper.popup(new PromptRunnable() {
 
                         public void run() {
-                            new AddMile(this.getValue()).execute();
+                            new AddMilestone(this.getValue()).execute();
                         }
                     }, context, "name of milestone");
                 }
@@ -84,59 +84,6 @@ public class ProjectActivity extends ActionBarActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-    }
-    
-    private class AddMile extends AsyncTask{
-
-        private String value;
-        private ProgressDialog pd;
-
-        public AddMile(String value){
-            this.value = value;
-        }
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(context,"", "Creating Milestone...");
-        }
-
-        protected Object doInBackground(Object[] params) {
-            Milestone newMilestone = Milestone.create(value,project.id(), user);
-            project.milestones().add(newMilestone);
-            return null;
-        }
-
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            new Fetch().execute();
-            pd.dismiss();
-        }
-    }
-
-    private class Fetch extends AsyncTask{
-
-        private ProgressDialog pd;
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(context,"", "Fetching projects...");
-        }
-
-        protected Object doInBackground(Object[] params) {
-            Project[] projects = Project.all(User.getInstance());
-            for (Project temp :projects){
-                if(temp.id() == project.id()){
-                    project = temp;
-                }
-            }
-            return null;
-        }
-
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            updateList();
-            pd.dismiss();
-        }
     }
 
     private void updateList() {
@@ -156,43 +103,14 @@ public class ProjectActivity extends ActionBarActivity {
                     Helper.delete(new PromptRunnable(){
                         @Override
                         public void run() {
-                            new RemoveMile(headerMilestone).execute();
+                            new RemoveMilestone(headerMilestone).execute();
                         }
                     }, context, headerMilestone.name());
                     return true;
                 }
-
                 return false;
             }
         });
-    }
-
-    public class RemoveMile extends AsyncTask{
-
-        private Milestone headerMilestone;
-        private ProgressDialog pd;
-
-        public RemoveMile(Milestone milestone){
-            this.headerMilestone = milestone;
-        }
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(context, "", "Deleting Milestone...");
-        }
-
-        protected Object doInBackground(Object[] params) {
-            Milestone.delete(headerMilestone.id(), project.id(), user);
-            project.milestones().remove(headerMilestone);
-            return null;
-        }
-
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            Helper.toast(headerMilestone.name() + " removed from milestones", context);
-            new Fetch().execute();
-            pd.dismiss();
-        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -216,7 +134,6 @@ public class ProjectActivity extends ActionBarActivity {
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -224,5 +141,86 @@ public class ProjectActivity extends ActionBarActivity {
         Intent intent = new Intent(ProjectActivity.this, ProjectHandlerActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private class AddMilestone extends AsyncTask{
+
+        private String value;
+        private ProgressDialog pd;
+
+        public AddMilestone(String value){
+            this.value = value;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Creating Milestone...");
+        }
+
+        protected Object doInBackground(Object[] params) {
+            Milestone newMilestone = Milestone.create(value, project.id(), user);
+            project.milestones().add(newMilestone);
+            return null;
+        }
+
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            new Fetch().execute();
+            pd.dismiss();
+        }
+    }
+
+    public class RemoveMilestone extends AsyncTask{
+
+        private Milestone headerMilestone;
+        private ProgressDialog pd;
+
+        public RemoveMilestone(Milestone milestone){
+            this.headerMilestone = milestone;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context, "", "Deleting Milestone...");
+        }
+
+        protected Object doInBackground(Object[] params) {
+            Milestone.delete(headerMilestone.id(), project.id(), user);
+            project.milestones().remove(headerMilestone);
+            return null;
+        }
+
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            Helper.toast(headerMilestone.name() + " removed from milestones", context);
+            new Fetch().execute();
+            pd.dismiss();
+        }
+    }
+
+    private class Fetch extends AsyncTask{
+
+        private ProgressDialog pd;
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Fetching projects...");
+        }
+
+        protected Object doInBackground(Object[] params) {
+            Project[] projects = Project.all(User.getInstance());
+            for (Project temp : projects){
+                if(temp.id() == project.id()){
+                    project = temp;
+                }
+            }
+            return null;
+        }
+
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            updateList();
+            pd.dismiss();
+        }
     }
 }

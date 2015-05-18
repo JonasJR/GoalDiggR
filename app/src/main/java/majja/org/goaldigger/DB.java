@@ -187,6 +187,17 @@ public class DB implements Serializable {
         action("delete_project");
     }
 
+    public void leaveProject(int id, String email, String password) {
+        jsonObject = new JSONObject();
+        try {
+            jsonObject.put("id", id);
+            jsonObject.put("email", email);
+            jsonObject.put("password", password);
+        } catch (JSONException e) { Helper.pelle("Couldn't leave project" + e.getMessage());}
+
+        action("leave_project");
+    }
+
     public void deleteMilestone(int id, int projectId, String email, String password ){
         jsonObject = new JSONObject();
         try {
@@ -303,5 +314,3 @@ public class DB implements Serializable {
         }
     }
 }
-
-
