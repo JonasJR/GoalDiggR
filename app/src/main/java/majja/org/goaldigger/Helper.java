@@ -147,7 +147,6 @@ public class Helper {
                 str2 = null;
                 str3 = null;
                 dialog.cancel();
-                return;
             }
         });
 

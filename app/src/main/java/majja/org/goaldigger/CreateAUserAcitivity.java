@@ -75,15 +75,12 @@ public class CreateAUserAcitivity extends ActionBarActivity {
         }
     }
 
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_create_user, menu);
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -94,11 +91,9 @@ public class CreateAUserAcitivity extends ActionBarActivity {
         if (id == R.id.logout) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void onBackPressed() {
         Intent intent = new Intent(CreateAUserAcitivity.this, MainActivity.class);
         startActivity(intent);

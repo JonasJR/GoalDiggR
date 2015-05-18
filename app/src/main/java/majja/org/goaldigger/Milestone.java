@@ -2,7 +2,6 @@ package majja.org.goaldigger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public class Milestone implements Serializable {
     private String name;
-    private List<Item> items = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<>();
     private int id;
 
 
@@ -54,7 +53,6 @@ public class Milestone implements Serializable {
             }
             totalItems++;
         }
-
         double percent = (double)itemsDone / (double) totalItems;
 
         return (int)(percent*100);

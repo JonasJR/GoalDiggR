@@ -3,7 +3,6 @@ package majja.org.goaldigger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,8 @@ import java.util.List;
  */
 public class Project implements Serializable{
 
-    private List<Milestone> milestones = new ArrayList<Milestone>();
-    private List<Item> items = new ArrayList<Item>();
+    private List<Milestone> milestones = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
     private String name, owner;
     private int id;
     private String[] participants;
@@ -90,10 +89,9 @@ public class Project implements Serializable{
 
     public static void delete (int id, User user) {
         DB db = DB.getInstance();
-        db.deleteProject(id,user.email(), user.password());
+        db.deleteProject(id, user.email(), user.password());
         db.getReturnData();
     }
-
 
     public static Project[] all(User user) {
         DB db = DB.getInstance();
@@ -152,7 +150,6 @@ public class Project implements Serializable{
                             }
                         }
                     }
-
                 } catch (JSONException e) {
                     Helper.pelle("Error getting json from jsonarray: " + e.getMessage());
                 }
@@ -180,7 +177,6 @@ public class Project implements Serializable{
                 result += "\t \tItem: " + item.name() + "\n";
             }
         }
-
         return result;
     }
 }

@@ -44,7 +44,6 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         return newHashMap;
     }
 
-    @Override
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final Milestone headerMilestone = (Milestone) getGroup(groupPosition);
         if (convertView == null) {
@@ -103,13 +102,11 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
             this.groupPosition = groupPosition;
         }
 
-        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(context, "", "Adding Item...");
         }
 
-        @Override
         protected Object doInBackground(Object[] params) {
             Item newItem = Item.create(value, milestone.id(), User.getInstance());
             resource[groupPosition].items().add(newItem);
@@ -117,7 +114,6 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
             return null;
         }
 
-        @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             pd.dismiss();
@@ -125,7 +121,6 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    @Override
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
 
             final Item childItem = (Item) getChild(groupPosition, childPosition);
@@ -189,13 +184,11 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
             this.childPosition = childPosition;
         }
 
-        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(context,"", "Setting item done...");
         }
 
-        @Override
         protected Object doInBackground(Object[] params) {Item.toggle(childItem.id(), User.getInstance());
             childItem.toggleDone();
             childItem.doneBy(User.getInstance().username());
@@ -204,7 +197,6 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
             return null;
         }
 
-        @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             notifyDataSetChanged();
@@ -212,45 +204,36 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    @Override
     public int getGroupCount() {
         return this.listDataHeader.size();
     }
 
-    @Override
     public int getChildrenCount(int groupPosition) {
         return this.hashMap.get(this.listDataHeader.get(groupPosition))
                 .size();
     }
 
-    @Override
     public Object getGroup(int groupPosition) {
         return this.listDataHeader.get(groupPosition);
     }
 
-    @Override
     public Object getChild(int groupPosition, int childPosition) {
         return this.hashMap.get(this.listDataHeader.get(groupPosition))
                 .get(childPosition);
     }
 
-    @Override
     public long getGroupId(int groupPosition) {
         return groupPosition;
     }
 
-    @Override
     public long getChildId(int groupPosition, int childPosition) {
         return childPosition;
     }
 
-    @Override
     public boolean hasStableIds() {
         return false;
     }
 
-
-    @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
