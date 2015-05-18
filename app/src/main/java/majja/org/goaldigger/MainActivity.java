@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
                 finish();
             }else {
-                Helper.toast("", MainActivity.this);
+                Helper.toast("Invalid email or password", MainActivity.this);
             }
             pd.dismiss();
         }
