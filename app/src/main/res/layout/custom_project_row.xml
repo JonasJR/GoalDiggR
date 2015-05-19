@@ -29,11 +29,11 @@
         android:id="@+id/projectPercentage"
         android:layout_row="0"
         android:layout_column="1"
-        android:layout_marginLeft="70dp"
-        android:layout_marginStart="70dp"
         android:layout_above="@+id/progressBar"
-        android:layout_toRightOf="@+id/projectName"
-        android:layout_toEndOf="@+id/projectName" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="35dp"
+        android:layout_marginEnd="35dp" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
