@@ -190,7 +190,7 @@ public class DB implements Serializable {
     public void leaveProject(int id, String email, String password) {
         jsonObject = new JSONObject();
         try {
-            jsonObject.put("id", id);
+            jsonObject.put("project_id", id);
             jsonObject.put("email", email);
             jsonObject.put("password", password);
         } catch (JSONException e) { Helper.log("Couldn't leave project" + e.getMessage());}
