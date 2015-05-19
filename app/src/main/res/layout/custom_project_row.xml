@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/customRow"
@@ -14,10 +14,12 @@
         android:id="@+id/projectName"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_row="0"
-        android:layout_column="0" />
+        android:layout_column="0"
+        android:layout_marginStart="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,9 +27,13 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="100%"
         android:id="@+id/projectPercentage"
-        android:layout_margin="20dp"
         android:layout_row="0"
-        android:layout_column="1" />
+        android:layout_column="1"
+        android:layout_marginLeft="70dp"
+        android:layout_marginStart="70dp"
+        android:layout_above="@+id/progressBar"
+        android:layout_toRightOf="@+id/projectName"
+        android:layout_toEndOf="@+id/projectName" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
@@ -39,6 +45,21 @@
         android:indeterminate="false"
         android:progress="@+id/projectPercentage"
         android:layout_row="1"
-        android:progressTint="#fff3cf29" />
+        android:progressTint="#fff3cf29"
+        android:layout_below="@+id/projectName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
 
-</GridLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/projectOwner"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_below="@+id/projectName"
+        android:layout_alignLeft="@+id/projectName"
+        android:layout_alignStart="@+id/projectName" />
+
+</RelativeLayout>

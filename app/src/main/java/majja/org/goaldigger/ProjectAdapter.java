@@ -30,16 +30,20 @@ class ProjectAdapter extends ArrayAdapter<Project> {
         TextView projectName = (TextView) customView.findViewById(R.id.projectName);
         TextView projectPercentage = (TextView) customView.findViewById(R.id.projectPercentage);
         ProgressBar progress = (ProgressBar) customView.findViewById(R.id.progressBar);
+        TextView projectOwner = (TextView) customView.findViewById(R.id.projectOwner);
 
         projectName.setText(getItem(position).name());
         projectPercentage.setText(getItem(position).percent() + "%");
 
         if(!getItem(position).owner().equals(user.email())){
-            projectPercentage.setText(getItem(position).percent() + "%  " + getItem(position).owner());
+            projectOwner.setText(( getItem(position).owner()));
+        }else{
+            projectOwner.setVisibility(View.INVISIBLE);
         }
         progress.setProgress(getItem(position).percent());
         if(getItem(position).percent() == 100){
             progress.getProgressDrawable().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
+
         }
         return customView;
     }
