@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <Button
-        android:layout_width="270dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/projekt_top_button_string"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
@@ -15,17 +15,25 @@
         android:background="@drawable/coolbutton"
         android:layout_gravity="top"
         android:clickable="false"
-        android:paddingRight="150dp" />
+        android:paddingRight="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/menuButton"
+        android:layout_toStartOf="@+id/menuButton" />
 
     <Button
-        android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/projekt_top_mark_button_string"
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
         android:id="@+id/menuButton"
         android:layout_row="0"
         android:layout_column="1"
-        android:background="@drawable/coolbutton" />
+        android:background="@drawable/coolbutton"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-</GridLayout>
+</RelativeLayout>

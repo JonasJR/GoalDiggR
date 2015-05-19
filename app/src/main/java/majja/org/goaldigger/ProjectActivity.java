@@ -43,7 +43,7 @@ public class ProjectActivity extends ActionBarActivity {
             leaveButton.setText("Leave Project");
             leaveButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //Gå ur project
+                    DB.getInstance().leaveProject(project.id(), user.email(), user.password());
                     Intent intent = new Intent(context, ProjectHandlerActivity.class);
                     startActivity(intent);
                     finish();
