@@ -62,9 +62,6 @@ public class GcmIntentService extends IntentService {
 
                 String s = extras.getString("message").toString();
 
-//                s = s.substring(s.indexOf("=") + 1);
-//                s = s.substring(0, s.indexOf(","));
-
                 sendNotification(s);
                 Helper.log(s);
                 Helper.log("Received: " + extras.toString());
@@ -85,7 +82,7 @@ public class GcmIntentService extends IntentService {
         notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true);
         notification.setSmallIcon(R.drawable.logo2);
-        notification.setTicker("This is the ticker");
+        notification.setTicker(msg);
         notification.setWhen(System.currentTimeMillis());
         notification.setContentTitle("GoalDigger");
         notification.setContentText(msg);
