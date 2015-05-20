@@ -139,7 +139,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
     private void updateList() {
 
-        if (projects == null ){
+        if (projects == null || projects.length == 0 ) {
             projects = new Project[1];
             projects[0] = new Project(0, "No created projects...");
         }
