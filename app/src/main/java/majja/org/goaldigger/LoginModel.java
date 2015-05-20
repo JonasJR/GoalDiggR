@@ -31,7 +31,6 @@ public class LoginModel implements Serializable{
         } catch (JSONException e) {
             Helper.log("Couldn't log in: " + e.getMessage());
         }
-
         return login;
     }
 }

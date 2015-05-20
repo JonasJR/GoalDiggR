@@ -33,7 +33,6 @@ public class Milestone implements Serializable {
         } catch (JSONException e) {
             Helper.log("Couldn't create milestone from json" + e.getMessage());
         }
-
         return milestone;
     }
 

@@ -100,12 +100,14 @@ public class User implements Serializable{
             if (jo.getBoolean("success")) {
                 User.create(jo.getString("name"), jo.getString("email"), password);
                 created = true;
+            } else {
+                errorMessage = jo.getString("errors");
             }
         } catch (Exception e) {
             if(jo != null) {
-                User.errorMessage = jo.toString();
                 Helper.log("SUCCESS == FALSE: " + User.errorMessage);
                 Helper.log("Couldn't create user: " + e.getMessage());
+                User.errorMessage = jo.toString();
             }
         }
         return created;

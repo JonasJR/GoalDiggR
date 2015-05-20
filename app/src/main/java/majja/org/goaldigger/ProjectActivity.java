@@ -11,10 +11,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Goaldigger on 2015-04-16.
@@ -34,6 +39,20 @@ public class ProjectActivity extends ActionBarActivity {
         project = (Project)getIntent().getExtras().getSerializable("project");// Ändra till det hämtade projectet
         setTitle(project.name());
         setContentView(R.layout.activity_project);
+
+        Spinner participants = (Spinner)findViewById(R.id.participantsSpinner);
+
+        List<String> list = new ArrayList<>();
+        String[] temp = project.participants();
+        list.add("Participants:");
+        for(String t : temp) {
+            list.add(t);
+        }
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        participants.setAdapter(dataAdapter);
+
 
         if(!project.owner().equals(user.email())){
             Button leaveButton = (Button) findViewById(R.id.shareWithFriendsButton);
@@ -89,7 +108,7 @@ public class ProjectActivity extends ActionBarActivity {
         final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.milestonesArray());
         projectListView.setAdapter(milestoneAdapter);
         projectListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
+
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemType = ExpandableListView.getPackedPositionType(id);
 
@@ -98,7 +117,7 @@ public class ProjectActivity extends ActionBarActivity {
 
                     final Milestone headerMilestone = (Milestone) milestoneAdapter.getGroup(groupPosition);
                     Helper.delete(new PromptRunnable(){
-                        @Override
+
                         public void run() {
                             new RemoveMilestone(headerMilestone).execute();
                         }

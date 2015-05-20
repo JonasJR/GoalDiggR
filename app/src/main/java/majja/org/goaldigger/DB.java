@@ -1,7 +1,6 @@
 package majja.org.goaldigger;
 
 import android.os.AsyncTask;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -10,7 +9,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,13 +20,9 @@ import java.util.concurrent.ExecutionException;
  */
 public class DB implements Serializable {
 
-    // Address to web server
-    private final String URL = "http://goaldigger.herokuapp.com/api/v1/";
-
     private static DB db;
     private static final long TIMEOUT = 10000000000L;
     private HttpClient httpClient = new DefaultHttpClient();
-    private HttpPost request;
     private String returnData;
     private JSONObject jsonObject;
 
@@ -131,15 +125,12 @@ public class DB implements Serializable {
     }
 
     public void getJSON(String url, JSONObject jsonObj) {
-        request = new HttpPost(url);
 
-        BufferedReader bufferedReader = null;
-
-        StringBuffer stringBuffer = new StringBuffer("");
+        HttpPost request = new HttpPost(url);
+        BufferedReader bufferedReader;
+        StringBuilder stringBuilder = new StringBuilder("");
 
         try {
-
-            //UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParameters);
             StringEntity entity = new StringEntity(jsonObj.toString(), HTTP.UTF_8);
             entity.setContentType("application/json");
             request.setEntity(entity);
@@ -147,10 +138,10 @@ public class DB implements Serializable {
             HttpResponse response = httpClient.execute(request);
             bufferedReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
-            String line = "";
+            String line;
             String LineSeparator = System.getProperty("line.separator");
             while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line + LineSeparator);
+                stringBuilder.append(line + LineSeparator);
             }
             bufferedReader.close();
 
@@ -160,9 +151,9 @@ public class DB implements Serializable {
             Helper.log("Exception nu: " + e.getMessage());
         }
 
-        Helper.log("Return mess: " + stringBuffer.toString());
+        Helper.log("Return mess: " + stringBuilder.toString());
 
-        this.returnData = stringBuffer.toString();
+        this.returnData = stringBuilder.toString();
     }
 
     public void createProject(String name, String email, String password) {
@@ -278,9 +269,7 @@ public class DB implements Serializable {
     private void action(String action) {
         try {
             Object obj = new Networking(urlFor(action), jsonObject).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -295,10 +284,12 @@ public class DB implements Serializable {
     }
 
     private String urlFor(String action) {
+        // Address to web server
+        final String URL = "http://goaldigger.herokuapp.com/api/v1/";
         return URL + action + ".json";
     }
 
-    public class Networking extends AsyncTask implements Serializable {
+    private class Networking extends AsyncTask implements Serializable {
 
         private String url;
         private JSONObject obj;

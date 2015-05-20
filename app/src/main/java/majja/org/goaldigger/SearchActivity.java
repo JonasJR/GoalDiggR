@@ -40,20 +40,18 @@ public class SearchActivity extends ActionBarActivity {
 
     private class Fetch extends AsyncTask{
         ProgressDialog pd;
-        @Override
+
         protected void onPreExecute() {
             super.onPreExecute();
             pd = ProgressDialog.show(SearchActivity.this, "", "Loading...");
         }
 
-        @Override
         protected Object doInBackground(Object[] params) {
             String temp = userField.getText().toString();
             friends = Friend.search(User.getInstance(), temp);
             return null;
         }
 
-        @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             updateFriendsList();
@@ -73,15 +71,12 @@ public class SearchActivity extends ActionBarActivity {
         friendsListView.setAdapter(friendsAdapter);
     }
 
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_friend_list, menu);
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -92,11 +87,9 @@ public class SearchActivity extends ActionBarActivity {
         if (id == R.id.logout) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void onBackPressed() {
         Intent intent = new Intent(SearchActivity.this, ProjectHandlerActivity.class);
         startActivity(intent);

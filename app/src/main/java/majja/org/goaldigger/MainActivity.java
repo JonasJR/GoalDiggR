@@ -34,9 +34,8 @@ public class MainActivity extends ActionBarActivity {
     private static Context context;
     private static EditText loginText;
     private static EditText passwordText;
-    private TextView forgotPasswordButton;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -72,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void forgotPass() {
 
-        forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
+        TextView forgotPasswordButton = (TextView) findViewById(R.id.clickableTextForgot);
 
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
                                                     public void onClick(View v) {
@@ -87,65 +86,6 @@ public class MainActivity extends ActionBarActivity {
                                                 }
         );
     }
-
-    public class CheckLogin extends AsyncTask<Void, Void, Boolean> {
-
-        String email, password;
-        ProgressDialog pd;
-
-        public CheckLogin(String email, String password){
-            this.email = email;
-            this.password = password;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(MainActivity.this,"", "Loading...");
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            LoginModel loginModel = new LoginModel();
-
-            if (loginModel.login(email, password)) {
-                return true;
-            }else {
-                return false;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            if(success){
-                user = User.getInstance();
-                finish();
-                if (checkPlayServices()) {
-                    gcm = GoogleCloudMessaging.getInstance(MainActivity.this);
-                    regid = SaveSharedPreference.getRegistrationId(MainActivity.this);
-                    //regid = getRegistrationId(context);
-                    if (regid.isEmpty()) {
-                        registerInBackground();
-                        Helper.log("Ny regid skapad");
-                    }else {
-                        sendRegistrationIdToBackend();
-                        Helper.log("Regid skickad till backend");
-                    }
-                } else {
-                    Helper.log("No valid Google Play Services APK found.");
-                }
-
-                SaveSharedPreference.setUserName(MainActivity.this, user);
-                Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
-                startActivity(intent);
-                finish();
-            }else {
-                Helper.toast("Invalid email or password", MainActivity.this);
-            }
-            pd.dismiss();
-        }
-    }
-
 
     private void newUser(){
         final TextView newUserTextview = (TextView) findViewById(R.id.clickableTextCreate);
@@ -197,14 +137,13 @@ public class MainActivity extends ActionBarActivity {
 
     private void registerInBackground() {
         new AsyncTask<Void, Void, String>() {
-            @Override
+
             protected void onPreExecute() {
                 super.onPreExecute();
             }
 
-            @Override
             protected String doInBackground(Void... params) {
-                String msg = "";
+                String msg;
                 try {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
@@ -233,7 +172,6 @@ public class MainActivity extends ActionBarActivity {
                 return msg;
             }
 
-            @Override
             protected void onPostExecute(String msg) {
                 Helper.log(msg);
             }
@@ -242,5 +180,56 @@ public class MainActivity extends ActionBarActivity {
 
     private void sendRegistrationIdToBackend() {
         db.setRegId(regid, user.email(), user.password());
+    }
+
+    private class CheckLogin extends AsyncTask<Void, Void, Boolean> {
+
+        String email, password;
+        ProgressDialog pd;
+
+        public CheckLogin(String email, String password){
+            this.email = email;
+            this.password = password;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(MainActivity.this,"", "Loading...");
+        }
+
+        protected Boolean doInBackground(Void... params) {
+            LoginModel loginModel = new LoginModel();
+
+            return(loginModel.login(email, password));
+        }
+
+        protected void onPostExecute(final Boolean success) {
+            if(success){
+                user = User.getInstance();
+                finish();
+                if (checkPlayServices()) {
+                    gcm = GoogleCloudMessaging.getInstance(MainActivity.this);
+                    regid = SaveSharedPreference.getRegistrationId(MainActivity.this);
+                    //regid = getRegistrationId(context);
+                    if (regid.isEmpty()) {
+                        registerInBackground();
+                        Helper.log("Ny regid skapad");
+                    }else {
+                        sendRegistrationIdToBackend();
+                        Helper.log("Regid skickad till backend");
+                    }
+                } else {
+                    Helper.log("No valid Google Play Services APK found.");
+                }
+
+                SaveSharedPreference.setUserName(MainActivity.this, user);
+                Intent intent = new Intent(MainActivity.this, ProjectHandlerActivity.class);
+                startActivity(intent);
+                finish();
+            }else {
+                Helper.toast("Invalid email or password", MainActivity.this);
+            }
+            pd.dismiss();
+        }
     }
 }
