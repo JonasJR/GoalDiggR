@@ -19,7 +19,6 @@ import android.widget.ListView;
 public class FriendList extends ActionBarActivity {
 
     private Project project;
-    private Friend[] friends;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,7 @@ public class FriendList extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         project = (Project) extras.get("project");
 
-        friends = User.getInstance().getFriends();
+        Friend[] friends = User.getInstance().getFriends();
 
         final ListAdapter friendAdapter = new FriendAdapter(this, friends, project);
         final ListView friendListView = (ListView)findViewById(R.id.addedFriendsListView);
@@ -66,7 +65,31 @@ public class FriendList extends ActionBarActivity {
         finish();
     }
 
-    private class ShareWithFriends extends AsyncTask{
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_added_friend_list, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.logout) {
+            Helper.toast("You logged out", FriendList.this);
+            SaveSharedPreference.logout(FriendList.this);
+            Intent intent = new Intent(FriendList.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private class ShareWithFriends extends AsyncTask {
 
         private ProgressDialog pd;
         private String shareFriends;
@@ -94,29 +117,5 @@ public class FriendList extends ActionBarActivity {
             pd.dismiss();
             finish();
         }
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_added_friend_list, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.logout) {
-            Helper.toast("You logged out", FriendList.this);
-            SaveSharedPreference.logout(FriendList.this);
-            Intent intent = new Intent(FriendList.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

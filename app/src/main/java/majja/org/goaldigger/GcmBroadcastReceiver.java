@@ -13,7 +13,6 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
     public GcmBroadcastReceiver() {
     }
 
-    @Override
     public void onReceive(Context context, Intent intent) {
         // Explicitly specify that GcmIntentService will handle the intent.
         ComponentName comp = new ComponentName(context.getPackageName(),

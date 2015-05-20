@@ -167,7 +167,7 @@ public class ProjectHandlerActivity extends ActionBarActivity {
                         Helper.delete(new PromptRunnable(){
 
                             public void run() {
-                                if(projects[position].owner().equals(user.username())) {
+                                if(projects[position].owner().equals(user.email())) {
                                     Project.delete(projects[position].id(), user);
                                     Helper.toast(this.getValue() + " removed from projects", context);
                                 }else{
