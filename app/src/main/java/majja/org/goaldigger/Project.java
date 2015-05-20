@@ -109,6 +109,7 @@ public class Project implements Serializable{
             JSONArray json_participants;
             String[] participants;
 
+            if (ja.length() == 0) return null;
             projects = new Project[ja.length()];
             for (int i = 0; i < ja.length(); i++) {
                 try {
