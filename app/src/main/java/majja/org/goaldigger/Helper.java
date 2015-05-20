@@ -22,13 +22,13 @@ public class Helper {
     /**
      * Method to show a toast
      *
-     * @param message
-     * @param context
+     * @param message String
+     * @param context context
      */
     public static void toast(final String message, final Context context) {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
-            @Override
+
             public void run() {
                 Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }

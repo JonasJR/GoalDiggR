@@ -57,10 +57,10 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
 
         ImageButton addItem = (ImageButton) convertView.findViewById(R.id.addItemButton);
         addItem.setOnClickListener(new View.OnClickListener(){
-            @Override
+
             public void onClick(View v){
                 Helper.popup(new PromptRunnable(){
-                    @Override
+
                     public void run(){
                         new CreateItem(this.getValue(),headerMilestone,groupPosition).execute();
                     }
@@ -69,8 +69,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         });
         addItem.setFocusable(false);
 
-        TextView textHead = (TextView) convertView
-                .findViewById(R.id.milestoneTextView);
+        TextView textHead = (TextView) convertView.findViewById(R.id.milestoneTextView);
         textHead.setTypeface(null, Typeface.BOLD);
         textHead.setText(headerMilestone.name());
 
@@ -90,38 +89,6 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
         }
 
         return convertView;
-    }
-
-    private class CreateItem extends AsyncTask{
-
-        private String value;
-        private Milestone milestone;
-        private int groupPosition;
-        private ProgressDialog pd;
-
-        public CreateItem(String value, Milestone milestone, int groupPosition){
-            this.value = value;
-            this.milestone = milestone;
-            this.groupPosition = groupPosition;
-        }
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(context, "", "Adding Item...");
-        }
-
-        protected Object doInBackground(Object[] params) {
-            Item newItem = Item.create(value, milestone.id(), User.getInstance());
-            resource[groupPosition].items().add(newItem);
-            hashMap = createHashMap(resource);
-            return null;
-        }
-
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            pd.dismiss();
-            notifyDataSetChanged();
-        }
     }
 
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
@@ -147,7 +114,7 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
             }
 
             itemCheckBox.setOnClickListener(new View.OnClickListener() {
-                @Override
+
                 public void onClick(View v) {
                     new ToggleItem(childItem, groupPosition, childPosition).execute();
                 }
@@ -155,10 +122,10 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
 
             itemCheckBox.setOnLongClickListener(
                     new View.OnLongClickListener(){
-                        @Override
+
                         public boolean onLongClick(View v) {
                             Helper.delete(new PromptRunnable(){
-                                @Override
+
                                 public void run() {
                                    Item.delete(childItem.id(), User.getInstance());
                                    Helper.toast(childItem.name() + " removed from items", context);
@@ -174,38 +141,6 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
 
             return convertView;
         }
-
-    private class ToggleItem extends AsyncTask{
-
-        private Item childItem;
-        private int groupPosition, childPosition;
-        private ProgressDialog pd;
-
-        public ToggleItem(Item childItem, int groupPosition, int childPosition){
-            this.childItem = childItem;
-            this.groupPosition = groupPosition;
-            this.childPosition = childPosition;
-        }
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pd = ProgressDialog.show(context,"", "Setting item done...");
-        }
-
-        protected Object doInBackground(Object[] params) {Item.toggle(childItem.id(), User.getInstance());
-            childItem.toggleDone();
-            childItem.doneBy(User.getInstance().username());
-            resource[groupPosition].items().set(childPosition, childItem);
-            hashMap = createHashMap(resource);
-            return null;
-        }
-
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            notifyDataSetChanged();
-            pd.dismiss();
-        }
-    }
 
     public int getGroupCount() {
         return this.listDataHeader.size();
@@ -239,5 +174,69 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
 
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    private class CreateItem extends AsyncTask {
+
+        private String value;
+        private Milestone milestone;
+        private int groupPosition;
+        private ProgressDialog pd;
+
+        public CreateItem(String value, Milestone milestone, int groupPosition){
+            this.value = value;
+            this.milestone = milestone;
+            this.groupPosition = groupPosition;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context, "", "Adding Item...");
+        }
+
+        protected Object doInBackground(Object[] params) {
+            Item newItem = Item.create(value, milestone.id(), User.getInstance());
+            resource[groupPosition].items().add(newItem);
+            hashMap = createHashMap(resource);
+            return null;
+        }
+
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            pd.dismiss();
+            notifyDataSetChanged();
+        }
+    }
+
+    private class ToggleItem extends AsyncTask {
+
+        private Item childItem;
+        private int groupPosition, childPosition;
+        private ProgressDialog pd;
+
+        public ToggleItem(Item childItem, int groupPosition, int childPosition){
+            this.childItem = childItem;
+            this.groupPosition = groupPosition;
+            this.childPosition = childPosition;
+        }
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pd = ProgressDialog.show(context,"", "Setting item done...");
+        }
+
+        protected Object doInBackground(Object[] params) {Item.toggle(childItem.id(), User.getInstance());
+            childItem.toggleDone();
+            childItem.doneBy(User.getInstance().username());
+            resource[groupPosition].items().set(childPosition, childItem);
+            hashMap = createHashMap(resource);
+            return null;
+        }
+
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            notifyDataSetChanged();
+            pd.dismiss();
+        }
     }
 }

@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
 
 /**
  * Created by Goaldigger on 2015-04-16.
@@ -89,7 +88,7 @@ public class ProjectActivity extends ActionBarActivity {
         final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.milestonesArray());
         projectListView.setAdapter(milestoneAdapter);
         projectListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
+
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 int itemType = ExpandableListView.getPackedPositionType(id);
 
@@ -98,7 +97,7 @@ public class ProjectActivity extends ActionBarActivity {
 
                     final Milestone headerMilestone = (Milestone) milestoneAdapter.getGroup(groupPosition);
                     Helper.delete(new PromptRunnable(){
-                        @Override
+
                         public void run() {
                             new RemoveMilestone(headerMilestone).execute();
                         }
