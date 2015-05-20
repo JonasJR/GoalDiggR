@@ -9,7 +9,8 @@
 
     <permission
         android:name="com.example.gcm.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
+        android:protectionLevel="signature"
+        android:screenOrientation="portrait"/>
 
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 

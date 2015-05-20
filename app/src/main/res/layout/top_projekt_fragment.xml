@@ -9,30 +9,29 @@
         android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
         style="@style/AppTheme"
         android:id="@+id/mainFragmentButton"
-        android:layout_row="0"
         android:layout_column="0"
         android:textStyle="bold"
         android:background="@drawable/coolbutton"
-        android:layout_gravity="top"
         android:clickable="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/menuButton"
-        android:layout_toStartOf="@+id/menuButton" />
+        android:layout_toLeftOf="@+id/fragmentSpinner"
+        android:layout_toStartOf="@+id/fragmentSpinner"
+        android:layout_alignBottom="@+id/fragmentSpinner" />
 
-    <Button
+    <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/projekt_top_mark_button_string"
-        android:theme="@style/Widget.AppCompat.Light.ActionButton.Overflow"
-        style="@style/AppTheme"
-        android:id="@+id/menuButton"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:background="@drawable/coolbutton"
+        android:id="@+id/fragmentSpinner"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:spinnerMode="dropdown"
+        android:background="@drawable/coolbutton"
+        android:layout_alignParentEnd="true"
+        android:transitionGroup="false"
+        android:paddingLeft="10dp"
+        android:layout_column="1"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp" />
 
 </RelativeLayout>
