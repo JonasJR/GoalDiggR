@@ -25,7 +25,6 @@ class SearchAdapter extends ArrayAdapter<Friend> {
         super(context, R.layout.custom_friend, friends);
     }
 
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater projectInflater = LayoutInflater.from(getContext());
         View customView = projectInflater.inflate(R.layout.custom_friend, parent, false);
@@ -41,7 +40,7 @@ class SearchAdapter extends ArrayAdapter<Friend> {
         }else {
             addFriend.setOnClickListener(
                     new View.OnClickListener() {
-                        @Override
+
                         public void onClick(View v) {
                             Friend.add(User.getInstance(), friend.getEmail());
                             ((SearchActivity) activity).fetch();
@@ -49,10 +48,8 @@ class SearchAdapter extends ArrayAdapter<Friend> {
                     }
             );
         }
-
         friendName.setText(friend.getName());
         friendEmail.setText(friend.getEmail());
-
 
         return customView;
     }

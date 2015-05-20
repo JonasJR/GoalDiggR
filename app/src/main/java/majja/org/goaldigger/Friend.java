@@ -3,7 +3,6 @@ package majja.org.goaldigger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
 
 /**
@@ -72,8 +71,9 @@ public class Friend implements Serializable{
                 try {
                     jo = ja.getJSONObject(i);
                     friends[i] = new Friend(jo.getInt("id"), jo.getString("name"), jo.getString("email"));
-                } catch (JSONException e){}
-
+                } catch (JSONException e){
+                    e.getMessage();
+                }
             }
         }
         return friends;
