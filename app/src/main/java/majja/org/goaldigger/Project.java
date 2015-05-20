@@ -22,6 +22,7 @@ public class Project implements Serializable{
     public Project(int id, String name) {
         this.name = name;
         this.id = id;
+        owner = "";
     }
 
     public Project(int id, String name, String owner, String[] participants) {

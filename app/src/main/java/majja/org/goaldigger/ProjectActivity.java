@@ -16,9 +16,10 @@ import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,9 +45,8 @@ public class ProjectActivity extends ActionBarActivity {
 
         List<String> list = new ArrayList<>();
         String[] temp = project.participants();
-        list.add("Participants:");
-        for(String t : temp) {
-            list.add(t);
+        if(temp != null) {
+            Collections.addAll(Arrays.asList("Participants:", temp));
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, list);
@@ -225,9 +225,11 @@ public class ProjectActivity extends ActionBarActivity {
 
         protected Object doInBackground(Object[] params) {
             Project[] projects = Project.all(User.getInstance());
-            for (Project temp : projects){
-                if(temp.id() == project.id()){
-                    project = temp;
+            if(projects != null) {
+                for (Project temp : projects) {
+                    if (temp.id() == project.id()) {
+                        project = temp;
+                    }
                 }
             }
             return null;
