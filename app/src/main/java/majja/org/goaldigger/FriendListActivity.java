@@ -16,7 +16,7 @@ import android.widget.ListView;
 /**
  * Created by Goaldigger on 2015-04-16.
  */
-public class FriendList extends ActionBarActivity {
+public class FriendListActivity extends ActionBarActivity {
 
     private Project project;
 
@@ -59,7 +59,7 @@ public class FriendList extends ActionBarActivity {
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(FriendList.this, ProjectActivity.class);
+        Intent intent = new Intent(FriendListActivity.this, ProjectActivity.class);
         intent.putExtra("project", project);
         startActivity(intent);
         finish();
@@ -79,9 +79,9 @@ public class FriendList extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.logout) {
-            Helper.toast("You logged out", FriendList.this);
-            SaveSharedPreference.logout(FriendList.this);
-            Intent intent = new Intent(FriendList.this, MainActivity.class);
+            Helper.toast("You logged out", FriendListActivity.this);
+            SaveSharedPreference.logout(FriendListActivity.this);
+            Intent intent = new Intent(FriendListActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
             return true;
@@ -99,7 +99,7 @@ public class FriendList extends ActionBarActivity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pd = ProgressDialog.show(FriendList.this,"", "Sharing with friends...");
+            pd = ProgressDialog.show(FriendListActivity.this,"", "Sharing with friends...");
         }
 
         protected Object doInBackground(Object[] params) {
@@ -111,7 +111,7 @@ public class FriendList extends ActionBarActivity {
         }
 
         protected void onPostExecute(Object o) {
-            Intent intent = new Intent(FriendList.this, ProjectActivity.class);
+            Intent intent = new Intent(FriendListActivity.this, ProjectActivity.class);
             intent.putExtra("project", project);
             startActivity(intent);
             pd.dismiss();

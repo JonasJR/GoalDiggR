@@ -71,7 +71,7 @@ public class ProjectActivity extends ActionBarActivity {
             Button shareButton = (Button) findViewById(R.id.shareWithFriendsButton);
             shareButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, FriendList.class);
+                    Intent intent = new Intent(context, FriendListActivity.class);
                     intent.putExtra("project", project);
                     startActivity(intent);
                     finish();

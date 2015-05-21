@@ -46,7 +46,7 @@
             android:label="@string/title_activity_create_user" >
         </activity>
         <activity
-            android:name=".FriendList"
+            android:name=".FriendListActivity"
             android:label="@string/title_activity_added_friend_list" >
         </activity>
 
