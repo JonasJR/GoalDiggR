@@ -104,38 +104,6 @@ public class ProjectHandlerActivity extends ActionBarActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.logout) {
-            Helper.toast("You logged out", ProjectHandlerActivity.this);
-            SaveSharedPreference.logout(ProjectHandlerActivity.this);
-            Intent intent = new Intent(ProjectHandlerActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        }
-        if( id == R.id.changePassword) {
-            Helper.toast("Lets change Password", ProjectHandlerActivity.this);
-            Helper.passwordPopup(new PromptRunnable() {
-                public void run() {
-                    String[] passwords = this.getChangePasswordValue();
-                    String old, newP;
-                    old = passwords[0].replace(":", "");
-                    newP = passwords[1].replace(":", "");
-                    DB.getInstance().changePassword(user.email(), user.password(), old, newP);
-                    SaveSharedPreference.logout(ProjectHandlerActivity.this);
-                    new Fetch().execute();
-                }
-            }, context);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void updateList() {
 

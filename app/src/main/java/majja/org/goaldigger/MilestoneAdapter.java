@@ -54,15 +54,14 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.milestone_adapter, null);
         }
-
         ImageButton addItem = (ImageButton) convertView.findViewById(R.id.addItemButton);
         addItem.setOnClickListener(new View.OnClickListener(){
-
             public void onClick(View v){
                 Helper.popup(new PromptRunnable(){
 
                     public void run(){
                         new CreateItem(this.getValue(),headerMilestone,groupPosition).execute();
+
                     }
                 }, context, "name of Item");
             }
