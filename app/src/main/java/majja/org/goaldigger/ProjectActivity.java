@@ -105,7 +105,7 @@ public class ProjectActivity extends ActionBarActivity {
     private void updateList() {
         ExpandableListView projectListView = (ExpandableListView) findViewById(R.id.projectListView);
 
-        final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.milestonesArray());
+        final ExpandableListAdapter milestoneAdapter = new MilestoneAdapter(this, project.milestonesArray(), project);
         projectListView.setAdapter(milestoneAdapter);
         projectListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 

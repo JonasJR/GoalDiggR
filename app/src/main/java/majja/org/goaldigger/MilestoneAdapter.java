@@ -26,10 +26,12 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
     private Context context;
     private HashMap<Milestone, List<Item>> hashMap;
     private List<Milestone> listDataHeader;
+    private Project project;
 
-    public MilestoneAdapter(Context context, Milestone[] resource) {
+    public MilestoneAdapter(Context context, Milestone[] resource, Project project) {
         this.context = context;
         this.resource = resource;
+        this.project = project;
         hashMap = createHashMap(this.resource);
     }
 
@@ -54,19 +56,26 @@ public class MilestoneAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.milestone_adapter, null);
         }
+
         ImageButton addItem = (ImageButton) convertView.findViewById(R.id.addItemButton);
-        addItem.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Helper.popup(new PromptRunnable(){
 
-                    public void run(){
-                        new CreateItem(this.getValue(),headerMilestone,groupPosition).execute();
+        //If user is the owner of the project he can add items, else the button is not visible
+        if(project.owner().equals(User.getInstance().email())) {
+            addItem.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Helper.popup(new PromptRunnable() {
 
-                    }
-                }, context, "name of Item");
-            }
-        });
-        addItem.setFocusable(false);
+                        public void run() {
+                            new CreateItem(this.getValue(), headerMilestone, groupPosition).execute();
+
+                        }
+                    }, context, "name of Item");
+                }
+            });
+            addItem.setFocusable(false);
+        }else{
+            addItem.setVisibility(View.INVISIBLE);
+        }
 
         TextView textHead = (TextView) convertView.findViewById(R.id.milestoneTextView);
         textHead.setTypeface(null, Typeface.BOLD);
