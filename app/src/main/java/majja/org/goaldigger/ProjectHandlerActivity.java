@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.view.View.OnClickListener;
@@ -106,49 +107,58 @@ public class ProjectHandlerActivity extends ActionBarActivity {
 
 
     private void updateList() {
-
-        if (projects == null || projects.length == 0 ) {
+        TextView noProjects = (TextView)findViewById(R.id.noProjectsTextView);
+        /*if (projects == null || projects.length == 0 ) {
             projects = new Project[1];
             projects[0] = new Project(0, "No created projects...");
-        }
+        }*/
+        if(projects == null || projects.length == 0 ){
+            noProjects.setText("No projects created");
+        }else {
+            noProjects.setVisibility(View.INVISIBLE);
+            ListAdapter projectAdapter = new ProjectAdapter(this, projects);
+            ListView projectListView = (ListView) findViewById(R.id.projectsListView);
+            projectListView.setAdapter(projectAdapter);
 
-        ListAdapter projectAdapter = new ProjectAdapter(this, projects);
-        ListView projectListView = (ListView)findViewById(R.id.projectsListView);
-        projectListView.setAdapter(projectAdapter);
+            projectListView.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
 
-        projectListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(view.getContext(), ProjectActivity.class);
-                        intent.putExtra("project", projects[position]);
-                        startActivity(intent);
-                        finish();
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(view.getContext(), ProjectActivity.class);
+                            intent.putExtra("project", projects[position]);
+                            startActivity(intent);
+                            finish();
+                        }
                     }
-                }
-        );
+            );
 
-        projectListView.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener(){
+            projectListView.setOnItemLongClickListener(
+                    new AdapterView.OnItemLongClickListener() {
 
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                        Helper.delete(new PromptRunnable(){
+                        public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                            Helper.delete(new PromptRunnable() {
 
-                            public void run() {
-                                if(projects[position].owner().equals(user.email())) {
-                                    Project.delete(projects[position].id(), user);
-                                    Helper.toast(this.getValue() + " removed from projects", context);
-                                }else{
-                                    DB.getInstance().leaveProject(projects[position].id(), user.email(), user.password());
-                                    Helper.toast(this.getValue() + " You left the project", context);
+                                public void run() {
+                                    if (projects[position].owner().equals(user.email())) {
+                                        Project.delete(projects[position].id(), user);
+                                        Helper.toast(this.getValue() + " removed from projects", context);
+                                        if(position == 0){
+                                            Intent intent = new Intent(context, ProjectHandlerActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } else {
+                                        DB.getInstance().leaveProject(projects[position].id(), user.email(), user.password());
+                                        Helper.toast(this.getValue() + " You left the project", context);
+                                    }
+                                    new Fetch().execute();
                                 }
-                                new Fetch().execute();
-                            }
-                        }, context, projects[position].name());
-                        return true;
+                            }, context, projects[position].name());
+                            return true;
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 
     public void onBackPressed() {
