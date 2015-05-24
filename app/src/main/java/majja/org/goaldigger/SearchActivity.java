@@ -31,8 +31,7 @@ public class SearchActivity extends ActionBarActivity {
                 fetch();
             }
         });
-
-        fetch();
+        updateFriendsList();
     }
     public void fetch(){
         new Fetch().execute();
@@ -61,7 +60,7 @@ public class SearchActivity extends ActionBarActivity {
 
     public void updateFriendsList() {
 
-        if(friends == null){
+        if(friends == null || friends.length == 0){
             friends = new Friend[1];
             friends[0] = new Friend(0, "No matching friends...", null);
         }
